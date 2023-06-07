@@ -1,0 +1,784 @@
+/*! studies.css | Sexy stylesheets only */
+
+/* Variables
+   ========================================================================== */
+
+:root {
+    --black: #1c2e2e;
+    --green: #0e6f79;
+    --white: #eee8e0;
+    --body: 1rem;
+    --label: 1.25rem;
+    --heading-1: 4rem;
+    --heading-2: 2.75rem;
+    --heading-3: 2rem;
+    --gutter-1: 12rem;
+    --gutter-2: 30rem;
+    --spacing-1: 1rem;
+    --spacing-2: calc(var(--spacing-1) * 2);
+    --spacing-3: calc(var(--spacing-1) * 3);
+    --spacing-4: calc(var(--spacing-1) * 4);
+    --spacing-5: calc(var(--spacing-1) * 5);
+    --spacing-6: calc(var(--spacing-1) * 6);
+    --radius: 0.5rem;
+    --easing: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Type
+   ========================================================================== */
+
+@font-face {
+    font-family: Lust;
+    src: url(../fonts/lust.woff2) format(woff2);
+}
+
+h1 {
+    font-family: Lust, serif;
+    font-size: var(--heading-1);
+    text-rendering: geometricPrecision;
+    font-weight: 200;
+    line-height: 0.8;
+    display: inline-block;
+}
+
+h2 {
+    font-family: Lust, serif;
+    font-size: var(--heading-2);
+    text-rendering: geometricPrecision;
+    font-weight: 200;
+    line-height: 0.8;
+    display: inline-block;
+}
+
+h3 {
+    font-size: var(--heading-3);
+    font-weight: 100;
+    text-transform: uppercase;
+}
+
+p:not(.figure) {
+    max-width: 60ch;
+}
+
+a {
+    color: var(--green);
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+        Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: var(--body);
+    color: var(--black);
+    line-height: 1.4;
+}
+
+menu li,
+button a {
+    font-family: Lust, serif;
+    font-size: var(--label);
+    color: var(--black) !important;
+    text-decoration: none !important;
+    margin: 0;
+    line-height: 0.8;
+    text-align: center;
+}
+
+/* Document layout
+   ========================================================================== */
+
+/**
+ * Normalize
+ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+menu,
+figure,
+p,
+button,
+ol,
+ul,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+
+figure,
+img,
+video {
+    display: block;
+}
+
+body {
+    margin: 0;
+}
+
+main {
+    display: block;
+}
+
+a {
+    background-color: transparent;
+}
+
+b,
+strong {
+    font-weight: bolder;
+}
+
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+sup {
+    top: -0.5em;
+}
+
+/**
+ * Backgrounds
+ */
+
+body {
+    background-color: var(--black);
+}
+
+main,
+header {
+    background-color: var(--black);
+    padding: var(--spacing-1);
+}
+
+section,
+footer,
+nav {
+    background-color: var(--white);
+}
+
+/**
+ * Borders
+ */
+
+footer,
+section,
+nav,
+form,
+button,
+img,
+video,
+aside a {
+    border-radius: var(--radius);
+    border: 1px solid var(--black);
+}
+
+/**
+ * Layout
+ */
+
+section {
+    position: relative;
+    scroll-margin: var(--spacing-3);
+    margin-bottom: var(--spacing-1);
+    padding-left: var(--gutter-1);
+    z-index: 0;
+}
+
+article {
+    scroll-margin: var(--spacing-5);
+    padding: var(--spacing-6) var(--gutter-2) var(--spacing-4) 0;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: -7px;
+    height: 3.5rem;
+}
+
+/**
+ * Navigation
+ */
+
+header {
+    position: fixed;
+    padding-bottom: 0;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 100;
+}
+
+nav {
+    display: grid;
+    grid-template-columns: var(--gutter-1) 1fr;
+    border-radius: var(--radius) var(--radius) 0 0;
+    height: var(--spacing-3);
+    border-bottom: 0px;
+}
+
+menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+}
+
+menu li {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+menu span {
+    color: var(--green);
+}
+
+#title {
+    position: relative;
+}
+
+#title a {
+    width: 100%;
+    display: block;
+}
+
+menu,
+#logo {
+    transition: transform 500ms var(--easing);
+}
+
+.logo_track {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    position: absolute;
+    background-color: var(--black);
+}
+
+#logo {
+    margin: 0 auto;
+    padding: 0 1rem;
+    max-width: 9rem;
+    min-width: 6.5rem;
+}
+
+/**
+ * Hero image
+ */
+
+section:first-of-type {
+    padding: var(--spacing-6) var(--gutter-1) 0;
+    display: flex;
+    align-items: end;
+}
+
+#hero {
+    border-radius: var(--radius) var(--radius) 0 0;
+    border: 1px solid var(--black);
+    border-bottom: 0px;
+    width: 100%;
+}
+
+/**
+ * Inline spacing
+ */
+h1 {
+    margin-bottom: 0.75em;
+    margin-right: 33%;
+}
+
+h2 {
+    padding-top: 1em;
+    margin-bottom: 0.75em;
+}
+
+h3 {
+    padding-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+img:nth-last-child(n + 2) {
+    margin-bottom: 1.5em;
+}
+
+.figure {
+    margin-bottom: 2.5em;
+}
+
+blockquote {
+    margin-top: 1em;
+}
+
+button {
+    margin: 1em 0;
+}
+
+button {
+    background: var(--white);
+    height: var(--spacing-3);
+    padding-left: 1.25rem;
+    cursor: pointer;
+    transition: 300ms var(--easing);
+    transition-property: padding-right, background-color, color, fill, border-color;
+    color: var(--black);
+    font-size: var(--body);
+    overflow: hidden;
+}
+
+button svg {
+    position: relative;
+    bottom: 0px;
+    left: 21px;
+}
+
+button a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+button:hover {
+    padding-right: 2.5rem;
+}
+
+/* Functionality
+   ========================================================================== */
+
+/**
+ * Star track
+ */
+
+.star_track {
+    display: grid;
+    grid-template-columns: 1rem 1fr 4fr;
+    position: absolute;
+    background-color: var(--black);
+    height: 1px;
+    bottom: 0;
+    right: 0;
+    left: -7px;
+    align-content: center;
+    align-items: center;
+}
+
+#star {
+    width: 1rem;
+    height: 1rem;
+    will-change: margin-right;
+    flex-shrink: 0;
+    shape-rendering: geometricPrecision;
+}
+
+#gradient,
+#solid {
+    height: 1px;
+}
+
+#gradient {
+    background: linear-gradient(to right, var(--black), #09ae8f);
+    width: 100%;
+}
+
+#solid {
+    background-color: #09ae8f;
+}
+
+/**
+ * Bottom controls
+ */
+
+aside {
+    position: fixed;
+    bottom: 0;
+    right: var(--spacing-1);
+    left: 0;
+    margin: 0 auto;
+    display: flex;
+    gap: var(--spacing-1);
+    justify-content: right;
+    padding: var(--spacing-1);
+    pointer-events: none;
+    z-index: 100;
+}
+
+aside > a,
+.contact_icons > a {
+    position: relative;
+    box-sizing: border-box;
+    background: var(--white);
+    width: 2.75rem;
+    height: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    pointer-events: all;
+}
+
+aside > a > svg,
+.contact_icons > a > svg {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    transition: transform 400ms var(--easing);
+}
+
+.contact_icons {
+    display: flex;
+    gap: 2rem;
+}
+
+#dark-mode:hover {
+    cursor: pointer !important;
+}
+
+#light-icon {
+    transform: translateY(-100%);
+}
+
+#top {
+    transform: rotate(180deg);
+}
+
+/**
+ * Dark mode
+ */
+
+* {
+    transition: 300ms var(--easing);
+    transition-property: background-color, background-image, color, fill, border-color;
+}
+
+html {
+    background: var(--black);
+    border-color: var(--white);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+blockquote,
+ol,
+ul {
+    color: var(--black);
+}
+
+/**
+ * Smooth scroll
+ */
+
+html {
+    scroll-behavior: smooth !important;
+}
+
+/* Decorations
+   ========================================================================== */
+
+/**
+ * Images and videos
+ */
+
+svg {
+    fill: var(--black);
+}
+
+img,
+video {
+    max-width: 100%;
+    height: auto;
+    background-color: var(--white);
+}
+
+blockquote {
+    display: flex;
+    align-items: flex-end;
+    font-style: oblique;
+}
+
+/**
+ * Construction lines
+ */
+
+hr {
+    position: absolute;
+    height: 1px;
+    border-bottom: 1px solid var(--green);
+    opacity: 0.04;
+    margin: 0;
+    padding: 0;
+}
+
+section::after,
+h1::after,
+h2::after,
+blockquote::after,
+figure::after,
+button::before,
+button::after,
+.figure::after {
+    min-width: 1px;
+    min-height: 1px;
+    position: absolute;
+    background: var(--black);
+    content: '';
+    opacity: 0.04;
+}
+
+h1::after,
+h2::after,
+blockquote::after,
+figure::after,
+button::before,
+button::after,
+.figure::after {
+    left: 0;
+    right: 0;
+}
+
+h1::after,
+h2::after {
+    transform: translateY(0.69em);
+}
+
+section::after {
+    top: 0;
+    bottom: 0;
+    left: var(--gutter-1);
+}
+
+/** 
+ * Scrollbar
+ */
+
+html::-webkit-scrollbar {
+    width: var(--spacing-1);
+}
+
+html::-webkit-scrollbar-track {
+    background-color: inherit;
+}
+
+html::-webkit-scrollbar-thumb {
+    border-right-style: inset;
+    border-right-width: calc(100vw + 100vh);
+    border-color: inherit;
+    border-radius: var(--radius);
+}
+
+html::-webkit-scrollbar-button {
+    background-color: inherit;
+    height: var(--spacing-1);
+}
+
+/* DESKTOP
+   ****************************************************************************/
+
+@media screen and (min-width: 1440px) {
+    /* Variables
+   ========================================================================== */
+
+    :root {
+        --gutter-1: 16rem;
+        --gutter-2: 40rem;
+        --spacing-1: 1.125rem;
+    }
+}
+
+/* TABLET
+   ****************************************************************************/
+
+@media screen and (max-width: 990px) {
+    /* Variables
+   ========================================================================== */
+
+    :root {
+        --gutter-1: 8rem;
+        --gutter-2: 4rem;
+        --label: 1.125rem;
+        --heading-1: 3.5rem;
+        --heading-2: 2.5rem;
+        --heading-3: 1.75rem;
+    }
+
+    /* Document layout
+   ========================================================================== */
+
+    /**
+     * Layout
+     */
+
+    aside {
+        flex-direction: column-reverse;
+        left: auto;
+    }
+
+    /**
+     * Hero image
+     */
+
+    section:first-of-type {
+        padding: var(--spacing-5) var(--gutter-1) 0;
+    }
+}
+
+/* MOBILE LANDSCAPE
+   ****************************************************************************/
+
+@media screen and (max-width: 650px) {
+    /* Variables
+   ========================================================================== */
+
+    :root {
+        --gutter-1: 3.25rem;
+        --gutter-2: var(--spacing-3);
+        --spacing-1: 0.75rem;
+        --label: 1rem;
+        --heading-1: 3rem;
+        --heading-2: 2rem;
+        --heading-3: 1.5rem;
+        --radius: 0.25rem;
+    }
+
+    /* Type
+   ========================================================================== */
+
+    footer {
+        display: block;
+        margin-bottom: 0;
+        height: unset;
+        padding: 1rem;
+        text-align: center;
+    }
+
+    aside {
+        display: none;
+    }
+
+    /* Document layout
+   ========================================================================== */
+
+    /**
+     * Layout
+     */
+
+    article {
+        padding-top: 10rem;
+    }
+    /**
+     * Navigation
+     */
+
+    nav {
+        grid-template-columns: 0px 1fr;
+        height: var(--gutter-1);
+    }
+
+    menu a {
+        padding: 0;
+    }
+
+    #title {
+        position: unset;
+    }
+
+    #logo {
+        left: auto;
+        right: auto;
+        width: 10rem;
+    }
+
+    menu {
+        transform: translate(100%);
+        margin: 0;
+        animation: menu;
+    }
+    .star_track {
+        left: -8px;
+    }
+
+    /**
+     * Hero image
+     */
+
+    section:first-of-type {
+        padding: 9.5rem var(--spacing-2) 0rem;
+    }
+
+    /* Decorations
+   ========================================================================== */
+
+    /*
+     * Construction lines
+     */
+
+    section:first-of-type::after {
+        top: 0;
+        bottom: 0;
+        left: var(--spacing-2);
+    }
+}
+
+/* MOBILE PORTRAIT
+   ****************************************************************************/
+
+@media screen and (max-width: 388px) {
+    /* Variables
+   ========================================================================== */
+
+    :root {
+        --gutter-1: 2.25rem;
+        --spacing-1: 0.5rem;
+        --body: 0.875rem;
+        --label: 0.875rem;
+        --heading-1: 2.25rem;
+        --heading-2: 1.5rem;
+        --heading-3: 1.125rem;
+    }
+
+    /* Document layout
+   ========================================================================== */
+
+    /**
+     * Navigation
+     */
+
+    #logo {
+        width: 8rem;
+    }
+
+    ::-webkit-scrollbar {
+        width: 0.125rem;
+    }
+
+    h2 {
+        padding-right: 4rem;
+    }
+}
