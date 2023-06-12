@@ -2,23 +2,22 @@ import gulp from 'gulp';
 import htmlmin from 'gulp-html-minifier-terser';
 import tap from 'gulp-tap';
 import flatten from 'gulp-flatten';
-import webp from 'gulp-webp';
 import replace from 'gulp-replace';
 import filter from 'gulp-filter';
-import vinylPaths from 'vinyl-paths';
+import clean from 'gulp-clean';
 import markdown from 'gulp-markdown';
 import header from 'gulp-header';
 import footer from 'gulp-footer';
+import webp from 'gulp-webp';
 import fs from 'fs';
 import path from 'path';
-import {deleteAsync} from 'del';
 
 /**
  * Replaces all injection strings with their respective files,
  * then minifies and pushes to /public
  */
 
-function markup() {
+async function markup() {
     const md = filter('src/studies/**/*.md');
     function getSlug(file) {
         return path.basename(file.path, '.html');
@@ -113,7 +112,7 @@ function markup() {
  * and then converts those to webps and pushes to /public
  */
 
-function images() {
+async function images() {
     const jpg = filter(['src/images/*.jpg', 'src/images/*.jpeg'], {
         restore: true,
     });
@@ -129,16 +128,16 @@ function images() {
  * Moves static files to /public
  */
 
-function fonts() {
+async function fonts() {
     return gulp.src('src/fonts/*').pipe(gulp.dest('public/fonts/'));
 }
 
-function videos() {
+async function videos() {
     return gulp.src('src/videos/*').pipe(gulp.dest('public/videos'));
 }
 
-function clean() {
-    return gulp.src(['public/*.js', 'public/*.css']).pipe(vinylPaths(deleteAsync));
+async function scrub() {
+    return gulp.src(['public/*.js', 'public/*.css']).pipe(clean());
 }
 
-gulp.task('default', gulp.series(markup, images, videos, fonts, clean));
+gulp.task('default', gulp.series(images, gulp.parallel(markup, videos, fonts, scrub)));
