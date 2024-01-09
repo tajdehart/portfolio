@@ -18,7 +18,7 @@ import path from 'path';
  */
 
 async function markup() {
-    const md = filter('src/studies/**/*.md');
+    const md = filter('src/studies/*.md');
     function getSlug(file) {
         return path.basename(file.path, '.html');
     }
@@ -31,16 +31,6 @@ async function markup() {
         }
         return words.join(' ');
     }
-    function getFolder(file) {
-        let parent = path.dirname(file.path);
-        if (parent.includes('graphic_design')) {
-            return 'graphic-design';
-        } else if (parent.includes('web_design')) {
-            return 'web-design';
-        } else {
-            return '';
-        }
-    }
     function slugs(file) {
         file.contents = new Buffer(
             String(file.contents).replaceAll('%slug%', getSlug(file))
@@ -49,11 +39,6 @@ async function markup() {
     function titles(file) {
         file.contents = new Buffer(
             String(file.contents).replaceAll('<!--title-->', getTitle(file))
-        );
-    }
-    function folders(file) {
-        file.contents = new Buffer(
-            String(file.contents).replaceAll('%folder%', getFolder(file))
         );
     }
     return gulp

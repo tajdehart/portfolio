@@ -209,7 +209,7 @@ section {
     z-index: 0;
 }
 
-.work_section {
+.content_section {
     display: grid;
     grid-template-columns: var(--gutter-1) minmax(0, 1fr);
     column-gap: var(--spacing-3);
@@ -229,7 +229,7 @@ article:first-of-type {
     padding-top: var(--spacing-6);
 }
 
-.work_section article:first-of-type {
+.content_section article:first-of-type {
     padding-bottom: var(--spacing-2);
 }
 
@@ -248,11 +248,11 @@ menu,
     z-index: 2;
 }
 
-.work_star {
+.is-content {
     align-self: start;
 }
 
-.work_star,
+.is-content,
 menu li {
     position: sticky;
     top: 13rem;
@@ -370,7 +370,7 @@ button {
 /* Work functionality
    ========================================================================== */
 
-.work_slider {
+.content_slider {
     position: relative;
     right: var(--spacing-3);
     padding-left: var(--spacing-3);
@@ -386,29 +386,29 @@ button {
     animation: none;
 }
 
-.work_slider > img:last-of-type {
+.content_slider > img:last-of-type {
     margin-right: var(--spacing-2);
 }
 
-.work_slider > img {
+.content_slider > img {
     max-width: 69%;
 }
 
-.work_slider.is-square > img {
+.content_slider.is-square > img {
     max-width: 24rem;
 }
 
-.work_slider::-webkit-scrollbar {
+.content_slider::-webkit-scrollbar {
     width: 0;
     height: 0;
 }
 
-.work_column {
+.content_column {
     display: flex;
     gap: var(--spacing-2);
 }
 
-.work_column {
+.content_column {
     flex-direction: column;
 }
 
@@ -687,11 +687,11 @@ section::after {
     bottom: 0;
 }
 
-section:not(.work_section)::after {
+section:not(.content_section)::after {
     left: var(--gutter-1);
 }
 
-.work_section::after {
+.content_section::after {
     left: calc(var(--gutter-1) + var(--spacing-3));
 }
 
@@ -708,7 +708,7 @@ figcaption::after {
     margin-bottom: 0;
 }
 
-.work_section h2 {
+.content_section h2 {
     margin-left: calc(-1 * var(--spacing-3) - 0.169em);
 }
 
@@ -869,7 +869,7 @@ html::-webkit-scrollbar-button {
    ========================================================================== */
 
     menu li,
-    .work_star {
+    .track_star.is-content {
         top: 8rem;
     }
 
@@ -878,11 +878,11 @@ html::-webkit-scrollbar-button {
         min-width: 15ch;
     }
 
-    .work_slider > img {
+    .content_slider > img {
         max-width: 88%;
     }
 
-    .work_slider.is-square > img {
+    .content_slider.is-square > img {
         max-width: 69%;
     }
 
@@ -939,7 +939,7 @@ html::-webkit-scrollbar-button {
    ========================================================================== */
 
     menu li,
-    .work_star {
+    .is-content {
         top: 5rem;
         padding: 5rem 0;
     }
