@@ -671,9 +671,12 @@ button::after {
     right: 0;
 }
 
-h2::after,
-h3::after {
+h2::after {
     transform: translateY(0.69em);
+}
+
+h3::after {
+    transform: translateY(1.1em);
 }
 
 section::after {
