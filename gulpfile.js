@@ -93,23 +93,6 @@ async function markup() {
 }
 
 /**
- * Finds all images, filters only the jpgs,
- * and then converts those to webps and pushes to /public
- */
-
-async function images() {
-    const jpg = filter(['src/images/*.jpg', 'src/images/*.jpeg'], {
-        restore: true,
-    });
-    return gulp
-        .src('src/images/*')
-        .pipe(jpg)
-        .pipe(webp())
-        .pipe(jpg.restore)
-        .pipe(gulp.dest('public/images/'));
-}
-
-/**
  * Moves static files to /public
  */
 
@@ -129,4 +112,4 @@ async function scrub() {
     return gulp.src(['public/*.js', 'public/*.css']).pipe(clean());
 }
 
-gulp.task('default', gulp.series(images, gulp.parallel(markup, videos, fonts, scrub, access)));
+gulp.task('default', gulp.parallel(markup, videos, fonts, scrub, access));
