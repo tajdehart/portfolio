@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Draggable slider module
     const nav = document.querySelector('nav');
     const buttons = document.querySelectorAll('button');
-    const sliders = document.querySelectorAll('.work_slider');
+    const sliders = document.querySelectorAll('.content_slider');
     let isPressed = false,
         velX = 0,
         startX,
