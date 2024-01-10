@@ -96,6 +96,10 @@ async function markup() {
  * Moves static files to /public
  */
 
+async function php() {
+    return gulp.src('src/index.php').pipe(gulp.dest('public/'))
+}
+
 async function access() {
     return gulp.src('src/.htaccess').pipe(gulp.dest('public/'))
 }
@@ -120,7 +124,7 @@ async function images() {
     return gulp.src('src/images/*').pipe(webp()).pipe(gulp.dest('public/images/'));
 }
 
-gulp.task('default', gulp.series(images, gulp.parallel(markup, videos, fonts, scrub, access)));
+gulp.task('default', gulp.series(images, gulp.parallel(markup, videos, fonts, scrub, access, php)));
 
 /*
  * Pull updates to case studies from public desktop
