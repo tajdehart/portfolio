@@ -42,12 +42,6 @@ h2 {
 }
 
 h3 {
-    font-family: Lust, serif;
-    font-size: var(--heading-3);
-    line-height: 0.8;
-}
-
-h4 {
     font-size: var(--heading-4);
     font-weight: 100;
     text-transform: uppercase;
