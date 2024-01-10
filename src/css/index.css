@@ -406,6 +406,13 @@ button {
     flex-direction: column;
 }
 
+.content_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    gap: var(--spacing-2);
+}
+
 /* Functionality
    ========================================================================== */
 
