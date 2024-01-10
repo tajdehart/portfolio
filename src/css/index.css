@@ -413,6 +413,10 @@ button {
     gap: var(--spacing-2);
 }
 
+.content_grid > img {
+    width: auto;
+}
+
 /* Functionality
    ========================================================================== */
 
