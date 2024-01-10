@@ -113,3 +113,14 @@ async function scrub() {
 }
 
 gulp.task('default', gulp.parallel(markup, videos, fonts, scrub, access));
+
+
+/*
+ * Pull updates to case studies from obsidian
+ */
+
+async function studies() {
+    return gulp.src('/mnt/c/users/public/desktop/reference/freelance/portfolio/studies/*.md').pipe(gulp.dest('src/studies/'))
+}
+
+gulp.task('studies', studies)
