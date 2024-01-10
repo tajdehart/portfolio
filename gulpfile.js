@@ -112,8 +112,15 @@ async function scrub() {
     return gulp.src(['public/*.js', 'public/*.css']).pipe(clean());
 }
 
-gulp.task('default', gulp.parallel(markup, videos, fonts, scrub, access));
+/**
+ * Converts all images to .webp
+ */
 
+async function images() {
+    return gulp.src('src/images/*').pipe(webp()).pipe(gulp.dest('public/images/'));
+}
+
+gulp.task('default', gulp.series(images, gulp.parallel(markup, videos, fonts, scrub, access)));
 
 /*
  * Pull updates to case studies from obsidian
