@@ -7,19 +7,16 @@ document.addEventListener('DOMContentLoaded', () => {
         new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting && entry.target.id == 'a-trigger') {
-                    star.style.marginRight = '77%';
+                    star.style.marginRight = '-66%';
                 }
-                if (entry.isIntersecting && entry.target.id == 'wd-trigger') {
-                    star.style.marginRight = '29%';
+                if (entry.isIntersecting && entry.target.id == 'w-trigger') {
+                    star.style.marginRight = '-33%';
                 }
-                if (entry.isIntersecting && entry.target.id == 'gd-trigger') {
-                    star.style.marginRight = '-24%';
-                }
-                if (entry.isIntersecting && entry.target.id == 'gd-trigger-b') {
-                    star.style.marginRight = '-24%';
+                if (entry.isIntersecting && entry.target.id == 'w-trigger-b') {
+                    star.style.marginRight = '-33%';
                 }
                 if (entry.isIntersecting && entry.target.id == 'c-trigger') {
-                    star.style.marginRight = '-77%';
+                    star.style.marginRight = '-66%';
                 }
             });
         }).observe(trigger);

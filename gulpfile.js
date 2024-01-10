@@ -62,14 +62,14 @@ async function markup() {
             })
         )
         .pipe(gulp.dest('public'))
-        .pipe(gulp.src('src/studies/**/*.md'))
+        .pipe(gulp.src('src/studies/*.md'))
         .pipe(md)
         .pipe(markdown())
         .pipe(header(fs.readFileSync('src/studies/header.html', 'utf8')))
         .pipe(footer(fs.readFileSync('src/studies/footer.html', 'utf8')))
         .pipe(
             replace('/*studies.css*/', () => {
-                return `${fs.readFileSync('src/js/studies.css', 'utf8')}`;
+                return `${fs.readFileSync('src/css/studies.css', 'utf8')}`;
             })
         )
         .pipe(
@@ -79,7 +79,6 @@ async function markup() {
         )
         .pipe(tap(titles))
         .pipe(tap(slugs))
-        .pipe(tap(folders))
         .pipe(
             htmlmin({
                 collapseWhitespace: true,
