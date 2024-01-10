@@ -113,6 +113,10 @@ async function images() {
  * Moves static files to /public
  */
 
+async function access() {
+    return gulp.src('src/.htaccess').pipe(gulp.dest('public/'))
+}
+
 async function fonts() {
     return gulp.src('src/fonts/*').pipe(gulp.dest('public/fonts/'));
 }
@@ -125,4 +129,4 @@ async function scrub() {
     return gulp.src(['public/*.js', 'public/*.css']).pipe(clean());
 }
 
-gulp.task('default', gulp.series(images, gulp.parallel(markup, videos, fonts, scrub)));
+gulp.task('default', gulp.series(images, gulp.parallel(markup, videos, fonts, scrub, access)));
