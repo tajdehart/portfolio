@@ -123,11 +123,15 @@ async function images() {
 gulp.task('default', gulp.series(images, gulp.parallel(markup, videos, fonts, scrub, access)));
 
 /*
- * Pull updates to case studies from obsidian
+ * Pull updates to case studies from public desktop
  */
 
-async function studies() {
+async function pushStudies() {
     return gulp.src('/mnt/c/users/public/desktop/reference/freelance/portfolio/studies/*.md').pipe(gulp.dest('src/studies/'))
 }
 
-gulp.task('studies', studies)
+async function pushImages() {
+    return gulp.src('/mnt/c/users/public/desktop/reference/freelance/portfolio/images/*').pipe(gulp.dest('src/images/'))
+}
+
+gulp.task('push-wsl', gulp.series(pushStudies, pushImages))
