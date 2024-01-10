@@ -12,8 +12,8 @@
     --heading-2: 4rem;
     --heading-3: 2.75rem;
     --heading-4: 2rem;
-    --gutter-1: 12rem;
-    --gutter-2: 30rem;
+    --gutter-1: 15rem;
+    --gutter-2: 25rem;
     --spacing-1: 1rem;
     --spacing-2: calc(var(--spacing-1) * 2);
     --spacing-3: calc(var(--spacing-1) * 3);
