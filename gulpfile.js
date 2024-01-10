@@ -61,6 +61,7 @@ async function markup() {
                 minifyJS: true,
             })
         )
+        .pipe(header(fs.readFileSync('src/index.php', 'utf8')))
         .pipe(gulp.dest('public'))
         .pipe(gulp.src('src/studies/*.md'))
         .pipe(md)
