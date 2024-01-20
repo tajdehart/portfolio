@@ -44,13 +44,13 @@ async function markup() {
     return gulp
         .src('src/index.html')
         .pipe(
-            replace('/*index.css*/', () => {
-                return `${fs.readFileSync('src/css/index.css', 'utf8')}`;
+            replace('/*main.css*/', () => {
+                return `${fs.readFileSync('src/styles/main.css', 'utf8')}`;
             })
         )
         .pipe(
             replace('/*index.js*/', () => {
-                return `${fs.readFileSync('src/js/index.js', 'utf8')}`;
+                return `${fs.readFileSync('src/scripts/index.js', 'utf8')}`;
             })
         )
         .pipe(
@@ -70,12 +70,12 @@ async function markup() {
         .pipe(footer(fs.readFileSync('src/studies/footer.html', 'utf8')))
         .pipe(
             replace('/*studies.css*/', () => {
-                return `${fs.readFileSync('src/css/studies.css', 'utf8')}`;
+                return `${fs.readFileSync('src/scripts/studies.css', 'utf8')}`;
             })
         )
         .pipe(
             replace('/*studies.js*/', () => {
-                return `${fs.readFileSync('src/js/studies.js', 'utf8')}`;
+                return `${fs.readFileSync('src/scripts/studies.js', 'utf8')}`;
             })
         )
         .pipe(tap(titles))
