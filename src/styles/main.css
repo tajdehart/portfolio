@@ -743,20 +743,20 @@ section aside::after {
     left: var(--spacing-5);
 }
 
+section aside::before {
+    left: var(--spacing-2);
+}
+
 section aside {
     position: absolute;
     z-index: 1;
 }
 
-section::before {
-    right: var(--gutter-2);
-}
-
-section:not(.content_section)::after {
+section:not(.content_section)::before {
     left: var(--gutter-1);
 }
 
-.content_section::after {
+.content_section::before {
     left: calc(var(--gutter-1) + var(--spacing-3));
 }
 
