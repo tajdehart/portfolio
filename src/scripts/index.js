@@ -38,23 +38,49 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }
     // Dark mode toggle
+    function getValue(color) {
+        return window
+            .getComputedStyle(document.documentElement)
+            .getPropertyValue(`--${color}`);
+    }
+    function setValue(prop, color) {
+        return root.style.setProperty(`--${prop}`, color);
+    }
     const root = document.querySelector(':root'),
         darkMode = document.getElementById('dark-mode'),
         darkIcon = document.getElementById('light-icon'),
-        lightIcon = document.getElementById('dark-icon');
-    let isDark = false;
+        lightIcon = document.getElementById('dark-icon'),
+        white = getValue('white'),
+        black = getValue('black'),
+        green = getValue('green'),
+        blue = getValue('green'),
+        greenHover = getValue('green-hover'),
+        blueHover = getValue('blue-hover'),
+        lightShadow = getValue('light-shadow'),
+        darkShadow = getValue('dark-shadow');
+        let isDark = false;
     darkMode.addEventListener('click', () => {
         if (!isDark) {
-            root.style.setProperty('--black', '#eee8e0');
-            root.style.setProperty('--white', '#1c2e2e');
-            root.style.setProperty('--green', '#09ae8f');
+            setValue('black', white);
+            setValue('white', black);
+            setValue('green', blue);
+            setValue('blue', green);
+            setValue('green-hover', blueHover)
+            setValue('blue-hover', greenHover)
+            setValue('light-shadow', darkShadow)
+            setValue('dark-shadow', lightShadow)
             darkIcon.style.transform = 'translate(0, 0)';
             lightIcon.style.transform = 'translate(0, 100%)';
             isDark = true;
         } else {
-            root.style.setProperty('--white', '#eee8e0');
-            root.style.setProperty('--black', '#1c2e2e');
-            root.style.setProperty('--green', '#0e6f79');
+            setValue('black', black);
+            setValue('white', white);
+            setValue('blue', blue);
+            setValue('green', green);
+            setValue('blue-hover', blueHover)
+            setValue('green-hover', greenHover)
+            setValue('light-shadow', lightShadow)
+            setValue('dark-shadow', darkShadow)
             darkIcon.style.transform = 'translate(0, -100%)';
             lightIcon.style.transform = 'translate(0, 0)';
             isDark = false;

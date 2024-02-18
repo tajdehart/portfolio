@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taj DeHart | Designer</title>
     <link rel="icon" href="images/tajdehart-favicon.webp" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,7 +13,7 @@
     <meta property="og:url" content="https://tajdehart.com" />
     <meta property="og:image" content="images/tajdehart-profile.webp" />
     <style>
-        /*index.css*/
+        /*main.css*/
     </style>
     <script defer>
         /*index.js*/
@@ -52,6 +53,7 @@
         <h1>Taj DeHart</h1>
         <section id="about-me">
             <article>
+                <aside></aside>
                 <i id="a-trigger"></i>
                 <h2>About me</h2>
                 <hr />
@@ -96,6 +98,7 @@
                 </div>
             </menu>
             <article id="mad-courses">
+                <aside></aside>
                 <h3>MAD Courses</h3>
                 <p>
                     <a href="https://madcourses.com" target="_blank">MAD Courses</a>
@@ -116,15 +119,23 @@
                             alt="Image from the MAD Courses style guide" />
                         <img src="images/mad-courses-style-guide-5.webp" width="1920px" height="1080px"
                             alt="Image from the MAD Courses style guide" />
-                        <img src="images/mad-courses-style-guide-6.webp" width="1920px" height="1080px"
+                    </div>
+                    </figure>
+                    <figure>
+                        <figcaption>Selected designs from the "Changemaker's Launchpad"</figcaption>
+                        <div class="content_grid">
+                            <img loading="lazy" src="images/mad-courses-style-guide-1.webp" width="1920px" height="1080px"
+                                alt="Image from the MAD Courses style guide" />
+                            <img src="images/mad-courses-style-guide-2.webp" width="1920px" height="1080px"
+                                alt="Image from the MAD Courses style guide" />
+                            <img loading="lazy" src="images/mad-courses-style-guide-3.webp" width="1920px" height="1080px"
+                                alt="Image from the MAD Courses style guide" />
+                            <img src="images/mad-courses-style-guide-4.webp" width="1920px" height="1080px"
+                                alt="Image from the MAD Courses style guide" />
+                            <img src="images/mad-courses-style-guide-5.webp" width="1920px" height="1080px"
                             alt="Image from the MAD Courses style guide" />
                     </div>
                 </figure>
-                <p>
-                    I developed the look and feel of the MAD brand, and worked
-                    closely with them to implement that style in a variety of
-                    digital products.
-                </p>
                 <button>
                     <a href="/studies/mad-courses.html">
                         Read more
@@ -135,7 +146,7 @@
                 </button>
             </article>
             <menu class="is-after-h3">
-                <li>Brand design</li>
+                <li>Carbon Pardon</li>
                 <div class="track is-right">
                     <svg class="track_star is-content" viewBox="0 0 16 12">
                         <path
@@ -144,23 +155,21 @@
                 </div>
             </menu>
             <article>
-                <h3>Brand design</h3>
+                <h3>Carbon Pardon</h3>
                 <p>
-                    A selection of brands, logos and signage I've designed over the
-                    years.
+                    <a href="https://carbonpardon.org" rel="noreferrer">Carbon Pardon</a> was an online viral campaign
+                    modeled on catholic
+                    indulgences. Users could purchase a physical or digital "pardon" for the greenhouse emissions of
+                    their friends and
+                    family. Proceeds went to hand-picked reforestation projects.
                 </p>
                 <figure>
-                    <div class="content_slider is-square">
-                        <img src="images/seipps-logo.webp" width="512px" height="512px"
-                            alt="Branding for Seipps brewery" />
-                        <img loading="lazy" src="images/cp-logo.webp" width="512px" height="512px"
-                            alt="Carbon Pardon logo" />
-                        <img src="images/cmlp-stamp-2.webp" width="512px" height="512px" alt="Logo for Adam Saligman" />
-                        <img src="images/as-logo.webp" width="512px" height="512px" alt="Logo for Adam Saligman" />
-                        <img loading="lazy" src="images/jftp-logo.webp" width="512px" height="512px"
-                            alt="Logo for JFTP" />
-                        <img loading="lazy" src="images/wup-logo.webp" width="512px" height="512px"
-                            alt="Whats Up Perth logo" />
+                    <figcaption>The carbon pardons were printed on paper inpregnated with plantable seeds.
+                    </figcaption>
+                    <div class="content_grid">
+                        <img src="images/cp-logo.webp" width="512" height="512" alt="The Carbon Pardon logo" />
+                        <img src="images/cp-photo-1.webp" width="512px" height="512px" alt="Photograph of a physical Carbon Pardon" />
+                        <img src="images/cp-photo-2.webp" width="512px" height="512px" alt="Photograph of a physical Carbon Pardon" />
                     </div>
                 </figure>
                 <figure>
@@ -233,6 +242,7 @@
                             alt="Logo based on the letter L" />
                         <img loading="lazy" src="images/days-of-type-m.webp" width="500px" height="500px"
                             alt="Logo based on the letter M" />
+                        <img loading="lazy" src="images/days-of-type-n.webp" width="500px" height="500px" alt="Logo based on the letter N" />
                     </div>
                 </figure>
                 <i id="w-trigger-b"></i>
@@ -240,6 +250,7 @@
         </section>
         <section id="contact-me">
             <article>
+                <aside></aside>
                 <i id="c-trigger"></i>
                 <h2>Contact me</h2>
                 <p>
@@ -272,7 +283,13 @@
         </section>
         <footer></footer>
         <aside>
-            <a id="dark-mode" title="Toggle dark mode">
+            <button id="top" title="Scroll to top">
+                <a href="#"><svg width="24" height="10" viewBox="0 0 16 5.5">
+                        <path d="M0,0C6.2,0,7.92,5.5,7.92,5.5c0,0,1.72-5.5,7.92-5.5" />
+                    </svg>
+                </a>
+            </button>
+            <button id="dark-mode" title="Toggle dark mode">
                 <svg id="light-icon" height="82%" viewBox="0 0 256 256">
                     <path
                         d="M182.54,150.59c15.44-10.99,33.26-18.85,52.56-22.59-19.3-3.74-37.12-11.6-52.56-22.59,3.14-18.69,10.19-36.84,21.19-53.14-16.29,11-34.45,18.05-53.14,21.19-10.99-15.44-18.85-33.26-22.59-52.56-3.74,19.3-11.6,37.12-22.59,52.56-18.69-3.14-36.84-10.19-53.14-21.19,11,16.29,18.05,34.45,21.19,53.14-15.44,10.99-33.26,18.85-52.56,22.59,19.3,3.74,37.12,11.6,52.56,22.59-3.14,18.69-10.19,36.84-21.19,53.14,16.29-11,34.45-18.05,53.14-21.19,10.99,15.44,18.85,33.26,22.59,52.56,3.74-19.3,11.6-37.12,22.59-52.56,18.69,3.14,36.84,10.19,53.14,21.19-11-16.29-18.05-34.45-21.19-53.14Z" />
@@ -283,11 +300,7 @@
                     <path
                         d="M167.66,182.15c-57.22,0-103.6-46.19-103.6-103.17,0-17.41,4.33-33.8,11.98-48.18C43.2,48.1,20.82,82.46,20.82,122.04c0,56.98,46.38,103.17,103.6,103.17,39.74,0,74.24-22.29,91.62-54.99-14.44,7.61-30.9,11.93-48.38,11.93Z" />
                 </svg>
-            </a>
-            <a id="top" href="#" title="Scroll to top"><svg width="24" height="10" viewBox="0 0 16 5.5">
-                    <path d="M0,0C6.2,0,7.92,5.5,7.92,5.5c0,0,1.72-5.5,7.92-5.5" />
-                </svg>
-            </a>
+            </button>
         </aside>
     </main>
 </body>
