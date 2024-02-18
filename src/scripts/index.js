@@ -43,6 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
             .getComputedStyle(document.documentElement)
             .getPropertyValue(`--${color}`);
     }
+    function setValue(prop, color) {
+        return root.style.setProperty(`--${prop}`, color);
+    }
     const root = document.querySelector(':root'),
         darkMode = document.getElementById('dark-mode'),
         darkIcon = document.getElementById('light-icon'),
@@ -58,26 +61,26 @@ document.addEventListener('DOMContentLoaded', () => {
         let isDark = false;
     darkMode.addEventListener('click', () => {
         if (!isDark) {
-            root.style.setProperty('--black', white);
-            root.style.setProperty('--white', black);
-            root.style.setProperty('--green', blue);
-            root.style.setProperty('--blue', green);
-            root.style.setProperty('--green-hover', blueHover)
-            root.style.setProperty('--blue-hover', greenHover)
-            root.style.setProperty('--light-shadow', darkShadow)
-            root.style.setProperty('--dark-shadow', lightShadow)
+            setValue('black', white);
+            setValue('white', black);
+            setValue('green', blue);
+            setValue('blue', green);
+            setValue('green-hover', blueHover)
+            setValue('blue-hover', greenHover)
+            setValue('light-shadow', darkShadow)
+            setValue('dark-shadow', lightShadow)
             darkIcon.style.transform = 'translate(0, 0)';
             lightIcon.style.transform = 'translate(0, 100%)';
             isDark = true;
         } else {
-            root.style.setProperty('--black', black);
-            root.style.setProperty('--white', white);
-            root.style.setProperty('--blue', blue);
-            root.style.setProperty('--green', green);
-            root.style.setProperty('--blue-hover', blueHover)
-            root.style.setProperty('--green-hover', greenHover)
-            root.style.setProperty('--light-shadow', lightShadow)
-            root.style.setProperty('--dark-shadow', darkShadow)
+            setValue('black', black);
+            setValue('white', white);
+            setValue('blue', blue);
+            setValue('green', green);
+            setValue('blue-hover', blueHover)
+            setValue('green-hover', greenHover)
+            setValue('light-shadow', lightShadow)
+            setValue('dark-shadow', darkShadow)
             darkIcon.style.transform = 'translate(0, -100%)';
             lightIcon.style.transform = 'translate(0, 0)';
             isDark = false;
