@@ -96,24 +96,40 @@ async function markup() {
  * Moves static files to /public
  */
 
-async function php() {
-    return gulp.src('src/index.php').pipe(gulp.dest('public/'))
-}
+// async function php() {
+//     return gulp.src('src/index.php').pipe(gulp.dest('public/'))
+// }
 
-async function access() {
-    return gulp.src('src/.htaccess').pipe(gulp.dest('public/'))
-}
+// async function access() {
+//     return gulp.src('src/.htaccess').pipe(gulp.dest('public/'))
+// }
 
-async function fonts() {
-    return gulp.src('src/fonts/*').pipe(gulp.dest('public/fonts/'));
-}
+// async function fonts() {
+//     return gulp.src('src/fonts/*').pipe(gulp.dest('public/fonts/'));
+// }
 
-async function videos() {
-    return gulp.src('src/videos/*').pipe(gulp.dest('public/videos'));
-}
+// async function videos() {
+//     return gulp.src('src/videos/*').pipe(gulp.dest('public/videos'));
+// }
 
 async function scrub() {
     return gulp.src(['public/*.js', 'public/*.css']).pipe(clean());
+}
+
+async function staticFiles() {
+    const files = ['index.php', '.htaccess'];
+    files.forEach((file)=>{
+        gulp.src(`src/${file}`).pipe(gulp.dest('public/'));
+    });
+    return
+}
+
+async function staticFolders() {
+    const folders = ['zine', 'resume', 'fonts', 'videos',];
+    folders.forEach((folder)=>{
+        gulp.src(`src/${folder}/*`).pipe(gulp.dest(`public/${folder}/`));
+    });
+    return
 }
 
 /**
@@ -124,18 +140,26 @@ async function images() {
     return gulp.src('src/images/*').pipe(webp()).pipe(gulp.dest('public/images/'));
 }
 
-gulp.task('default', gulp.series(images, gulp.parallel(markup, videos, fonts, scrub, access, php)));
+gulp.task('default', gulp.series(images, gulp.parallel(markup, scrub, staticFiles, staticFolders)));
 
 /*
  * Pull updates to case studies from public desktop
  */
 
-async function pushStudies() {
+async function pullStudies() {
     return gulp.src('/mnt/c/users/public/desktop/reference/freelance/portfolio/studies/*.md').pipe(gulp.dest('src/studies/'))
 }
 
-async function pushImages() {
+async function pullImages() {
     return gulp.src('/mnt/c/users/public/desktop/reference/freelance/portfolio/images/*').pipe(gulp.dest('src/images/'))
 }
 
-gulp.task('push-wsl', gulp.series(pushStudies, pushImages))
+async function pullResume() {
+    return gulp.src('/mnt/c/users/public/desktop/reference/resume/exports/resume.pdf*').pipe(gulp.dest('src/resume/'))
+}
+
+async function pullZine() {
+    return gulp.src('/mnt/c/users/public/desktop/reference/climatique/zine/exports/better-world.pdf*').pipe(gulp.dest('src/zine/'))
+}
+
+gulp.task('pull-wsl', gulp.series(pullStudies, pullImages, pullResume, pullZine))
