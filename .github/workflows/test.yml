@@ -33,4 +33,3 @@ jobs:
         password: ${{secrets.TEST_PASSWORD}}
         server-dir: taj.greenvisionmedia.net/public_html/
         local-dir: public/
-        protocol: ftps
