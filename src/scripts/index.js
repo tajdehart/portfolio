@@ -2,7 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     // Nav selector star slide
-    const star = document.getElementById('star');
+    const star = document.getElementById('menu-star');
     document.body.querySelectorAll('i').forEach((trigger) => {
         new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (window.scrollY > 25) {
                     menu.style.transform = 'translate(0)';
                     logo.style.transform = 'translate(-230%)';
-                    removeEventListener('scroll', slide, false);
+                    window.removeEventListener('scroll', slide);
                 }
             },
             {passive: true}
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         white = getValue('white'),
         black = getValue('black'),
         green = getValue('green'),
-        blue = getValue('green'),
+        blue = getValue('blue'),
         greenHover = getValue('green-hover'),
         blueHover = getValue('blue-hover'),
         lightShadow = getValue('light-shadow'),
@@ -88,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     // Draggable slider module
     const nav = document.querySelector('nav');
-    const buttons = document.querySelectorAll('button');
     const sliders = document.querySelectorAll('.content_slider');
     let isPressed = false,
         velX = 0,
@@ -133,11 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
         );
         nav.addEventListener('click', () => {
             cancelMomentum();
-        });
-        buttons.forEach((button) => {
-            button.addEventListener('click', () => {
-                cancelMomentum();
-            });
         });
         new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
@@ -226,4 +220,43 @@ document.addEventListener('DOMContentLoaded', () => {
             newRequest();
         }
     }
+    // Tooltips
+    const wrappers = document.querySelectorAll(".tooltip_wrapper");
+    wrappers.forEach((wrapper)=>{
+        const tooltip = document.getElementById(`${wrapper.id}-tooltip`);
+        console.log(`${wrapper.id}-tooltip`);
+        let wasHovered = false,
+            leaveDelay = 750,
+            stayDelay = 2000;
+        wrapper.addEventListener('mouseover', function over() {
+            tooltip.style.opacity = "100%"
+            setTimeout(()=>{
+                endFollow();
+            }, stayDelay)
+            wrapper.removeEventListener('mouseover', over)
+
+        });
+        wrapper.addEventListener('mouseleave', function leave() {
+            setTimeout(()=>{
+                endFollow();
+            }, leaveDelay)
+            wrapper.removeEventListener('mouseleave', leave)
+        });
+        if (tooltip.classList.contains('is-follower')) {
+            leaveDelay = 500;
+            document.addEventListener('mousemove', function move(event) {
+                if (wasHovered) {
+                    setTimeout(()=>{
+                        document.removeEventListener('mousemove', move)
+                    }, leaveDelay)
+                };
+                tooltip.style.top = `${event.clientY}px`
+                tooltip.style.left = `${event.clientX}px`
+            });
+        }
+        function endFollow() {
+            wasHovered = true;
+            tooltip.style.opacity = "0%";
+        }
+    });
 });

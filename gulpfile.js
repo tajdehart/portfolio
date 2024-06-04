@@ -96,26 +96,6 @@ async function markup() {
  * Moves static files to /public
  */
 
-// async function php() {
-//     return gulp.src('src/index.php').pipe(gulp.dest('public/'))
-// }
-
-// async function access() {
-//     return gulp.src('src/.htaccess').pipe(gulp.dest('public/'))
-// }
-
-// async function fonts() {
-//     return gulp.src('src/fonts/*').pipe(gulp.dest('public/fonts/'));
-// }
-
-// async function videos() {
-//     return gulp.src('src/videos/*').pipe(gulp.dest('public/videos'));
-// }
-
-async function scrub() {
-    return gulp.src(['public/*.js', 'public/*.css']).pipe(clean());
-}
-
 async function staticFiles() {
     const files = ['index.php', '.htaccess'];
     files.forEach((file)=>{
@@ -138,6 +118,14 @@ async function staticFolders() {
 
 async function images() {
     return gulp.src('src/images/*').pipe(webp()).pipe(gulp.dest('public/images/'));
+}
+
+/**
+ * Cleans unneccessary files
+ */
+
+async function scrub() {
+    return gulp.src(['public/*.js', 'public/*.css']).pipe(clean());
 }
 
 gulp.task('default', gulp.series(images, gulp.parallel(markup, scrub, staticFiles, staticFolders)));
