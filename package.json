@@ -30,6 +30,7 @@
         "gulp-replace": "^1.1.4",
         "gulp-tap": "^2.0.0",
         "gulp-webp": "^4.0.1",
+        "gulp-wrapper": "^1.0.0",
         "install": "^0.13.0",
         "npm": "^9.7.1",
         "path": "^0.12.7",

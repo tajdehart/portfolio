@@ -11,8 +11,8 @@
     --blue-hover: #0e6871;
     --green-hover: #15a78c;
     --shadow: #1c2e2e27;
-    --body: 1rem;
-    --button: 1rem;
+    --body-text: 1rem;
+    --button-text: 1rem;
     --heading-2: 4rem;
     --heading-3: 2.75rem;
     --heading-4: 1.25rem;
@@ -24,7 +24,7 @@
     --spacing-4: calc(var(--spacing-1) * 4);
     --spacing-5: calc(var(--spacing-1) * 5);
     --spacing-6: calc(var(--spacing-1) * 6);
-    --spacing-button: calc(var(--spacing-1) * 2.25);
+    --button-spacing: 2.5rem;
     --radius: 0.5rem;
     --easing: cubic-bezier(0.65, 0, 0.35, 1);
 }
@@ -39,7 +39,7 @@
 
 body {
     font-family: 'Miller', 'Georgia Pro', 'Georgia', 'Plantin', serif;
-    font-size: var(--body);
+    font-size: var(--body-text);
     color: var(--black);
     line-height: 1.4;
     letter-spacing: -0.05
@@ -92,7 +92,7 @@ button a {
 }
 
 button a {
-    font-size: var(--button);
+    font-size: var(--button-text);
 }
 
 /**
@@ -556,12 +556,12 @@ margin: 0;
  */
 
 button {
-    height: var(--spacing-button);
+    height: var(--button-spacing);
     cursor: pointer;
-    font-size: var(--body);
+    font-size: var(--body-text);
     background-color: var(--blue);
     border: none;
-    padding: 0 calc(0.5 * var(--spacing-button));
+    padding: 0 calc(0.5 * var(--button-spacing));
 }
 
 button svg {
@@ -598,7 +598,7 @@ aside {
     padding: var(--spacing-1);
     pointer-events: none;
     z-index: 50;
-    width: var(--spacing-button);
+    width: var(--button-spacing);
 }
 
 .control {
@@ -724,7 +724,7 @@ label {
     pointer-events: none;
     white-space: nowrap;
     opacity: 0;
-    font-size: var(--body);
+    font-size: var(--body-text);
     margin: -1.25rem 1rem;
     padding: 0.5rem 0.5rem 0.5rem 1rem;
 }
@@ -866,7 +866,7 @@ section aside {
 }
 
 section aside::after {
-    left: calc(var(--spacing-button) + var(--spacing-2));
+    left: calc(var(--button-spacing) + var(--spacing-2));
 }
 
 section aside::before {
@@ -956,10 +956,11 @@ html::-webkit-scrollbar-button {
     :root {
         --gutter-1: 8rem;
         --gutter-2: 10vw;
-        --button: 1.125rem;
+        --button-text: 1.125rem;
         --heading-2: 3.5rem;
         --heading-3: 2.5rem;
-        --heading-4: 1.75rem;
+        --heading-4: 1rem;
+        --button-spacing: 2rem;
     }
 
     /* Document layout
@@ -986,11 +987,12 @@ html::-webkit-scrollbar-button {
         --gutter-1: 3.25rem;
         --gutter-2: var(--spacing-3);
         --spacing-1: 0.75rem;
-        --button: 1rem;
+        --button-text: 1rem;
         --heading-2: 3rem;
         --heading-3: 2rem;
-        --heading-4: 1.5rem;
+        --heading-4: 0.88rem;
         --radius: 0.25rem;
+        --button-spacing: 2rem;
     }
 
     /* Type
@@ -1068,14 +1070,6 @@ html::-webkit-scrollbar-button {
    ========================================================================== */
 
     /**
-    * Button
-    */
-
-    button {
-        height: var(--gutter-1);
-    }
-
-    /**
      * Bottom controls
      */
      
@@ -1094,11 +1088,10 @@ html::-webkit-scrollbar-button {
     :root {
         --gutter-1: 2.25rem;
         --spacing-1: 0.5rem;
-        --body: 0.875rem;
-        --button: 0.875rem;
+        --body-text: 0.875rem;
+        --button-text: 0.875rem;
         --heading-2: 2.25rem;
         --heading-3: 1.5rem;
-        --heading-4: 1.125rem;
     }
 
     /* Document layout

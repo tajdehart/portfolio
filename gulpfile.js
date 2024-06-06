@@ -3,7 +3,6 @@ import htmlmin from 'gulp-html-minifier-terser';
 import tap from 'gulp-tap';
 import flatten from 'gulp-flatten';
 import replace from 'gulp-replace';
-import filter from 'gulp-filter';
 import clean from 'gulp-clean';
 import markdown from 'gulp-markdown';
 import header from 'gulp-header';
@@ -17,8 +16,32 @@ import path from 'path';
  * then minifies and pushes to /public
  */
 
-async function markup() {
-    const md = filter('src/studies/*.md');
+async function index() {
+    return gulp
+        .src('src/index.html')
+        .pipe(
+            replace('/*main.css*/', () => {
+                return `${fs.readFileSync('src/main.css', 'utf8')}`;
+            })
+        )
+        .pipe(
+            replace('/*index.js*/', () => {
+                return `${fs.readFileSync('src/index.js', 'utf8')}`;
+            })
+        )
+        .pipe(
+            htmlmin({
+                collapseWhitespace: true,
+                removeComments: true,
+                minifyCSS: true,
+                minifyJS: true,
+            })
+        )
+        .pipe(header(fs.readFileSync('src/index.php', 'utf8')))
+        .pipe(gulp.dest('public'))
+}
+
+async function studies() {  
     function getSlug(file) {
         return path.basename(file.path, '.html');
     }
@@ -32,50 +55,28 @@ async function markup() {
         return words.join(' ');
     }
     function slugs(file) {
-        file.contents = new Buffer(
+        file.contents = Buffer.from(
             String(file.contents).replaceAll('%slug%', getSlug(file))
         );
     }
     function titles(file) {
-        file.contents = new Buffer(
+        file.contents = Buffer.from(
             String(file.contents).replaceAll('<!--title-->', getTitle(file))
         );
     }
     return gulp
-        .src('src/index.html')
-        .pipe(
-            replace('/*main.css*/', () => {
-                return `${fs.readFileSync('src/styles/main.css', 'utf8')}`;
-            })
-        )
-        .pipe(
-            replace('/*index.js*/', () => {
-                return `${fs.readFileSync('src/scripts/index.js', 'utf8')}`;
-            })
-        )
-        .pipe(
-            htmlmin({
-                collapseWhitespace: true,
-                removeComments: true,
-                minifyCSS: true,
-                minifyJS: true,
-            })
-        )
-        .pipe(header(fs.readFileSync('src/index.php', 'utf8')))
-        .pipe(gulp.dest('public'))
-        .pipe(gulp.src('src/studies/*.md'))
-        .pipe(md)
+        .src('src/studies/*.md')
         .pipe(markdown())
         .pipe(header(fs.readFileSync('src/studies/header.html', 'utf8')))
         .pipe(footer(fs.readFileSync('src/studies/footer.html', 'utf8')))
         .pipe(
             replace('/*studies.css*/', () => {
-                return `${fs.readFileSync('src/scripts/studies.css', 'utf8')}`;
+                return `${fs.readFileSync('src/studies/studies.css', 'utf8')}`;
             })
         )
         .pipe(
             replace('/*studies.js*/', () => {
-                return `${fs.readFileSync('src/scripts/studies.js', 'utf8')}`;
+                return `${fs.readFileSync('src/studies/studies.js', 'utf8')}`;
             })
         )
         .pipe(tap(titles))
@@ -128,7 +129,7 @@ async function scrub() {
     return gulp.src(['public/*.js', 'public/*.css']).pipe(clean());
 }
 
-gulp.task('default', gulp.series(images, gulp.parallel(markup, scrub, staticFiles, staticFolders)));
+gulp.task('default', gulp.series(images, gulp.parallel(index, studies, scrub, staticFiles, staticFolders)));
 
 /*
  * Pull updates to case studies from public desktop
