@@ -4,7 +4,7 @@
 
 [MAD Courses][1] is a social enterprise, founded to educate people around the
 world about systems thinking, indigenous wisdom and environmental stewardship.
-They work with tribes in the Phillipines to create 'interactive video
+They work with tribes in the Philippines to create 'interactive video
 adventures,' their own brand of gamified educational videos.
 
 MAD needed a variety of design work to help tie together their product,
@@ -33,6 +33,7 @@ lends itself nicely to this style.
 > Illustrations in this inky, screen print style
 
 ![General assets in the inky screenprint style](../images/mad-courses-ink-assets.webp)
+
 ![Examples of some illustrations in this style](../images/mad-courses-ink-assets-close-up.webp)
 
 The second was also 'skeumorphic,' a term that broadly means 2D design that
@@ -70,14 +71,14 @@ that a browser would struggle to replicate.
 > Images from the (draft) MAD website
 
 ![Images from the brand guide](../images/mad-courses-website-1.webp)
+
 ![Images from the brand guide](../images/mad-courses-website-2.webp)
+
 ![Images from the brand guide](../images/mad-courses-website-3.webp)
-![Images from the brand guide](../images/mad-courses-website-4.webp)
-![Images from the brand guide](../images/mad-courses-website-5.webp)
+
 
 After a lot of trial and error, I discovered that
-[SVG filters](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/SVG_Filters_Tutorial)
-were the solution. Using these, I developed some stylish vector graphics to
+[SVG filters](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/SVG_Filters_Tutorial) were the solution. Using these, I developed some stylish vector graphics to
 explain the MAD product.
 
 These had all the flair of the MAD raster illustrations but remained highly

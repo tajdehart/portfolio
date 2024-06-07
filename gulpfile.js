@@ -8,6 +8,8 @@ import markdown from 'gulp-markdown';
 import header from 'gulp-header';
 import footer from 'gulp-footer';
 import webp from 'gulp-webp';
+import symbols from 'gulp-svg-symbols';
+import svgmin from 'gulp-svgmin';
 import fs from 'fs';
 import path from 'path';
 
@@ -30,6 +32,11 @@ async function index() {
             })
         )
         .pipe(
+            replace('<!--symbols.svg-->', () => {
+                return `${fs.readFileSync('src/svg/svg-symbols.svg', 'utf8')}`;
+            })
+        )
+        .pipe(
             htmlmin({
                 collapseWhitespace: true,
                 removeComments: true,
@@ -37,7 +44,6 @@ async function index() {
                 minifyJS: true,
             })
         )
-        .pipe(header(fs.readFileSync('src/index.php', 'utf8')))
         .pipe(gulp.dest('public'))
 }
 
@@ -79,6 +85,11 @@ async function studies() {
                 return `${fs.readFileSync('src/studies/studies.js', 'utf8')}`;
             })
         )
+        .pipe(
+            replace('<!--symbols.svg-->', () => {
+                return `${fs.readFileSync('src/svg/svg-symbols.svg', 'utf8')}`;
+            })
+        )
         .pipe(tap(titles))
         .pipe(tap(slugs))
         .pipe(
@@ -98,7 +109,7 @@ async function studies() {
  */
 
 async function staticFiles() {
-    const files = ['index.php', '.htaccess'];
+    const files = ['robots.txt', '.htaccess'];
     files.forEach((file)=>{
         gulp.src(`src/${file}`).pipe(gulp.dest('public/'));
     });
@@ -106,19 +117,11 @@ async function staticFiles() {
 }
 
 async function staticFolders() {
-    const folders = ['zine', 'resume', 'fonts', 'videos',];
+    const folders = ['zine', 'resume', 'fonts', 'videos', 'images'];
     folders.forEach((folder)=>{
         gulp.src(`src/${folder}/*`).pipe(gulp.dest(`public/${folder}/`));
     });
     return
-}
-
-/**
- * Converts all images to .webp
- */
-
-async function images() {
-    return gulp.src('src/images/*').pipe(webp()).pipe(gulp.dest('public/images/'));
 }
 
 /**
@@ -129,26 +132,74 @@ async function scrub() {
     return gulp.src(['public/*.js', 'public/*.css']).pipe(clean());
 }
 
-gulp.task('default', gulp.series(images, gulp.parallel(index, studies, scrub, staticFiles, staticFolders)));
+gulp.task('default', gulp.parallel(index, studies, scrub, staticFiles, staticFolders));
 
-/*
- * Pull updates to case studies from public desktop
+
+/* Pull images/studies from crypt
+   ========================================================================== */
+
+/**
+ * Pulls studies and converts all .jpg/.png references to webp
  */
 
 async function pullStudies() {
-    return gulp.src('/mnt/c/users/public/desktop/reference/freelance/portfolio/studies/*.md').pipe(gulp.dest('src/studies/'))
+    return gulp.src('/mnt/v/reference/freelance/portfolio/studies/*.md')
+    .pipe(replace('.png',()=>{return '.webp'}))
+    .pipe(replace('.jpg',()=>{return '.webp'}))
+    .pipe(replace('.jpeg',()=>{return '.webp'}))
+    .pipe(gulp.dest('src/studies/'))
 }
+
+/**
+ * Converts all images to webp 
+ */
 
 async function pullImages() {
-    return gulp.src('/mnt/c/users/public/desktop/reference/freelance/portfolio/images/*').pipe(gulp.dest('src/images/'))
+    return gulp.src('/mnt/v/reference/freelance/portfolio/images/*')
+    .pipe(webp())
+    .pipe(gulp.dest('src/images/'))
 }
 
+/**
+ * Pulls svg and puts into symbols.svg 
+ */
+
+async function pullSVG() {
+    return gulp.src('/mnt/v/reference/freelance/portfolio/svg/*')
+    .pipe(svgmin({
+        full: true,
+        plugins: [
+            'removeStyleElement',
+            {
+            name: "removeViewBox",
+            active: false,
+            },
+            {
+            name: 'removeAttrs',
+            params: {
+                attrs: ['path:style','path:id','path:class'],
+                elemSeparator: ":",
+            }
+        },
+        ]
+    }))
+    .pipe(symbols())
+    .pipe(gulp.dest('src/svg/'))
+}
+
+/**
+ * Pulls my resume .pdf and the climatique zine to webp 
+ */
+
 async function pullResume() {
-    return gulp.src('/mnt/c/users/public/desktop/reference/resume/exports/resume.pdf*').pipe(gulp.dest('src/resume/'))
+    return gulp.src('/mnt/v/reference/resume/exports/resume.pdf*').pipe(gulp.dest('src/resume/'))
 }
 
 async function pullZine() {
-    return gulp.src('/mnt/c/users/public/desktop/reference/climatique/zine/exports/better-world.pdf*').pipe(gulp.dest('src/zine/'))
+    return gulp.src('/mnt/v/reference/climatique/zine/exports/better-world.pdf*').pipe(gulp.dest('src/zine/'))
 }
 
-gulp.task('pull-wsl', gulp.series(pullStudies, pullImages, pullResume, pullZine))
+gulp.task('pull-wsl', gulp.series(pullStudies, pullImages, pullResume, pullZine, pullSVG))
+gulp.task('pull-studies', pullStudies);
+gulp.task('pull-images', pullImages);
+gulp.task('pull-svg', pullSVG);

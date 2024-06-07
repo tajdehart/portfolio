@@ -1,9 +1,29 @@
 /*! index.js | If you can read this you're tailgaiting */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Opening animation
+    const main = document.querySelector('main'),
+    header = document.querySelector('header'),
+    hero = document.getElementById('profile');
+    hero.addEventListener('load', ()=>{
+        main.style.translate = "0%";
+        header.style.translate = "0%";
+    });
+    // Transition animation
+    const transitionLinks = main.querySelectorAll('a[href^="/studies/"]');
+    transitionLinks.forEach((link) => {
+        link.addEventListener('mousedown', (event)=> {
+            event.preventDefault();
+            main.style.translate = "-100%";
+            header.style.translate = "-100%";
+            setTimeout(()=>{
+                window.location = link.href;
+            }, 250);
+        })
+    });
     // Nav selector star slide
     const star = document.getElementById('menu-star');
-    document.body.querySelectorAll('i').forEach((trigger) => {
+    main.querySelectorAll('i').forEach((trigger) => {
         new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting && entry.target.id == 'a-trigger') {
@@ -22,15 +42,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }).observe(trigger);
     });
     // Mobile nav logo slide
-    const menu = document.getElementById('menu'),
+    const menu = document.querySelector('nav menu'),
         logo = document.getElementById('logo');
     if (window.innerWidth < 651) {
         window.addEventListener(
             'scroll',
             function slide() {
                 if (window.scrollY > 25) {
-                    menu.style.transform = 'translate(0)';
-                    logo.style.transform = 'translate(-230%)';
+                    menu.style.translate = '0%';
+                    logo.style.translate = '-230%';
                     window.removeEventListener('scroll', slide);
                 }
             },
@@ -38,16 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }
     // Dark mode toggle
-    function getValue(color) {
-        return window
-            .getComputedStyle(document.documentElement)
-            .getPropertyValue(`--${color}`);
-    }
-    function setValue(prop, color) {
-        return root.style.setProperty(`--${prop}`, color);
-    }
     const root = document.querySelector(':root'),
-        darkMode = document.getElementById('dark-mode'),
+        darkModeButton = document.getElementById('dark-mode'),
         darkIcon = document.getElementById('light-icon'),
         lightIcon = document.getElementById('dark-icon'),
         white = getValue('white'),
@@ -58,37 +70,61 @@ document.addEventListener('DOMContentLoaded', () => {
         blueHover = getValue('blue-hover'),
         lightShadow = getValue('light-shadow'),
         darkShadow = getValue('dark-shadow');
-        let isDark = false;
-    darkMode.addEventListener('click', () => {
-        if (!isDark) {
-            setValue('black', white);
-            setValue('white', black);
-            setValue('green', blue);
-            setValue('blue', green);
-            setValue('green-hover', blueHover)
-            setValue('blue-hover', greenHover)
-            setValue('light-shadow', darkShadow)
-            setValue('dark-shadow', lightShadow)
-            darkIcon.style.transform = 'translate(0, 0)';
-            lightIcon.style.transform = 'translate(0, 100%)';
-            isDark = true;
+        let isDark;
+    if (window.sessionStorage.getItem('darkMode') == 'on') {
+        // document.documentElement.style.backgroundColor = black;
+        darkOn();
+    }
+    else {
+        // document.documentElement.style.backgroundColor = white;
+        darkOff();
+    }
+    function getValue(color) {
+        return window
+            .getComputedStyle(document.documentElement)
+            .getPropertyValue(`--${color}`);
+    }
+    function setValue(prop, color) {
+        return root.style.setProperty(`--${prop}`, color);
+    }
+    function darkOn() {
+        setValue('black', white);
+        setValue('white', black);
+        setValue('green', blue);
+        setValue('blue', green);
+        setValue('green-hover', blueHover)
+        setValue('blue-hover', greenHover)
+        setValue('light-shadow', darkShadow)
+        setValue('dark-shadow', lightShadow)
+        darkIcon.style.translate = '0% 0%';
+        lightIcon.style.translate = '0% 175%';
+        isDark = true;
+    }
+    function darkOff() {
+        setValue('black', black);
+        setValue('white', white);
+        setValue('blue', blue);
+        setValue('green', green);
+        setValue('blue-hover', blueHover)
+        setValue('green-hover', greenHover)
+        setValue('light-shadow', lightShadow)
+        setValue('dark-shadow', darkShadow)
+        darkIcon.style.translate = '0% -175%';
+        lightIcon.style.translate = '0% 0%';
+        isDark = false;
+    }
+    darkModeButton.addEventListener('click', () => {
+        if (isDark) {
+            darkOff();
+            window.sessionStorage.setItem("darkMode", "off");
         } else {
-            setValue('black', black);
-            setValue('white', white);
-            setValue('blue', blue);
-            setValue('green', green);
-            setValue('blue-hover', blueHover)
-            setValue('green-hover', greenHover)
-            setValue('light-shadow', lightShadow)
-            setValue('dark-shadow', darkShadow)
-            darkIcon.style.transform = 'translate(0, -100%)';
-            lightIcon.style.transform = 'translate(0, 0)';
-            isDark = false;
+            darkOn();
+            window.sessionStorage.setItem("darkMode", "on");
         }
     });
     // Draggable slider module
     const nav = document.querySelector('nav');
-    const sliders = document.querySelectorAll('.content_slider');
+    const sliders = main.querySelectorAll('.slider');
     let isPressed = false,
         velX = 0,
         startX,
@@ -221,10 +257,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     // Tooltips
-    const wrappers = document.querySelectorAll(".tooltip_wrapper");
+    const wrappers = document.querySelectorAll(".tooltip");
     wrappers.forEach((wrapper)=>{
         const tooltip = document.getElementById(`${wrapper.id}-tooltip`);
-        console.log(`${wrapper.id}-tooltip`);
         let wasHovered = false,
             leaveDelay = 750,
             stayDelay = 2000;

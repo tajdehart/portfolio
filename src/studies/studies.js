@@ -1,6 +1,33 @@
-/*! index.js | If you can read this you're tailgaiting */
+/*! studies.js | If you can read this you're tailgaiting */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Opening animation
+    const main = document.querySelector('main'),
+    header = document.querySelector('header'),
+    hero = document.getElementById('hero');
+    hero.addEventListener('load', ()=>{
+        main.style.translate = "0%";
+        header.style.translate = "0%";
+    });
+    // Transition animation
+    const transitionLinks = main.querySelectorAll('.return-link');
+    transitionLinks.forEach((link) => {
+        link.addEventListener('click', (event)=> {
+            event.preventDefault();
+            event.stopPropagation();
+            main.style.translate = "-100%";
+            header.style.translate = "-100%";
+            setTimeout(()=>{
+                window.location = link.href;
+            }, 250);
+        })
+    });
+    // Add construction lines and correct spacing to images
+    document.querySelectorAll('p').forEach((p) => {
+        if (p.firstChild.tagName == 'IMG') {
+            p.classList.add('figure');
+        }
+    });
     // Scroll indicator
     const progress = document.getElementById('progress');
     let timeOfLastScroll = 0;
@@ -43,8 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
             'scroll',
             function slide() {
                 if (window.scrollY > 25) {
-                    menu.style.transform = 'translate(0)';
-                    logo.style.transform = 'translate(-230%)';
+                    menu.style.translate = '0%';
+                    logo.style.translate = '-230%';
                     removeEventListener('scroll', slide, false);
                 }
             },
@@ -53,25 +80,67 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     // Dark mode toggle
     const root = document.querySelector(':root'),
-        darkMode = document.getElementById('dark-mode'),
+        darkModeButton = document.getElementById('dark-mode'),
         darkIcon = document.getElementById('light-icon'),
-        lightIcon = document.getElementById('dark-icon');
-    let isDark = false;
-    darkMode.addEventListener('click', () => {
-        if (!isDark) {
-            root.style.setProperty('--black', '#eee8e0');
-            root.style.setProperty('--white', '#1c2e2e');
-            root.style.setProperty('--green', '#09ae8f');
-            darkIcon.style.transform = 'translate(0, 0)';
-            lightIcon.style.transform = 'translate(0, 100%)';
-            isDark = true;
+        lightIcon = document.getElementById('dark-icon'),
+        white = getValue('white'),
+        black = getValue('black'),
+        green = getValue('green'),
+        blue = getValue('blue'),
+        greenHover = getValue('green-hover'),
+        blueHover = getValue('blue-hover'),
+        lightShadow = getValue('light-shadow'),
+        darkShadow = getValue('dark-shadow');
+        let isDark;
+    if (window.sessionStorage.getItem('darkMode') == 'on') {
+        // document.documentElement.style.backgroundColor = black;
+        darkOn();
+    }
+    else {
+        // document.documentElement.style.backgroundColor = white;
+        darkOff();
+    }
+    function getValue(color) {
+        return window
+            .getComputedStyle(document.documentElement)
+            .getPropertyValue(`--${color}`);
+    }
+    function setValue(prop, color) {
+        return root.style.setProperty(`--${prop}`, color);
+    }
+    function darkOn() {
+        setValue('black', white);
+        setValue('white', black);
+        setValue('green', blue);
+        setValue('blue', green);
+        setValue('green-hover', blueHover)
+        setValue('blue-hover', greenHover)
+        setValue('light-shadow', darkShadow)
+        setValue('dark-shadow', lightShadow)
+        darkIcon.style.translate = '0% 0%';
+        lightIcon.style.translate = '0% 175%';
+        isDark = true;
+    }
+    function darkOff() {
+        setValue('black', black);
+        setValue('white', white);
+        setValue('blue', blue);
+        setValue('green', green);
+        setValue('blue-hover', blueHover)
+        setValue('green-hover', greenHover)
+        setValue('light-shadow', lightShadow)
+        setValue('dark-shadow', darkShadow)
+        darkIcon.style.translate = '0% -175%';
+        lightIcon.style.translate = '0% 0%';
+        isDark = false;
+    }
+    darkModeButton.addEventListener('click', () => {
+        if (isDark) {
+            darkOff();
+            window.sessionStorage.setItem("darkMode", "off");
         } else {
-            root.style.setProperty('--white', '#eee8e0');
-            root.style.setProperty('--black', '#1c2e2e');
-            root.style.setProperty('--green', '#0e6f79');
-            darkIcon.style.transform = 'translate(0, -100%)';
-            lightIcon.style.transform = 'translate(0, 0)';
-            isDark = false;
+            darkOn();
+            window.sessionStorage.setItem("darkMode", "on");
         }
     });
     // Carbon value
@@ -120,10 +189,4 @@ document.addEventListener('DOMContentLoaded', () => {
             newRequest();
         }
     }
-    // Add construction lines and correct spacing to images
-    document.querySelectorAll('p').forEach((p) => {
-        if (p.firstChild.tagName == 'IMG') {
-            p.classList.add('figure');
-        }
-    });
 });
