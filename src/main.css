@@ -351,10 +351,10 @@ button {
 }
 
 /**
- * Studies button
+ * External buttons
  */
 
-a[href^='/studies/'] .arrow {
+#my-work article button .arrow {
     rotate: -90deg;
 }
 
