@@ -344,10 +344,8 @@ button {
 }
 
 .article-title:nth-of-type(2),
-.article-title:nth-of-type(2) > .track.is-right,
-.article-title.is-after-h3,
-.article-title.is-after-h3 > .track.is-right {
-    padding-top: 4em;
+.article-title:nth-of-type(2) > .track.is-right {
+    padding-top: 1.2em;
 }
 
 /**
