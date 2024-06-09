@@ -1,4 +1,6 @@
 // Page animations
+console.log(window.sessionStorage.getItem('hasLoaded'));
+
 const main = document.querySelector('main'),
     header = document.querySelector('header'),
     hero = document.getElementById('hero'),
@@ -16,6 +18,8 @@ function animateIn() {
         loader.style.opacity = '0%';
         controlPanel.style.translate = '0%';
     }, 0.5 * transitionTime);
+
+    window.sessionStorage.setItem('hasLoaded', 'true');
 }
 
 function animateOut() {
@@ -42,7 +46,6 @@ window.addEventListener(
     'load',
     () => {
         animateIn();
-        window.sessionStorage.setItem('hasLoaded', 'true');
     },
     {once: true}
 );
