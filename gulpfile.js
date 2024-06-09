@@ -14,27 +14,39 @@ import fs from 'fs';
 import path from 'path';
 
 /**
- * Replaces all injection strings with their respective files,
- * then minifies and pushes to /public
+ * Replaces all injection strings with their respective files
+ */
+
+function fileReplace(replaceString, path) {
+    return replace(`${replaceString}`, () => {
+        return '' + fs.readFileSync(`${path}`, 'utf8');
+    })
+}
+
+function fileCombine(replaceString, path1, path2) {
+    return replace(`${replaceString}`, () => {
+        return '' + fs.readFileSync(`${path2}`, 'utf8') + fs.readFileSync(`${path1}`, 'utf8');
+    })
+}
+
+/**
+ * Creates index.html
  */
 
 async function index() {
     return gulp
         .src('src/index.html')
         .pipe(
-            replace('/*main.css*/', () => {
-                return `${fs.readFileSync('src/main.css', 'utf8')}`;
-            })
+            fileReplace('/*main.css*/','src/main.css')
         )
         .pipe(
-            replace('/*index.js*/', () => {
-                return `${fs.readFileSync('src/index.js', 'utf8')}`;
-            })
+            fileReplace('/*index.css*/','src/index.css')
         )
         .pipe(
-            replace('<!--symbols.svg-->', () => {
-                return `${fs.readFileSync('src/svg/svg-symbols.svg', 'utf8')}`;
-            })
+            fileCombine('/*both.js*/','src/index.js','src/main.js')
+        )
+        .pipe(
+            fileReplace('<!--symbols.svg-->','src/svg/svg-symbols.svg')
         )
         .pipe(
             htmlmin({
@@ -46,6 +58,10 @@ async function index() {
         )
         .pipe(gulp.dest('public'))
 }
+
+/**
+ * Creates studies folder
+ */
 
 async function studies() {  
     function getSlug(file) {
@@ -76,19 +92,16 @@ async function studies() {
         .pipe(header(fs.readFileSync('src/studies/header.html', 'utf8')))
         .pipe(footer(fs.readFileSync('src/studies/footer.html', 'utf8')))
         .pipe(
-            replace('/*studies.css*/', () => {
-                return `${fs.readFileSync('src/studies/studies.css', 'utf8')}`;
-            })
+            fileReplace('/*studies.css*/','src/studies/studies.css')
         )
         .pipe(
-            replace('/*studies.js*/', () => {
-                return `${fs.readFileSync('src/studies/studies.js', 'utf8')}`;
-            })
+            fileReplace('/*index.css*/','src/index.css')
         )
         .pipe(
-            replace('<!--symbols.svg-->', () => {
-                return `${fs.readFileSync('src/svg/svg-symbols.svg', 'utf8')}`;
-            })
+            fileCombine('/*both.js*/','src/index.js','src/studies/studies.js')
+        )
+        .pipe(
+            fileReplace('<!--symbols.svg-->','src/svg/svg-symbols.svg')
         )
         .pipe(tap(titles))
         .pipe(tap(slugs))
