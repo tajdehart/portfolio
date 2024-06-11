@@ -1,13 +1,11 @@
 // Page animations
-console.log(window.sessionStorage.getItem('hasLoaded'));
-
 const main = document.querySelector('main'),
     header = document.querySelector('header'),
     hero = document.getElementById('hero'),
     loader = document.getElementById('loader'),
     controlPanel = document.getElementById('control-panel');
 
-const transitionLinks = main.querySelectorAll('a[href^="../"], a[href^="/studies/"]'),
+const transitionLinks = main.querySelectorAll('a[href^="../"], a[href^="/"]'),
     transitionTime = getValue('page-transition-time'),
     controlPosition = getValue('control-position');
 
@@ -23,8 +21,8 @@ function animateIn() {
 }
 
 function animateOut() {
-    main.style.translate = '-100%';
-    header.style.translate = '-100%';
+    main.style.translate = '100%';
+    header.style.translate = '100%';
     controlPanel.style.translate = '0 ' + controlPosition;
 }
 
@@ -148,47 +146,48 @@ darkModeButton.addEventListener('click', () => {
 const carbon = document.getElementById('carbon'),
     domain = encodeURIComponent(window.location.href);
 
-let newRequest = function (render = true) {
+function newRequest(render = true) {
     fetch('https://api.websitecarbon.com/b?url=' + domain)
-        .then(function (r) {
-            if (!r.ok) {
+        .then((response) => {
+            if (!response.ok) {
                 throw Error(r);
             }
-            return r.json();
+            return response.json();
         })
-        .then(function (r) {
+        .then((response) => {
             if (render) {
-                renderResult(r);
+                renderResult(response);
             }
-            r.t = new Date().getTime();
+            response.t = new Date().getTime();
             localStorage.setItem(domain, JSON.stringify(r));
         })
-        .catch(function (e) {
+        .catch(() => {
             carbon.innerHTML = '✦ This website runs on renewable energy ✦';
             localStorage.removeItem(domain);
         });
-};
+}
 
-const renderResult = function (r) {
+function renderResult(response) {
     carbon.innerHTML =
         '✦ This page produces ' +
-        r.c +
+        response.c +
         'g of CO<sub>2</sub>/view, cleaner than ' +
-        r.p +
+        response.p +
         '% of pages tested ✦';
-};
+}
 
-if ('fetch' in window) {
-    carbon.innerHTML = '✦ Measuring CO<sub>2</sub>&hellip; ✦';
-    let cachedResponse = localStorage.getItem(domain);
-    const t = new Date().getTime();
-    if (cachedResponse) {
-        const r = JSON.parse(cachedResponse);
-        renderResult(r);
-        if (t - r.t > 86400000) {
-            newRequest(false);
-        }
-    } else {
-        newRequest();
+carbon.innerHTML = '✦ Measuring CO<sub>2</sub>&hellip; ✦';
+
+let cachedResponse = localStorage.getItem(domain);
+
+const time = new Date().getTime();
+
+if (cachedResponse) {
+    const response = JSON.parse(cachedResponse);
+    renderResult(response);
+    if (time - response.t > 86400000) {
+        newRequest(false);
     }
+} else {
+    newRequest();
 }

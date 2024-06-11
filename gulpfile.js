@@ -156,26 +156,24 @@ gulp.task('default', gulp.parallel(index, studies, scrub, staticFiles, staticFol
  */
 
 async function pullStudies() {
-    return (
-        gulp
-            .src('/mnt/v/reference/freelance/portfolio/studies/*')
-            // .pipe(
-            //     replace('.png', () => {
-            //         return '.webp';
-            //     })
-            // )
-            // .pipe(
-            //     replace('.jpg', () => {
-            //         return '.webp';
-            //     })
-            // )
-            // .pipe(
-            //     replace('.jpeg', () => {
-            //         return '.webp';
-            //     })
-            // )
-            .pipe(gulp.dest('src/studies/'))
-    );
+    return gulp
+        .src('/mnt/v/reference/freelance/portfolio/studies/*')
+        .pipe(
+            replace('.png', () => {
+                return '.webp';
+            })
+        )
+        .pipe(
+            replace('.jpg', () => {
+                return '.webp';
+            })
+        )
+        .pipe(
+            replace('.jpeg', () => {
+                return '.webp';
+            })
+        )
+        .pipe(gulp.dest('src/studies/'));
 }
 
 /**

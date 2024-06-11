@@ -213,6 +213,126 @@ nav {
     box-shadow: 0px -4px 16px var(--shadow);
 }
 
+/**
+ * Images and videos
+ */
+
+svg:not(button svg) {
+    fill: var(--black);
+}
+
+img,
+video {
+    background-color: var(--white);
+    max-width: 100%;
+    height: auto;
+}
+
+/**
+ * Construction lines
+ */
+
+hr {
+    position: absolute;
+    opacity: 0.04;
+    margin: 0;
+    border-top: 1px solid var(--blue);
+    padding: 0;
+}
+
+hr {
+    top: 0;
+    right: var(--gutter-2);
+    bottom: 0;
+}
+
+hr:nth-of-type(2) {
+    top: unset;
+    right: 0;
+    bottom: unset;
+    left: 0;
+}
+
+figcaption,
+blockquote {
+    display: flex;
+    align-items: flex-end;
+}
+
+section::before,
+h2::after,
+h3::after,
+figcaption::after,
+blockquote::after,
+figure::after,
+button::before,
+button::after,
+section aside::before,
+section aside::after,
+.figure::after {
+    position: absolute;
+    opacity: 0.04;
+    background-color: var(--black);
+    min-width: 1px;
+    min-height: 1px;
+    content: '';
+}
+
+main h1::after,
+h2::after,
+h3::after,
+figcaption::after,
+blockquote::after,
+figure::after,
+button::before,
+button::after,
+.figure::after {
+    right: 0;
+    left: 0;
+}
+
+main h1::after,
+h2::after {
+    translate: 0 0.69em;
+}
+
+h3::after {
+    translate: 0 1em;
+}
+
+section::before,
+section aside::after,
+section aside::before {
+    top: 0;
+    bottom: 0;
+}
+
+section aside {
+    position: absolute;
+    translate: 0 0;
+    z-index: 1;
+}
+
+section aside::after {
+    left: calc(var(--button-size) + var(--spacing-2));
+}
+
+section aside::before {
+    left: var(--spacing-2);
+}
+
+section:not(#my-work)::before {
+    left: var(--gutter-1);
+}
+
+#my-work::before {
+    left: calc(var(--gutter-1) + var(--spacing-3));
+}
+
+figcaption::after {
+    translate: 0 1em;
+}
+
 /* Document layout
    ========================================================================== */
 
@@ -317,10 +437,10 @@ aside {
     gap: var(--spacing-1);
     translate: 0 calc(var(--button-size) * 3);
     z-index: 50;
+    transition: var(--slide-transition);
     padding: var(--spacing-1);
     width: var(--button-size);
     pointer-events: none;
-    transition: var(--slide-transition);
 }
 
 .control {
@@ -413,7 +533,7 @@ use {
 @media screen and (scripting: enabled) {
     main,
     header {
-        translate: -100%;
+        translate: 100%;
         transition: var(--slide-transition);
     }
 }
@@ -428,20 +548,20 @@ use {
 }
 
 #loader {
+    display: flex;
     position: fixed;
     top: 0;
+    right: 0;
     bottom: 0;
     left: 0;
-    right: 0;
-    display: flex;
     justify-content: center;
     align-items: center;
     transition: opacity 300ms var(--easing);
 }
 
 #loader > svg {
-    animation: load infinite 4000ms linear;
     fill: var(--white);
+    animation: load infinite 4000ms linear;
 }
 
 @keyframes load {
@@ -451,12 +571,13 @@ use {
 }
 
 /**
- * Smooth scrolling
+ * Scrolling
  */
 
 @media screen and (prefers-reduced-motion: no-preference) {
     html {
         overflow-y: scroll;
+        overflow-x: hidden;
         scroll-behavior: smooth;
         -webkit-scroll-behavior: smooth;
     }
@@ -464,29 +585,6 @@ use {
 
 * {
     overscroll-behavior-x: none;
-}
-
-/* Decorations
-   ========================================================================== */
-
-/**
- * Images and videos
- */
-
-svg:not(button svg) {
-    fill: var(--black);
-}
-
-img,
-video {
-    background-color: var(--white);
-    max-width: 100%;
-    height: auto;
-}
-
-figcaption {
-    display: flex;
-    align-items: flex-end;
 }
 
 /* DESKTOP
@@ -554,6 +652,18 @@ figcaption {
         text-align: center;
     }
 
+    .grid.is-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .grid.is-3 {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .grid.is-4 {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
     /* Functionality
    ========================================================================== */
 
@@ -599,5 +709,13 @@ figcaption {
 
     h2 {
         padding-right: 4rem;
+    }
+
+    .grid.is-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .grid.is-4 {
+        grid-template-columns: 1fr 1fr;
     }
 }
