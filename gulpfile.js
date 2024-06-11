@@ -148,7 +148,7 @@ async function scrub() {
 gulp.task('default', gulp.parallel(index, studies, scrub, staticFiles, staticFolders));
 
 
-/* Pull images/studies from crypt
+/* Pull images/studies from vault
    ========================================================================== */
 
 /**
@@ -156,21 +156,37 @@ gulp.task('default', gulp.parallel(index, studies, scrub, staticFiles, staticFol
  */
 
 async function pullStudies() {
-    return gulp.src('/mnt/v/reference/freelance/portfolio/studies/*.md')
-    .pipe(replace('.png',()=>{return '.webp'}))
-    .pipe(replace('.jpg',()=>{return '.webp'}))
-    .pipe(replace('.jpeg',()=>{return '.webp'}))
-    .pipe(gulp.dest('src/studies/'))
+    return (
+        gulp
+            .src('/mnt/v/reference/freelance/portfolio/studies/*')
+            // .pipe(
+            //     replace('.png', () => {
+            //         return '.webp';
+            //     })
+            // )
+            // .pipe(
+            //     replace('.jpg', () => {
+            //         return '.webp';
+            //     })
+            // )
+            // .pipe(
+            //     replace('.jpeg', () => {
+            //         return '.webp';
+            //     })
+            // )
+            .pipe(gulp.dest('src/studies/'))
+    );
 }
 
 /**
- * Converts all images to webp 
+ * Converts all images to webp
  */
 
 async function pullImages() {
-    return gulp.src('/mnt/v/reference/freelance/portfolio/images/*')
-    .pipe(webp())
-    .pipe(gulp.dest('src/images/'))
+    return gulp
+        .src('/mnt/v/reference/freelance/portfolio/images/*')
+        .pipe(webp())
+        .pipe(gulp.dest('src/images/'));
 }
 
 /**

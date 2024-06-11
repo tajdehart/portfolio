@@ -244,12 +244,6 @@ main menu button {
     flex-direction: column;
 }
 
-#carbon-pardon-grid img:last-child {
-    grid-row-start: 1;
-    grid-row-end: 3;
-    grid-column-start: 2;
-}
-
 /**
  * Inline spacing
  */

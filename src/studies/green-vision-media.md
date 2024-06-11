@@ -8,8 +8,8 @@ bringing together two of my passions, environmentalism and digital design. We do
 this in two ways: by working to help environmental organizations and B-Corps,
 and by lowering the carbon footprint of the websites we design.
 
-![Screenshot of the GVM website](../images/green-vision-media-website-1.webp)
-![Screenshot of the GVM website](../images/green-vision-media-website-2.webp)
+![Screenshot of the GVM website](../images/green-vision-media-website-1.png)
+![Screenshot of the GVM website](../images/green-vision-media-website-2.png)
 
 ## Website
 
@@ -27,7 +27,7 @@ obscure and powerful image compression technique called
 > An image before and after dithering
 
 ![An image used in the GV website design](../images/green-vision-media-mountains.webp)
-![The dithered version of that image](../images/green-vision-media-dithered-mountains.webp)
+![The dithered version of that image](../images/green-vision-media-dithered-mountains.png)
 
 I find that the resulting patterns are actually quite beautiful. I also realized
 that the technique is most effective the fewer colors used, so I settled on a
@@ -36,11 +36,11 @@ vision').
 
 > Massimo Vignelli's work was an inspiration for the limited color pallette
 
-![Pirelli ad by Massimo Vignelli](../images/vignelli-ad.webp)
+![Pirelli ad by Massimo Vignelli](../images/vignelli-ad.png)
 
 > These three color combinations are the basis for the brand
 
-![The GVM color scheme](../images/green-vision-media-colors.webp)
+![The GVM color scheme](../images/green-vision-media-colors.png)
 
 The GVM logo is also designed for efficiency. It's a vector made up of just 20
 points, around 1KB total. I designed a few other icons, also with as few points
@@ -48,7 +48,7 @@ as possible.
 
 > The GVM logo
 
-![The GVM logo](../images/green-vision-media-logo.webp)
+![The GVM logo](../images/green-vision-media-logo.png)
 
 With all my optimizations, the GVM website scored in the
 [98th percentile](https://www.websitecarbon.com/website/greenvision-media/) of
@@ -62,7 +62,7 @@ strategies, both [new](https://sustainablewebdesign.org/) and
 [old](https://stevesouders.com/examples/rules.php) for making a website more
 efficient and performant.
 
-![The GVM documentation](../images/green-vision-media-documentation.webp)
+![The GVM documentation](../images/green-vision-media-documentation.png)
 
 I wanted to incorporate these into a set of instructions, that could help me
 make websites that were consistantly low-carbon, as well as fast and secure. I
