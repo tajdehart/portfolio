@@ -11,17 +11,10 @@
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://tajdehart.com" />
         <meta property="og:image" content="images/profile.webp" />
-        <style>
-            /*index.css*/
-        </style>
-        <style>
-            /*main.css*/
-        </style>
-        <script defer>
-            document.addEventListener('DOMContentLoaded', () => {
-                /*both.js*/
-            });
-        </script>
+        <link href="css/index.css" rel="stylesheet"/>
+        <link href="css/main.css" rel="stylesheet"/>
+        <script defer src="js/index.js"></script>
+        <script defer src="js/main.js"></script>
         <svg width="0" height="0">
             <!--symbols.svg-->
         </svg>
@@ -74,14 +67,13 @@
                             height="500px" />
                     </figure>
                     <p>
-                        Hi, I&rsquo;m Taj. I&rsquo;m a designer and a tree hugger living
-                        in Boulder, Colorado. I love to create eyecatching designs for
-                        socially and environmentally conscious businesses and
-                        organizations.
+                        Hi, I&rsquo;m Taj. I&rsquo;m a designer living in Boulder,
+                        Colorado. My passion is creating beautiful and impactful designs
+                        for socially and environmentally conscious organizations.
                     </p>
                     <p>
                         Keep scrolling to see some of my work, or click the button below
-                        to get in touch. ✦
+                        to get in touch.
                     </p>
                     <button>
                         <a href="#contact-me">
@@ -94,33 +86,38 @@
                 </article>
             </section>
             <section id="my-work">
-                <div class="article-title">
+                <menu>
                     <div class="track is-right"></div>
-                </div>
+                </menu>
                 <article>
                     <h2>My work</h2>
                     <i id="w-trigger"></i>
                     <aside></aside>
                     <hr />
+                    <p>
+                        I have a broad skillset, including web development, design and
+                        creative writing. I&rsquo;ve had the opportunity to put these
+                        skills to work 
+                    </p>
                 </article>
-                <div class="article-title">
-                    <em>Mad Courses</em>
+                <menu>
+                    <li>Mad Courses</li>
                     <div class="track is-right">
                         <svg class="star" viewBox="0 0 16 16">
                             <use href="#star-symbol" />
                         </svg>
                     </div>
-                </div>
+                </menu>
                 <article id="mad-courses">
                     <h3>MAD Courses</h3>
                     <p>
                         <a href="https://madcourses.com" rel="noreferrer"
                             >MAD Courses</a
                         >
-                        is a social business, founded to educate people around the world
-                        about indigenous wisdom and environmental stewardship. They
-                        offer unique interactive online courses, made in collaboration
-                        with local tribes in the Philippines.
+                        is a social business, founded to educate young people about
+                        indigenous wisdom and environmental stewardship. They offer
+                        unique online courses, made in collaboration with local tribes
+                        in the Philippines.
                     </p>
                     <figure>
                         <img
@@ -130,13 +127,11 @@
                             alt="Mockup of the MAD website on a laptop" />
                     </figure>
                     <p>
-                        The style guide I created for MAD inluded links to a google
-                        drive with design resouces like icons and slideshow backgrounds. 
+                        I redesigned MAD&rsquo;s website, and crafted a style guide to
+                        help them maintain a cohesive message across their work.
                     </p>
                     <figure class="tooltip" id="first-slider">
-                        <figcaption>
-                            Excerpts from the MAD style guide:
-                        </figcaption>
+                        <figcaption>Excerpts from the MAD style guide:</figcaption>
                         <div class="slider">
                             <img
                                 src="images/mad-courses-style-guide-1.webp"
@@ -166,9 +161,9 @@
                         </div>
                     </figure>
                     <p>
-                        I was inspired by the simple two or three
-                        color designs found in home-made screen printing shops that I
-                        saw growing up in Kuala Lumpur.
+                        I also crafted a library of reusable graphics for MAD, which fit
+                        their needs as a small startup. You can read more about that
+                        process in the case study:
                     </p>
                     <button>
                         <a href="/studies/mad-courses.html">
@@ -179,14 +174,14 @@
                         </a>
                     </button>
                 </article>
-                <div class="article-title">
-                    <em>Carbon Pardon</em>
+                <menu>
+                    <li>Carbon Pardon</li>
                     <div class="track is-right">
                         <svg class="star" viewBox="0 0 16 16">
                             <use href="#star-symbol" />
                         </svg>
                     </div>
-                </div>
+                </menu>
                 <article id="carbon-pardon">
                     <h3>Carbon Pardon</h3>
                     <p>
@@ -199,12 +194,12 @@
                         "sins." Proceeds go to hand-picked reforestation projects.
                     </p>
                     <figure>
+                        <figcaption>
+                            The Carbon Pardon logo combined decorative capitals from
+                            enlightened manuscripts with the carbon elemental
+                            symbol.
+                        </figcaption>
                         <div class="column">
-                            <figcaption>
-                                The Carbon Pardon logo combined decorative capitals from
-                                enlightened manuscripts with the carbon elemental
-                                symbol.
-                            </figcaption>
                             <img
                                 src="images/carbon-pardon-logo.webp"
                                 width="1920px"
@@ -227,14 +222,14 @@
                         </div>
                     </figure>
                 </article>
-                <div class="article-title">
-                    <em>Beginner&rsquo;s Guide</em>
+                <menu>
+                    <li>Beginner&rsquo;s Guide</li>
                     <div class="track is-right">
                         <svg class="star" viewBox="0 0 16 16">
                             <use href="#star-symbol" />
                         </svg>
                     </div>
-                </div>
+                </menu>
                 <article id="beginners-guide">
                     <h3>The Beginner&rsquo;s Guide to Changing the World</h3>
                     <p>
@@ -299,14 +294,14 @@
                         </a>
                     </button>
                 </article>
-                <div class="article-title">
-                    <em>Days of Type</em>
+                <menu>
+                    <li>Days of Type</li>
                     <div class="track is-right">
                         <svg class="star" viewBox="0 0 16 16">
                             <use href="#star-symbol" />
                         </svg>
                     </div>
-                </div>
+                </menu>
                 <article>
                     <h3>Days of Type</h3>
                     <p>
@@ -418,7 +413,7 @@
                 <span id="carbon"></span>
             </footer>
         </main>
-        <aside id="control-panel">
+        <aside>
             <button class="control tooltip" id="scroll-to-top">
                 <a href="#top">
                     <svg class="arrow" viewBox="0 0 16 16">

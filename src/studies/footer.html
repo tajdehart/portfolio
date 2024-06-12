@@ -1,7 +1,7 @@
                     <button>
-                        <a class="return-link" href="../#%slug%">Back to portfolio
+                        <a href="/">Back to portfolio
                             <svg class="arrow" viewBox="0 0 16 16">
-                                <use href="#arrow-symbol">
+                                <use href="#arrow-symbol" />
                             </svg>
                         </a>
                     </button>
@@ -9,24 +9,49 @@
             </section>
             <footer><span id="carbon"></span></footer>
             </main>
-            <aside id="control-panel">
-                <button id="scroll-to-top" class="control">
-                    <a href="#">
-                        <svg class="arrow" viewBox="0 0 16 16">
-                            <use href="#arrow-symbol">
-                        </svg>
-                    </a>
-                </button>
-                <button id="dark-mode" class="control">
-                    <div>
-                        <svg id="light-icon" viewBox="0 0 16 16">
-                            <use href="#sun-symbol">
-                        </svg>
-                        <svg id="dark-icon" viewBox="0 0 16 16">
-                            <use href="#moon-symbol">
-                        </svg>
-                    </div>
-                </button>
-            </aside>
+        <aside>
+            <button class="control tooltip" id="scroll-to-top">
+                <a href="#top">
+                    <svg class="arrow" viewBox="0 0 16 16">
+                        <use href="#arrow-symbol" />
+                    </svg>
+                </a>
+                <label id="scroll-to-top-tooltip">
+                    <svg class="star" viewBox="0 0 16 16">
+                        <use href="#star-symbol" />
+                    </svg>
+                    Scroll to the top
+                </label>
+            </button>
+            <button class="control tooltip" id="dark-mode">
+                <div>
+                    <svg id="light-icon" viewBox="0 0 16 16">
+                        <use href="#sun-symbol" />
+                    </svg>
+                    <svg id="dark-icon" viewBox="0 0 16 16">
+                        <use href="#moon-symbol" />
+                    </svg>
+                </div>
+                <label id="dark-mode-tooltip">
+                    <svg class="star" viewBox="0 0 16 16">
+                        <use href="#star-symbol" />
+                    </svg>
+                    Toggle dark mode
+                </label>
+            </button>
+            <button id="go-back" class="control tooltip">
+                <a href="/">
+                    <svg class="arrow" viewBox="0 0 16 16">
+                        <use href="#arrow-symbol" />
+                    </svg>
+                </a>
+                <label id="go-back-tooltip">
+                    <svg class="star" viewBox="0 0 16 16">
+                        <use href="#star-symbol" />
+                    </svg>
+                    Go back to portfolio
+                </label>
+            </button>
+        </aside>
     </body>
 </html>

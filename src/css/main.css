@@ -1,0 +1,415 @@
+/* Type
+   ========================================================================== */
+
+h2 {
+    display: inline-block;
+    font-weight: 200;
+    font-size: var(--heading-2);
+    font-family: Lust, serif;
+    text-rendering: geometricPrecision;
+}
+
+h3 {
+    display: inline-block;
+    font-weight: 200;
+    font-size: var(--heading-3);
+    font-family: Lust, serif;
+    text-rendering: geometricPrecision;
+}
+
+h4 {
+    font-weight: 100;
+    font-size: var(--heading-3);
+    text-transform: uppercase;
+}
+
+/**
+ * Hidden text
+ */
+
+h1 {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    width: 1px;
+    height: 1px;
+}
+
+/* Document layout
+   ========================================================================== */
+
+/**
+ * Main
+ */
+
+#my-work {
+    display: grid;
+    grid-template-columns: var(--gutter-1) minmax(0, 1fr);
+    column-gap: var(--spacing-3);
+    padding-left: 0;
+}
+
+#my-work article:first-of-type {
+    padding-bottom: var(--spacing-2);
+}
+
+main menu {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    z-index: -1;
+    padding: 0 0.75rem;
+    text-align: center;
+}
+
+main menu,
+.track.is-right {
+    z-index: 3;
+    padding-bottom: 10rem;
+}
+
+main .star {
+    align-self: start;
+}
+
+main .star,
+main menu li {
+    position: sticky;
+    top: 13rem;
+}
+
+main menu li {
+    translate: 0 -0.4em;
+    height: 1rem;
+    list-style: none;
+}
+
+main menu {
+    display: flex;
+    gap: var(--spacing-1);
+}
+
+/**
+ * Sliders
+ */
+
+.slider {
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    display: flex;
+    position: relative;
+    right: var(--spacing-3);
+    gap: var(--spacing-2);
+    z-index: 2;
+    animation: none;
+    cursor: grab;
+    padding-left: var(--spacing-3);
+    width: calc(100% + var(--gutter-2));
+    overflow-x: scroll;
+    scrollbar-width: none;
+}
+
+.slider > img:last-of-type {
+    margin-right: var(--spacing-2);
+}
+
+.slider > img {
+    max-width: 69%;
+}
+
+.slider.is-square > img {
+    max-width: 24rem;
+}
+
+.slider::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+/**
+ * Flex columns
+ */
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+}
+
+.column figcaption {
+    margin-bottom: calc(-1 * var(--spacing-1));
+}
+
+/**
+ * Form
+ */
+
+form {
+    transition: var(--color-transition-time) var(--easing) border-color;
+    border: 1px solid;
+    border-color: var(--black);
+    width: 100%;
+}
+
+/**
+ * Inline spacing
+ */
+
+br {
+    display: block;
+    margin-bottom: 1em;
+    height: 1px;
+    content: '';
+}
+
+h2 {
+    margin-bottom: 0.5em;
+}
+
+h3 {
+    margin-bottom: 0.5em;
+}
+
+h4 {
+    margin-bottom: 0.5em;
+    padding-top: 0.5em;
+}
+
+h4:nth-of-type(n + 2) {
+    padding-top: 2em;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+figure {
+    z-index: 2;
+    margin-bottom: 2em;
+}
+
+figcaption {
+    margin-bottom: 1em;
+}
+
+button {
+    margin: 1em 0;
+}
+
+/* Style
+   ========================================================================== */
+
+/**
+ * Images and videos
+ */
+
+#business-card {
+    height: 312px;
+}
+
+#capsule-video {
+    width: 720px;
+}
+
+/**
+ * Text adjustments
+ */
+
+#about-me h2 {
+    translate: 0.2em 0.212em;
+    margin-bottom: 0;
+}
+
+#my-work h2 {
+    margin-left: calc(-1 * var(--spacing-3) - 0.169em);
+}
+
+/* Functionality
+   ========================================================================== */
+
+/**
+ * Star tracks
+ */
+
+.track {
+    display: flex;
+    position: absolute;
+    justify-content: space-around;
+    background-color: var(--black);
+}
+
+.star {
+    shape-rendering: geometricPrecision;
+    flex-shrink: 0;
+    transition: margin-right var(--page-transition-time);
+    will-change: margin-right;
+    width: var(--star-size);
+    height: var(--star-size);
+}
+
+.track.is-bottom {
+    right: 0;
+    bottom: 0;
+    left: 0;
+    align-items: center;
+    height: 1px;
+}
+
+.track.is-right {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    width: 1px;
+}
+
+#menu-star {
+    margin-right: 66%;
+}
+
+.track.is-right,
+main menu {
+    padding-top: 1.5em;
+}
+
+main menu:nth-of-type(2),
+main menu:nth-of-type(2) > .track.is-right {
+    padding-top: 1.2em;
+}
+
+i {
+    position: relative;
+}
+
+#w-trigger {
+    top: 35vh;
+}
+
+/**
+ * External buttons
+ */
+
+#my-work article button .arrow {
+    rotate: -90deg;
+}
+
+/**
+ * Contact icons
+ */
+
+.contact-icons {
+    display: flex;
+    gap: var(--spacing-2);
+}
+
+.contact-icons > a {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: 2.75rem;
+    height: 2.75rem;
+    overflow: hidden;
+    pointer-events: all;
+}
+
+/* TABLET
+   ****************************************************************************/
+
+@media screen and (max-width: 990px) {
+    /* Document layout
+   ========================================================================== */
+
+    /**
+     * Layout
+     */
+
+    main menu,
+    .track.is-right {
+        padding-bottom: 10rem;
+    }
+}
+
+/* MOBILE LANDSCAPE
+   ****************************************************************************/
+
+@media screen and (max-width: 650px) {
+    /* Variables
+   ========================================================================== */
+
+    :root {
+        --hero-size: 88%;
+    }
+
+    /* Document layout
+   ========================================================================== */
+
+    /**
+     * Navigation
+     */
+
+    nav {
+        grid-template-rows: var(--gutter-1);
+        grid-template-columns: 0px 1fr;
+    }
+
+    nav menu {
+        translate: 100%;
+        animation: menu;
+        margin: 0;
+    }
+
+    #title {
+        position: unset;
+    }
+
+    #logo {
+        right: auto;
+        left: auto;
+        width: 10rem;
+    }
+
+    /**
+     * Main
+     */
+
+    main menu li,
+    main .star {
+        top: 8rem;
+    }
+
+    main menu li {
+        rotate: -90deg;
+        min-width: 15ch;
+    }
+
+    .slider > img {
+        max-width: 88%;
+    }
+
+    .slider.is-square > img {
+        max-width: 69%;
+    }
+}
+
+/* MOBILE PORTRAIT
+   ****************************************************************************/
+
+@media screen and (max-width: 388px) {
+    /* Variables
+   ========================================================================== */
+
+    :root {
+        --hero-size: 100%;
+    }
+
+    /* Work layout
+   ========================================================================== */
+
+    main menu li,
+    main .star {
+        top: 5rem;
+        padding: 5rem 0;
+    }
+}

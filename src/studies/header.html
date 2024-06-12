@@ -1,26 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>Taj DeHart | <!--title--></title>
-    <link rel="icon" href="../images/tajdehart-favicon.png" type="image/x-icon" />
+    <link rel="icon" href="/images/tajdehart-favicon.png" type="image/x-icon" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="A designer for B Corps and NGOs" />
+    <meta name="description" content="%description%" />
     <meta property="og:title" content="Taj DeHart | Designer" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="../images/#slug#.webp" />
-    <style>
-        /*index.css*/
-    </style>
-    <style>
-        /*studies.css*/
-    </style>
-    <script defer>
-        document.addEventListener('DOMContentLoaded', () => {
-            /*both.js*/
-        });
-    </script>
+    <meta property="og:image" content="/images/%hero%.webp" />
+    <link href="/css/index.css" rel="stylesheet"/>
+    <link href="/css/studies.css" rel="stylesheet"/>
+    <script defer src="/js/index.js"></script>
+    <script defer src="/js/studies.js"></script>
     <svg width="0" height="0">
         <!--symbols.svg-->
     </svg>
@@ -34,7 +26,7 @@
     <header>
         <nav>
             <div id="title">
-                <a class="return-link" href="../#%slug%">
+                <a href="/">
                     <div class="logo-track">
                         <svg id="logo" viewBox="0 0 300 300">
                             <title>Back to main page</title>
@@ -57,8 +49,17 @@
     </header>
     <main>
         <section>
-            <img id="hero" src="../images/%slug%.webp">
-            <hr />
+            <article>
+                <figure>
+                    <h1><!--title--></h1>
+                    <img
+                        id="hero"
+                        src="/images/%hero%.webp"
+                        width="500px"
+                        height="500px" />
+                    <p><!--first-para--></p>
+                </figure>
+            </article>
         </section>
         <section>
             <article>
