@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let isPressed = false,
         velX = 0,
         startX,
-        idleId,
         momentumId,
         scrollLeft;
 
@@ -99,37 +98,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     email.setAttribute('href', 'mailto:' + user + '@' + site);
     email.innerHTML = user + '@' + site;
-
-    // Form
-    const form = document.querySelector('form'),
-        success = document.getElementById('success'),
-        failure = document.getElementById('failure'),
-        formData = new FormData(form);
-
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
-
-        submit(formData);
-    });
-
-    async function submit(formData) {
-        try {
-            const response = await fetch('ENDPOINTGOESHERE', {
-                method: 'PUT',
-                body: formData,
-            });
-            const result = await response.json();
-            console.log('Success:', result);
-            showSuccess();
-        } catch (error) {
-            console.error('Error:', error);
-            showFailure();
-        }
-    }
-
-    function hideForm() {}
-
-    function showSuccess() {}
-
-    function showFailure() {}
 });

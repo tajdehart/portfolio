@@ -2,7 +2,6 @@
    ========================================================================== */
 
 :root {
-    --heading-1: 4rem;
     --heading-2: 2.5rem;
     --heading-3: 1.25rem;
     --button-offset: calc(var(--button-size) * 4.5);
@@ -11,29 +10,6 @@
 
 /* Type
    ========================================================================== */
-
-h1 {
-    display: inline-block;
-    font-weight: 200;
-    font-size: var(--heading-1);
-    font-family: Lust, serif;
-    text-rendering: geometricPrecision;
-    translate: 0.2em 0.212em;
-}
-
-h2 {
-    display: inline-block;
-    font-weight: 200;
-    font-size: var(--heading-2);
-    font-family: Lust, serif;
-    text-rendering: geometricPrecision;
-}
-
-h3 {
-    font-weight: 100;
-    font-size: var(--heading-3);
-    text-transform: uppercase;
-}
 
 p:has(> img) {
     opacity: unset;
@@ -72,22 +48,16 @@ menu span {
 }
 
 /**
- * Inline spacing
+ * Main
  */
 
-h2 {
-    margin-bottom: 0.75em;
-    padding-top: 1em;
+section:first-of-type article {
+    padding-bottom: var(--spacing-1);
 }
 
-h3 {
-    margin-bottom: 0.5em;
-    padding-top: 0.5em;
-}
-
-p {
-    margin-bottom: 1em;
-}
+/**
+ * Inline spacing
+ */
 
 img:nth-last-child(n + 2) {
     margin-bottom: 1.5em;
@@ -101,20 +71,24 @@ blockquote {
     margin-top: 1em;
 }
 
-button {
-    margin: 1em 0;
+h2:not(h2:first-of-type) {
+    margin-top: 1em;
+}
+
+/* Style
+   ========================================================================== */
+
+/**
+ * Text adjustments
+ */
+
+h1 {
+    translate: 0.2em 0.208em;
+    margin-bottom: 0;
 }
 
 /* Functionality
    ========================================================================== */
-
-/**
- * Return button 
- */
-
-a[href="/"] .arrow {
-    rotate: 90deg;
-}
 
 /**
  * Star track

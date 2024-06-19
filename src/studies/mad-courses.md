@@ -9,30 +9,26 @@ people around the world about systems thinking, indigenous wisdom and environmen
 stewardship. They work with tribes in the Philippines to create interactive &ldquo;video
 adventures,&rdquo; their own brand of gamified educational videos.
 
-## My Role
-
-MAD is a small startup, so their team grows and changes regularly, with new contractors
-coming in and team members shifting roles fluidly.
+## The Project
 
 MAD needed a variety of design work to help tie together the look and feel of their
-products, including a website and a brand guide.
+products, including a website and a brand guide. The interactive courses are MAD&rsquo;s
+main product, but they also create worksheets, digital minigames and activities to
+accompany the adventures &mdash; each of which needed to have a distinctive, consistent
+look.
 
-MAD&rsquo;s video courses are packaged with worksheets, digital minigames and activities
-deliver presentations around the globe. The brand needed to be distinct, to stand out
-from other ed-tech businesses, while being versatile enough to work with MAD&rsquo;s
-different products.
+MAD is a also a very small startup, so their team grows and changes regularly, with new
+contractors coming in and team members shifting roles fluidly. The brand I created
+needed to be versatile, to fit with the variety of MAD&rsquo;s offerings, while being
+relatively approachable to anyone on the team.
 
 ## Brand Guide
-
-They needed a brand guide to give cohesion to their website, print products,
-presentations and some of MAD&rsquo;s more unique digital tools.
 
 MAD teaches students to use _systems thinkings frameworks,_ like this worksheet
 
 ![A worksheet for MAD's system thinkings courses](../images/mad-courses-jamboard.jpg)
 
-> A digital &ldquo;notebook&rdquo; for recording thoughts during one of MAD's online
-> courses:
+> A digital &ldquo;notebook&rdquo; I created using google sheets
 
 ![A worksheet for MAD's system thinkings courses](../images/mad-courses-slideshow.jpg)
 

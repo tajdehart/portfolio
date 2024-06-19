@@ -11,37 +11,42 @@ document.addEventListener('DOMContentLoaded', () => {
         return prop;
     }
 
-    function setValue(prop, variable) {
-        return root.style.setProperty(`--${prop}`, variable);
-    }
-
     const main = document.querySelector('main'),
         header = document.querySelector('header'),
-        hero = document.getElementById('hero'),
         loader = document.getElementById('loader'),
         aside = document.querySelector('body > aside');
 
     const transitionLinks = document.querySelectorAll('a[href^="/"]'),
-        transitionTime = getValue('page-transition-time'),
-        buttonSize = getValue('button-offset');
+        transitionTime = getValue('page-transition-time');
 
     function pageIn() {
-        main.classList.add('in');
-        main.classList.remove('out');
-        header.classList.add('in');
-        header.classList.remove('out');
-        aside.classList.add('in');
-        aside.classList.remove('out');
-        loader.classList.add('out');
+        main.classList.add('on');
+
+        if (header) {
+            header.classList.add('on');
+        }
+
+        if (aside) {
+            aside.classList.add('on');
+        }
+
+        loader.classList.add('off');
     }
 
-    function pageOut() {
-        main.classList.add('out');
-        main.classList.remove('in');
-        header.classList.add('out');
-        header.classList.remove('in');
-        aside.classList.add('out');
-        aside.classList.remove('in');
+    function pageOut(url) {
+        main.classList.remove('on');
+
+        if (header) {
+            header.classList.remove('on');
+        }
+
+        if (aside) {
+            aside.classList.remove('on');
+        }
+
+        setTimeout(() => {
+            window.location = url;
+        }, transitionTime);
     }
 
     window.addEventListener('pageshow', () => {
@@ -53,15 +58,50 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             event.stopPropagation();
 
-            pageOut();
+            if (link.id == 'submit') {
+                submit(link);
+                return;
+            }
 
-            setTimeout(() => {
-                window.location = link.href;
-            }, transitionTime);
+            pageOut(link.href);
         });
     });
 
+    // Form submission
+
+    const form = document.querySelector('form'),
+        successURL = '/success.html',
+        failureURL = '/failure.html',
+        // formData = new FormData(form),
+        endPoint = '';
+
+    if (form) {
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            submit();
+        });
+    }
+
+    async function submit() {
+        pageOut(successURL);
+        // try {
+        //     const response = await fetch(endPoint, {
+        //         method: 'PUT',
+        //         body: formData,
+        //     });
+        //     const result = await response.json();
+        //     console.log('Success:', result);
+        //     pageOut(successURL);
+        // } catch (error) {
+        //     console.error('Error:', error);
+        //     pageOut(failureURL);
+        // }
+    }
+
     // Mobile nav logo slide
+
     const menu = document.querySelector('nav menu'),
         logo = document.getElementById('logo');
 
@@ -80,6 +120,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Dark mode toggle
+
+    function setValue(prop, variable) {
+        return root.style.setProperty(`--${prop}`, variable);
+    }
+
     const root = document.querySelector(':root'),
         darkModeButton = document.getElementById('dark-mode'),
         darkIcon = document.getElementById('light-icon'),
@@ -92,11 +137,12 @@ document.addEventListener('DOMContentLoaded', () => {
         blueHover = getValue('blue-hover'),
         lightShadow = getValue('light-shadow'),
         darkShadow = getValue('dark-shadow');
+
     let isDark;
 
     if (window.sessionStorage.getItem('darkMode') == 'on') {
         darkOn();
-    } else {
+    } else if (window.sessionStorage.getItem('darkMode') == 'off') {
         darkOff();
     }
 
@@ -109,8 +155,8 @@ document.addEventListener('DOMContentLoaded', () => {
         setValue('blue-hover', greenHover);
         setValue('light-shadow', darkShadow);
         setValue('dark-shadow', lightShadow);
-        darkIcon.style.translate = '0% 0%';
-        lightIcon.style.translate = '0% 175%';
+        darkIcon.classList.add('on');
+        lightIcon.classList.remove('on');
         isDark = true;
     }
 
@@ -123,8 +169,8 @@ document.addEventListener('DOMContentLoaded', () => {
         setValue('green-hover', greenHover);
         setValue('light-shadow', lightShadow);
         setValue('dark-shadow', darkShadow);
-        darkIcon.style.translate = '0% -175%';
-        lightIcon.style.translate = '0% 0%';
+        darkIcon.classList.remove('on');
+        lightIcon.classList.add('on');
         isDark = false;
     }
 
@@ -189,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Tooltips
-    const wrappers = document.querySelectorAll('.tooltip');
+    const wrappers = document.querySelectorAll('.tooltip-wrapper');
 
     wrappers.forEach((wrapper) => {
         const tooltip = document.getElementById(`${wrapper.id}-tooltip`);

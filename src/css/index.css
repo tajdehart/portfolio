@@ -8,39 +8,45 @@
     --white: #eee8e0;
     --blue-hover: #0a6068;
     --green-hover: #129e85;
-    --shadow: #1c2e2e27;
+    --shadow-1: #1c2e2e27;
+    --shadow-2: #1c2e2e0d;
     --body-text: 1rem;
-    --button-text: 1.125rem;
+    --button-text: 1.25rem;
+    --heading-1: 4rem;
     --heading-2: 3.5rem;
     --heading-3: 2.25rem;
     --heading-4: 1.25rem;
     --gutter-1: 15rem;
-    --gutter-2: 20vw;
+    --gutter-2: 24vw;
     --spacing-1: 1rem;
     --spacing-2: calc(var(--spacing-1) * 2);
     --spacing-3: calc(var(--spacing-1) * 3);
     --spacing-4: calc(var(--spacing-1) * 4);
     --spacing-5: calc(var(--spacing-1) * 5);
     --spacing-6: calc(var(--spacing-1) * 6);
-    --spacing-6: calc(var(--spacing-1) * 7);
-    --spacing-6: calc(var(--spacing-1) * 8);
-    --button-size: 2.5rem;
+    --spacing-7: calc(var(--spacing-1) * 7);
+    --spacing-8: calc(var(--spacing-1) * 8);
     --button-offset: calc(var(--button-size) * 3.25);
-    --icon-size: calc(var(--button-size) * 0.4);
+    --button-size: 2.5rem;
+    --arrow-size: calc(var(--button-size) * 0.4);
     --star-size: calc(var(--spacing-1) * 0.75);
     --hero-size: calc(19 * var(--spacing-1));
     --radius: 0.5rem;
     --easing: cubic-bezier(0.65, 0, 0.35, 1);
-    --page-transition-time: 600ms;
-    --color-transition-time: 600ms;
+    --page-transition-time: 690ms;
+    --color-transition-time: 420ms;
     --bg-transition: var(--color-transition-time) var(--easing) background-color;
     --fill-transition: var(--color-transition-time) var(--easing) fill;
     --color-transition: var(--color-transition-time) var(--easing) color;
-    --slide-transition: var(--page-transition-time) translate var(--easing);
+    --slide-transition: var(--page-transition-time) var(--easing) translate;
 }
 
 /* Normalize
    ========================================================================== */
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
 
 h1,
 h2,
@@ -54,9 +60,14 @@ button,
 ol,
 ul,
 blockquote,
-figcaption {
+figcaption,
+label,
+legend,
+input,
+textarea {
     margin: 0;
     padding: 0;
+    font-weight: normal;
 }
 
 figure,
@@ -98,6 +109,29 @@ sup {
     top: -0.5em;
 }
 
+li {
+    list-style: none;
+}
+
+input,
+legend,
+textarea {
+    appearance: none;
+}
+
+legend {
+    display: table;
+    box-sizing: border-box;
+}
+
+fieldset {
+    padding: 0.35em 0.75em 0.625em;
+}
+
+button {
+    text-transform: none;
+}
+
 /* Type
    ========================================================================== */
 
@@ -121,8 +155,31 @@ h5 {
     line-height: 1;
 }
 
+h1 {
+    font-size: var(--heading-1);
+    font-family: Lust, serif;
+    text-rendering: geometricPrecision;
+}
+
+h2 {
+    font-size: var(--heading-2);
+    font-family: Lust, serif;
+    text-rendering: geometricPrecision;
+}
+
+h3 {
+    font-size: var(--heading-3);
+    font-family: Lust, serif;
+    text-rendering: geometricPrecision;
+}
+
+h4 {
+    font-size: var(--heading-3);
+    text-transform: uppercase;
+}
+
 p {
-    opacity: .88;
+    opacity: 0.88;
     max-width: 60ch;
 }
 
@@ -130,9 +187,13 @@ a {
     color: var(--blue);
 }
 
+a:hover {
+    color: var(--blue-hover);
+}
+
 figcaption,
 blockquote {
-    opacity: .77;
+    opacity: 0.77;
     color: var(--black);
     font-style: oblique;
 }
@@ -147,7 +208,12 @@ button a {
     text-decoration: none;
 }
 
-menu li {
+button a:hover {
+    color: var(--white);
+}
+
+menu li,
+.tooltip {
     font-size: var(--heading-4);
 }
 
@@ -156,9 +222,51 @@ menu a {
     text-decoration: none;
 }
 
-label {
-    font-size: var(--body-text);
-    font-family: 'Miller', 'Georgia Pro', 'Georgia', 'Plantin', serif;
+/**
+ * Inline spacing
+ */
+
+br {
+    display: block;
+    margin-bottom: 1em;
+    height: 1px;
+    content: '';
+}
+
+h1 {
+    margin-bottom: 0.25em;
+}
+
+h2 {
+    margin-bottom: 0.5em;
+}
+
+h3 {
+    margin-bottom: 0.5em;
+}
+
+input {
+    margin-bottom: 1em;
+}
+
+textarea {
+    margin-bottom: 1em;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+figure {
+    margin-bottom: 2em;
+}
+
+figcaption {
+    margin-bottom: 1em;
+}
+
+button {
+    margin: 1em 0;
 }
 
 /* Style
@@ -201,7 +309,9 @@ section,
 footer,
 nav,
 button,
-label {
+.tooltip,
+input,
+textarea {
     background: url('data:image/png;base64,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'),
         var(--white);
 }
@@ -226,33 +336,36 @@ video {
 
 button {
     box-shadow: 2px 2px 2px var(--blue) inset,
-        -1.5px -1.5px 1.5px var(--blue-hover) inset, 2px 2px 4px var(--shadow);
+        -1.5px -1.5px 1.5px var(--blue-hover) inset, 2px 2px 4px var(--shadow-1);
+}
+
+input,
+textarea {
+    box-shadow: -1px 1px 2px var(--shadow-2) inset, -2px -2px 4px var(--shadow-2) inset;
 }
 
 section,
 footer,
-label {
-    box-shadow: 2px 2px 4px var(--shadow);
+.tooltip {
+    box-shadow: 2px 2px 4px var(--shadow-1);
 }
 
 nav {
-    box-shadow: 0px -4px 16px var(--shadow);
+    box-shadow: 0px -4px 16px var(--shadow-1);
 }
 
 /**
  * Images and videos
  */
- 
+
 #hero {
-    position: relative;
-    z-index: 10;
     transition: var(--color-transition-time) var(--easing) border-color;
     border: 1px solid;
     border-color: var(--black);
     width: var(--hero-size);
 }
 
-svg:not(button svg) {
+svg {
     fill: var(--black);
 }
 
@@ -261,6 +374,10 @@ video {
     background-color: var(--white);
     max-width: 100%;
     height: auto;
+}
+
+figure {
+    z-index: 2;
 }
 
 figcaption,
@@ -295,7 +412,7 @@ hr:nth-of-type(2) {
 }
 
 section::before,
-main h1::after,
+h1::after,
 h2::after,
 h3::after,
 figcaption::after,
@@ -303,9 +420,10 @@ blockquote::after,
 figure::after,
 button::before,
 button::after,
+input::before,
+input::after,
 section aside::before,
-section aside::after,
-.figure::after {
+section aside::after {
     position: absolute;
     opacity: 0.04;
     background-color: var(--black);
@@ -314,7 +432,7 @@ section aside::after,
     content: '';
 }
 
-main h1::after,
+h1::after,
 h2::after,
 h3::after,
 figcaption::after,
@@ -322,12 +440,13 @@ blockquote::after,
 figure::after,
 button::before,
 button::after,
-.figure::after {
+input::before,
+input::after {
     right: 0;
     left: 0;
 }
 
-main h1::after,
+h1::after,
 h2::after,
 h3::after {
     translate: 0 0.8em;
@@ -354,12 +473,8 @@ section aside::before {
     left: var(--spacing-2);
 }
 
-section:not(#my-work)::before {
+section::before {
     left: var(--gutter-1);
-}
-
-#my-work::before {
-    left: calc(var(--gutter-1) + var(--spacing-3));
 }
 
 figcaption::after {
@@ -402,8 +517,8 @@ nav menu li {
     justify-content: center;
     align-items: center;
     padding: 1rem;
-    height: 100%;
     width: 100%;
+    height: 100%;
 }
 
 nav menu li {
@@ -434,6 +549,23 @@ main {
     padding: var(--spacing-1);
 }
 
+#success main,
+#failure main {
+    padding-top: 0;
+}
+
+#success article {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+#success button {
+    margin-top: auto;
+}
+
 section {
     position: relative;
     z-index: 0;
@@ -442,9 +574,16 @@ section {
     scroll-margin: var(--spacing-3);
 }
 
-section:first-of-type {
+#home section:first-of-type,
+#study section:first-of-type {
     margin-top: -10rem;
     padding-top: 10rem;
+}
+
+#success section,
+#failure section {
+    margin: 0;
+    height: calc(100vh + 4px - var(--spacing-3));
 }
 
 article {
@@ -502,7 +641,7 @@ footer {
    ========================================================================== */
 
 /**
- * Star icon
+ * Icons
  */
 
 .star {
@@ -512,6 +651,24 @@ footer {
     will-change: margin-right;
     width: var(--star-size);
     height: var(--star-size);
+}
+
+.arrow {
+    shape-rendering: geometricPrecision;
+    width: var(--arrow-size);
+    height: var(--arrow-size);
+}
+
+.arrow.is-up {
+    rotate: -90deg;
+}
+
+.arrow.is-down {
+    rotate: 90deg;
+}
+
+.arrow.is-left {
+    rotate: 180deg;
 }
 
 /**
@@ -540,30 +697,16 @@ button a {
 }
 
 button a::before {
+    transition: opacity var(--easing) var(--color-transition-time);
+    box-shadow: 0px 0px 0px var(--shadow-1);
     width: 100%;
     height: 100%;
-    box-shadow: 0px 0px 0px var(--shadow);
-    transition: opacity var(--easing) var(--color-transition-time)
-}
-
-button::before {
-    opacity: 0;
 }
 
 button:hover {
     box-shadow: 2px 2px 2px var(--blue) inset,
         -1.5px -1.5px 1.5px var(--blue-hover) inset;
     background-color: var(--blue-hover);
-}
-
-.arrow {
-    shape-rendering: geometricPrecision;
-    width: var(--icon-size);
-    height: var(--icon-size);
-}
-
-.control .arrow {
-    rotate: 180deg;
 }
 
 /**
@@ -587,7 +730,7 @@ aside {
     pointer-events: none;
 }
 
-.control {
+.control-wrapper {
     display: flex;
     position: relative;
     justify-content: flex-end;
@@ -598,12 +741,12 @@ aside {
     pointer-events: all;
 }
 
-.control::before,
-.control::after {
+.control-wrapper::before,
+.control-wrapper::after {
     opacity: 0;
 }
 
-.control > div {
+.control {
     position: relative;
     box-sizing: border-box;
     width: 100%;
@@ -611,8 +754,8 @@ aside {
     overflow: hidden;
 }
 
-.control > div > svg,
-.control > a > svg {
+.control > svg,
+.control > svg {
     position: absolute;
     top: 0;
     right: 0;
@@ -620,8 +763,8 @@ aside {
     left: 0;
     transition: var(--slide-transition);
     margin: auto;
-    width: var(--icon-size);
-    height: var(--icon-size);
+    width: var(--arrow-size);
+    height: var(--arrow-size);
 }
 
 #light-icon {
@@ -631,6 +774,12 @@ aside {
 
 #dark-icon {
     fill: #eee8e0;
+    translate: 0 175%
+}
+
+#light-icon.on,
+#dark-icon.on {
+    translate: 0 0%;
 }
 
 /**
@@ -640,11 +789,13 @@ aside {
 section,
 footer,
 nav,
-label,
 img,
 figure,
 symbol,
-.track {
+.tooltip,
+.track,
+input,
+textarea {
     transition: var(--bg-transition);
 }
 
@@ -661,7 +812,9 @@ li,
 li a,
 button a,
 figcaption,
-footer span {
+label,
+legend,
+span {
     transition: var(--color-transition);
 }
 
@@ -671,9 +824,9 @@ use {
 
 button {
     transition-duration: var(--color-transition-time);
-    transition-timing-function: var(--easing);
     transition-property: box-shadow, background-color;
-}   
+    transition-timing-function: var(--easing);
+}
 
 /**
  * Page animations
@@ -681,25 +834,22 @@ button {
 
 @media screen and (scripting: enabled) {
     main,
-    header,
-    main.out,
-    header.out {
+    header {
         translate: 100%;
         transition: var(--slide-transition);
     }
 
-    main.in,
-    header.in {
+    main.on,
+    header.on {
         translate: 0%;
     }
 
-    body > aside,
-    body > aside.out {
+    body > aside {
         translate: 0 var(--button-offset);
         transition: var(--slide-transition);
     }
 
-    body > aside.in {
+    body > aside.on {
         translate: 0%;
     }
 }
@@ -721,7 +871,7 @@ button {
     animation: load infinite 4000ms linear;
 }
 
-#loader.out {
+#loader.off {
     opacity: 0;
 }
 
@@ -752,12 +902,12 @@ button {
  * Tooltips
  */
 
-label {
+.tooltip {
     display: inline-block;
     position: fixed;
     opacity: 0;
     z-index: 100;
-    transition: opacity 1000ms;
+    transition-property: opacity, background-color, border-color, color;
     margin: -1.25rem 1rem;
     border: 1px solid var(--black);
     border-radius: var(--radius);
@@ -765,31 +915,39 @@ label {
     padding: 0.5rem 0.5rem 0.5rem 1rem;
     pointer-events: none;
     color: var(--black);
+    font-size: var(--body-text);
+    font-size: var(--body-text);
+    line-height: 1.4;
+    font-family: 'Miller', 'Georgia Pro', 'Georgia', 'Plantin', serif;
     white-space: nowrap;
 }
 
-label > svg {
+.tooltip > .star {
     shape-rendering: geometricPrecision;
     fill: var(--black);
     position: absolute;
     top: 0.75rem;
     left: calc(-0.5 * var(--star-size));
-    rotate: 90deg;
-    width: 1rem;
-    height: 1rem;
+    width: var(--star-size);
+    height: var(--star-size);
 }
 
-aside > button > label {
+aside > button > .tooltip {
     position: absolute;
     top: 50%;
     right: 110%;
     padding: 0.5rem 1rem 0.5rem 0.5rem;
 }
 
-aside > button > label > svg {
+aside > button > .tooltip > .star {
     position: absolute;
     right: calc(-0.5 * var(--star-size));
     left: unset;
+}
+
+.tooltip::after,
+.tooltip::before {
+    display: none;
 }
 
 /* DESKTOP
@@ -804,7 +962,7 @@ aside > button > label > svg {
         --heading-3: 2.75rem;
         --heading-4: 1.5rem;
         --gutter-1: 16rem;
-        --gutter-2: 25vw;
+        --gutter-2: 24vw;
         --spacing-1: 1.125rem;
     }
 }
@@ -819,7 +977,7 @@ aside > button > label > svg {
     :root {
         --gutter-1: 8rem;
         --gutter-2: 10vw;
-        --button-text: 1rem;
+        --button-text: 1.125rem;
         --heading-2: 3rem;
         --heading-3: 2rem;
         --heading-4: 1rem;
@@ -878,7 +1036,7 @@ aside > button > label > svg {
     /**
      * Main
      */
-     
+
     article:first-of-type {
         padding-top: var(--spacing-8);
     }

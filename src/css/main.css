@@ -1,30 +1,14 @@
 /* Type
    ========================================================================== */
 
-h2 {
-    display: inline-block;
-    font-weight: 200;
-    font-size: var(--heading-2);
+label {
+    font-size: var(--button-text);
     font-family: Lust, serif;
     text-rendering: geometricPrecision;
-}
-
-h3 {
-    display: inline-block;
-    font-weight: 200;
-    font-size: var(--heading-3);
-    font-family: Lust, serif;
-    text-rendering: geometricPrecision;
-}
-
-h4 {
-    font-weight: 100;
-    font-size: var(--heading-3);
-    text-transform: uppercase;
 }
 
 /**
- * Hidden text
+ * Hide H1
  */
 
 h1 {
@@ -81,7 +65,6 @@ main menu li {
 main menu li {
     translate: 0 -0.4em;
     height: 1rem;
-    list-style: none;
 }
 
 main menu {
@@ -145,58 +128,59 @@ main menu {
  */
 
 form {
-    transition: var(--color-transition-time) var(--easing) border-color;
-    border: 1px solid;
-    border-color: var(--black);
+    display: flex;
+    flex-direction: column;
     width: 100%;
 }
 
-/**
- * Inline spacing
- */
+input {
+    padding: 0 var(--spacing-1);
+}
 
-br {
-    display: block;
-    margin-bottom: 1em;
+textarea {
+    padding: var(--spacing-1);
+}
+
+input,
+textarea {
+    transition-property: background-color, border-color;
+    border: 1px solid;
+    border-color: var(--black);
+    border-radius: var(--radius);
+    height: var(--button-size);
+    font-size: inherit;
+    font-family: inherit;
+    color: var(--black);
+    background-color: var(--white);
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+}
+
+textarea {
+    height: var(--spacing-6);
+}
+
+input[type='submit'] {
+    clip: rect(0 0 0 0);
+    position: absolute;
+    clip-path: inset(50%);
+    margin: 0;
+    padding: 0;
+    width: 1px;
     height: 1px;
-    content: '';
 }
 
-h2 {
-    margin-bottom: 0.5em;
+label {
+    translate: 0.4em 0.4em;
+    z-index: 15;
+    position: relative;
+    margin-bottom: 0;
 }
 
-h3 {
-    margin-bottom: 0.5em;
-}
-
-h4 {
-    margin-bottom: 0.5em;
-    padding-top: 0.5em;
-}
-
-h4:nth-of-type(n + 2) {
-    padding-top: 2em;
-}
-
-p {
-    margin-bottom: 1em;
-}
-
-figure {
-    z-index: 2;
-    margin-bottom: 2em;
-}
-
-figcaption {
-    margin-bottom: 1em;
-}
-
-button {
-    margin: 1em 0;
-}
-
-/* Style
+/* Style 
    ========================================================================== */
 
 /**
@@ -216,12 +200,26 @@ button {
  */
 
 #about-me h2 {
-    translate: 0.2em 0.212em;
+    translate: 0.2em 0.215em;
+    z-index: 5;
+    position: relative;
     margin-bottom: 0;
 }
 
 #my-work h2 {
     margin-left: calc(-1 * var(--spacing-3) - 0.169em);
+}
+
+/**
+ * Construction lines
+ */
+
+#about-me h2:after {
+    display: none;
+}
+
+#my-work::before {
+    left: calc(var(--gutter-1) + var(--spacing-3));
 }
 
 /* Functionality
@@ -283,14 +281,6 @@ i {
 
 #w-trigger {
     top: 35vh;
-}
-
-/**
- * External buttons
- */
-
-#my-work article button .arrow {
-    rotate: -90deg;
 }
 
 /**
@@ -390,6 +380,14 @@ i {
 
     .slider.is-square > img {
         max-width: 69%;
+    }
+
+    /**
+     * Form
+     */
+    
+    textarea {
+        height: 10rem;
     }
 }
 
