@@ -795,7 +795,8 @@ symbol,
 .tooltip,
 .track,
 input,
-textarea {
+textarea,
+::-webkit-scrollbar {
     transition: var(--bg-transition);
 }
 
@@ -835,7 +836,7 @@ button {
 @media screen and (scripting: enabled) {
     main,
     header {
-        translate: 100%;
+        translate: -100%;
         transition: var(--slide-transition);
     }
 
@@ -896,6 +897,16 @@ button {
 
 * {
     overscroll-behavior-x: none;
+}
+
+::-webkit-scrollbar {
+    background-color: #ffffff00;
+    width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--white);
+    border-radius: 2px;
 }
 
 /**
