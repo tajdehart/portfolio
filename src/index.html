@@ -73,7 +73,7 @@
                     </p>
                     <p>
                         Keep scrolling to see some of my work, or click the button below
-                        to get in touch.
+                        to get in touch. ✦
                     </p>
                     <button tabindex="-1">
                         <a href="#contact-me">
@@ -435,7 +435,7 @@
                     <p>
                         It&rsquo;s been a great way to hone my craft, and I also get to
                         excercise my imagination and invent a fictional business for
-                        each logo.
+                        each logo. ✦
                     </p>
                     <i id="w-trigger-b"></i>
                 </article>
@@ -453,35 +453,41 @@
                     </p>
                     <form id="form">
                         <label id="name-label" for="name">Your name:<sup>*</sup></label>
-                        <input
-                            id="name"
-                            name="name"
-                            type="text"
-                            required
-                            aria-required="true"
-                            aria-labelledby="name-label" />
+                        <fieldset>
+                            <input
+                                id="name"
+                                name="name"
+                                type="text"
+                                required
+                                aria-required="true"
+                                aria-labelledby="name-label" />
+                        </fieldset>
                         <label id="email-label" for="email"
                             >Your email:<sup>*</sup></label
                         >
-                        <input
-                            id="email"
-                            name="email"
-                            type="email"
-                            required
-                            aria-required="true"
-                            aria-labelledby="email-label" />
+                        <fieldset>
+                            <input
+                                id="email"
+                                name="email"
+                                type="email"
+                                required
+                                aria-required="true"
+                                aria-labelledby="email-label" />
+                        </fieldset>
                         <label for="message">How can I help?</label>
-                        <textarea id="message" spellcheck="true"></textarea>
+                        <fieldset>
+                            <textarea id="message" spellcheck="true"></textarea>
+                        </fieldset>
                         <input type="submit" tabindex="-1" />
+                        <button tabindex="-1" aria-controls="form">
+                            <a id="submit" href="/success.html">
+                                Submit
+                                <svg class="arrow" viewBox="0 0 16 16">
+                                    <use href="#arrow-symbol" />
+                                </svg>
+                            </a>
+                        </button>
                     </form>
-                    <button tabindex="-1" form="form" aria-controls="form">
-                        <a id="submit" href="/success.html">
-                            Submit
-                            <svg class="arrow" viewBox="0 0 16 16">
-                                <use href="#arrow-symbol" />
-                            </svg>
-                        </a>
-                    </button>
                 </article>
             </section>
             <footer>

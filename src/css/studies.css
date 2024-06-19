@@ -17,9 +17,9 @@ p:has(> img) {
 }
 
 menu span {
+    margin-bottom: -0.1em;
     color: var(--blue);
     font-family: Lust, serif;
-    margin-bottom: -0.1em;
 }
 
 /* Document layout
@@ -155,6 +155,10 @@ h1 {
         --heading-1: 3rem;
         --heading-2: 2rem;
         --heading-3: 1.5rem;
+    }
+
+    section:first-of-type article {
+        padding-top: 7rem;
     }
 }
 
