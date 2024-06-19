@@ -139,6 +139,7 @@ input {
 
 textarea {
     padding: var(--spacing-1);
+    resize: none;
 }
 
 input,
@@ -146,7 +147,7 @@ textarea {
     transition-property: background-color, border-color;
     border: 1px solid;
     border-color: var(--black);
-    border-radius: var(--radius);
+    border-radius: var(--radius-2);
     height: var(--button-size);
     font-size: inherit;
     font-family: inherit;
@@ -336,37 +337,12 @@ i {
    ========================================================================== */
 
     /**
-     * Navigation
-     */
-
-    nav {
-        grid-template-rows: var(--gutter-1);
-        grid-template-columns: 0px 1fr;
-    }
-
-    nav menu {
-        translate: 100%;
-        animation: menu;
-        margin: 0;
-    }
-
-    #title {
-        position: unset;
-    }
-
-    #logo {
-        right: auto;
-        left: auto;
-        width: 10rem;
-    }
-
-    /**
      * Main
      */
 
     main menu li,
     main .star {
-        top: 8rem;
+        top: 9.5rem;
     }
 
     main menu li {

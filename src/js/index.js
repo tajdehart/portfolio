@@ -105,19 +105,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const menu = document.querySelector('nav menu'),
         logo = document.getElementById('logo');
 
-    if (window.innerWidth < 651) {
-        window.addEventListener(
-            'scroll',
-            function logoOut() {
-                if (window.scrollY > 25) {
-                    menu.classList.add('in');
-                    logo.classList.add('out');
-                    window.removeEventListener('scroll', logoOut);
-                }
-            },
-            {passive: true}
-        );
-    }
+        function logoOut() {
+            if (window.scrollY > 25) {
+                menu.classList.add('on');
+                logo.classList.add('off');
+                window.removeEventListener('scroll', logoOut);
+            }
+        }
+
+        if (window.innerWidth < 651) {
+            window.addEventListener('scroll', logoOut, {passive: true});
+        }
 
     // Dark mode toggle
 

@@ -1,4 +1,4 @@
-                    <button>
+                    <button tabindex="-1">
                         <a href="/">Back to portfolio
                             <svg class="arrow is-left" viewBox="0 0 16 16">
                                 <use href="#arrow-symbol" />
@@ -10,8 +10,8 @@
             <footer><span id="carbon"></span></footer>
             </main>
         <aside>
-            <button class="control-wrapper tooltip-wrapper" id="scroll-to-top">
-                <a class="control" href="#top">
+            <button tabindex="-1" class="control-wrapper tooltip-wrapper" id="scroll-to-top">
+                <a class="control" href="#top" tabindex="1">
                     <svg class="arrow is-up" viewBox="0 0 16 16">
                         <use href="#arrow-symbol" />
                     </svg>
@@ -23,12 +23,12 @@
                     Scroll to the top
                 </div>
             </button>
-            <button class="control-wrapper tooltip-wrapper" id="dark-mode">
-                <div class="control">
+            <button tabindex="-1" class="control-wrapper tooltip-wrapper" id="dark-mode">
+                <div class="control" tabindex="1">
                     <svg id="light-icon" viewBox="0 0 16 16">
                         <use href="#sun-symbol" />
                     </svg>
-                    <svg id="dark-icon" viewBox="0 0 16 16">
+                    <svg id="dark-icon" class="on" viewBox="0 0 16 16">
                         <use href="#moon-symbol" />
                     </svg>
                 </div>
@@ -39,8 +39,8 @@
                     Toggle dark mode
                 </div>
             </button>
-            <button id="go-back" class="control-wrapper tooltip-wrapper">
-                <a class="control" href="/">
+            <button tabindex="-1" id="go-back" class="control-wrapper tooltip-wrapper">
+                <a class="control" href="/" tabindex="1">
                     <svg class="arrow is-left" viewBox="0 0 16 16">
                         <use href="#arrow-symbol" />
                     </svg>

@@ -29,9 +29,10 @@
     --button-offset: calc(var(--button-size) * 3.25);
     --button-size: 2.5rem;
     --arrow-size: calc(var(--button-size) * 0.4);
-    --star-size: calc(var(--spacing-1) * 0.75);
-    --hero-size: calc(19 * var(--spacing-1));
-    --radius: 0.5rem;
+    --star-size: 0.75rem;
+    --hero-size: 19rem;
+    --radius-1: 0.25rem;
+    --radius-2: calc(var(--radius-1) * 2);
     --easing: cubic-bezier(0.65, 0, 0.35, 1);
     --page-transition-time: 690ms;
     --color-transition-time: 420ms;
@@ -56,6 +57,7 @@ h5,
 menu,
 figure,
 p,
+a,
 button,
 ol,
 ul,
@@ -199,7 +201,6 @@ blockquote {
 }
 
 button a {
-    margin: 0;
     color: var(--white);
     font-size: var(--button-text);
     line-height: 0.8;
@@ -217,9 +218,15 @@ menu li,
     font-size: var(--heading-4);
 }
 
+menu li {
+    text-align: center;
+    line-height: 1;
+}
+
 menu a {
     color: var(--black);
     text-decoration: none;
+    user-select: none;
 }
 
 /**
@@ -327,7 +334,7 @@ form,
 button,
 img,
 video {
-    border-radius: var(--radius);
+    border-radius: var(--radius-2);
 }
 
 /**
@@ -404,7 +411,8 @@ hr {
     bottom: 0;
 }
 
-hr:nth-of-type(2) {
+hr:nth-of-type(2),
+figure hr {
     top: unset;
     right: 0;
     bottom: unset;
@@ -502,7 +510,7 @@ nav {
     grid-template-rows: var(--spacing-3);
     grid-template-columns: var(--gutter-1) 1fr;
     border-bottom: 0px;
-    border-radius: var(--radius) var(--radius) 0 0;
+    border-radius: var(--radius-2) var(--radius-2) 0 0;
 }
 
 nav menu {
@@ -519,6 +527,7 @@ nav menu li {
     padding: 1rem;
     width: 100%;
     height: 100%;
+    user-select: none;
 }
 
 nav menu li {
@@ -679,7 +688,6 @@ button {
     cursor: pointer;
     border: none;
     background-color: var(--blue);
-    padding: 0 calc(0.5 * var(--button-size));
     height: var(--button-size);
 }
 
@@ -687,13 +695,21 @@ button svg {
     fill: var(--white);
 }
 
+button:hover {
+    box-shadow: 2px 2px 2px var(--blue) inset,
+        -1.5px -1.5px 1.5px var(--blue-hover) inset;
+    background-color: var(--blue-hover);
+}
+
 button a {
     display: flex;
     align-items: center;
     gap: 1rem;
-    width: 100%;
     height: 100%;
+    max-width: 100%;
     color: var(--white);
+    padding: 0 calc(0.5 * var(--button-size));
+    border-radius: var(--radius-2);
 }
 
 button a::before {
@@ -701,12 +717,6 @@ button a::before {
     box-shadow: 0px 0px 0px var(--shadow-1);
     width: 100%;
     height: 100%;
-}
-
-button:hover {
-    box-shadow: 2px 2px 2px var(--blue) inset,
-        -1.5px -1.5px 1.5px var(--blue-hover) inset;
-    background-color: var(--blue-hover);
 }
 
 /**
@@ -910,6 +920,24 @@ button {
 }
 
 /**
+ * Tabbing
+ */
+
+a {
+    border-radius: var(--radius-1);
+}
+
+.control {
+    border-radius: var(--radius-2);
+}
+
+a:focus,
+.control:focus {
+    outline: 1px solid var(--blue);
+    outline-offset: 3px;
+}
+
+/**
  * Tooltips
  */
 
@@ -921,7 +949,7 @@ button {
     transition-property: opacity, background-color, border-color, color;
     margin: -1.25rem 1rem;
     border: 1px solid var(--black);
-    border-radius: var(--radius);
+    border-radius: var(--radius-2);
     background-color: var(--white);
     padding: 0.5rem 0.5rem 0.5rem 1rem;
     pointer-events: none;
@@ -993,6 +1021,7 @@ aside > button > .tooltip > .star {
         --heading-3: 2rem;
         --heading-4: 1rem;
         --button-size: 2rem;
+        --star-size: 0.5rem;
     }
 }
 
@@ -1008,40 +1037,31 @@ aside > button > .tooltip > .star {
         --gutter-2: var(--spacing-3);
         --spacing-1: 0.75rem;
         --button-text: 1rem;
-        --heading-2: 3rem;
-        --heading-3: 2rem;
-        --heading-4: 0.88rem;
-        --radius: 0.25rem;
+        --radius-1: 0.125rem;
         --button-size: 2rem;
     }
 
     /* Document layout
    ========================================================================== */
-
-    /**
-     * Main
-     */
-
-    .grid.is-2 {
-        grid-template-columns: 1fr;
-    }
-
-    .grid.is-3 {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .grid.is-4 {
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-
+     
     /**
      * Navigation
      */
 
+    nav {
+        grid-template-rows: var(--gutter-1);
+        grid-template-columns: 0px 1fr;
+    }
+
+
     #logo {
         right: auto;
         left: auto;
-        width: 10rem;
+        width: 9rem;
+    }
+    
+    #title {
+        position: unset;
     }
 
     /**
@@ -1070,10 +1090,10 @@ aside > button > .tooltip > .star {
     /**
      * Bottom controls
      */
-
+/* 
     aside {
         display: none;
-    }
+    } */
 
     /**
      * Navigation animation
@@ -1083,16 +1103,16 @@ aside > button > .tooltip > .star {
         position: unset;
     }
 
-    #logo.out {
-        translate: -230%;
+    #logo.off {
+        translate: 230%;
     }
 
     nav menu {
-        translate: 100%;
+        translate: -100%;
         margin: 0;
     }
 
-    nav menu.in {
+    nav menu.on {
         translate: 0%;
     }
 }
@@ -1111,6 +1131,7 @@ aside > button > .tooltip > .star {
         --button-text: 0.875rem;
         --heading-2: 2.25rem;
         --heading-3: 1.5rem;
+        --heading-4: 0.875rem;
     }
 
     /* Document layout
@@ -1132,11 +1153,19 @@ aside > button > .tooltip > .star {
         padding-right: 4rem;
     }
 
-    .grid.is-3 {
+    /**
+     * Grid
+     */
+
+    .grid.is-2 {
         grid-template-columns: 1fr;
     }
 
-    .grid.is-4 {
+    .grid.is-3 {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .grid.is-4 {
+        grid-template-columns: 1fr 1fr 1fr;
     }
 }

@@ -7,20 +7,27 @@ description: Taj DeHart's freelance work for MAD Courses
 [MAD Courses](https://madcourses.com) is a social enterprise whose goal is to educate
 people around the world about systems thinking, indigenous wisdom and environmental
 stewardship. They work with tribes in the Philippines to create interactive &ldquo;video
-adventures,&rdquo; their own brand of gamified educational videos.
+adventures&rdquo; &mdash; their own brand of gamified educational videos.
 
 ## The Project
 
 MAD needed a variety of design work to help tie together the look and feel of their
-products, including a website and a brand guide. The interactive courses are MAD&rsquo;s
-main product, but they also create worksheets, digital minigames and activities to
-accompany the adventures &mdash; each of which needed to have a distinctive, consistent
-look.
+products, including a website and a brand guide. The interactive courses are MAD&rsquo;s main product, but they also create worksheets, digital minigames and activities to accompany the adventures. 
 
-MAD is a also a very small startup, so their team grows and changes regularly, with new
-contractors coming in and team members shifting roles fluidly. The brand I created
-needed to be versatile, to fit with the variety of MAD&rsquo;s offerings, while being
-relatively approachable to anyone on the team.
+
+
+The brand needed to unify these offerings without becoming restrictive. Adding to the challenge was the fact that several video adventures had already been created when I started working with MAD; the brand needed to account for these designs, too.
+
+> A digital notebook I created to accompany one of MAD&rsquo;s courses:
+
+![A worksheet for MAD's system thinkings courses](../images/mad-courses-slideshow.jpg)
+
+MAD is a also a small and dynamic startup, with new contractors coming in and team
+members shifting roles fluidly. In my conversations with MAD I discovered that employees often strugged to find design files from various prior contractors. Often times, people not explicitly involved with design like marketers 
+
+
+The brand I created needed to be versatile enough to fit with these different offerings.
+
 
 ## Brand Guide
 
@@ -28,13 +35,7 @@ MAD teaches students to use _systems thinkings frameworks,_ like this worksheet
 
 ![A worksheet for MAD's system thinkings courses](../images/mad-courses-jamboard.jpg)
 
-> A digital &ldquo;notebook&rdquo; I created using google sheets
-
-![A worksheet for MAD's system thinkings courses](../images/mad-courses-slideshow.jpg)
-
-Because MAD is such a dynamic company, I knew the style guide would be used by many
-people for many different tasks. I decided that the style guide should lend itself to
-symbolic, reuseable elements.
+I decided that the style guide should lend itself to symbolic, reuseable elements.
 
 I came up with the idea of emulating the ink designs of a passport stamp or a
 screen-printed t-shirt. This effect evoked travel to me, and the excitement and

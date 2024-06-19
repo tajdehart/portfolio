@@ -36,12 +36,12 @@
                 </div>
                 <menu>
                     <li>
-                        <a href="#about-me">About me</a>
+                        <a href="#about-me" tabindex="1">About me</a>
                     </li>
                     <li>
-                        <a href="#my-work">My work</a>
+                        <a href="#my-work" tabindex="1">My work</a>
                     </li>
-                    <li><a href="#contact-me">Contact me</a></li>
+                    <li><a href="#contact-me" tabindex="1">Contact me</a></li>
                     <div class="track is-bottom">
                         <svg class="star" id="menu-star" viewBox="0 0 16 16">
                             <use href="#star-symbol" />
@@ -75,7 +75,7 @@
                         Keep scrolling to see some of my work, or click the button below
                         to get in touch.
                     </p>
-                    <button>
+                    <button tabindex="-1">
                         <a href="#contact-me">
                             Contact me
                             <svg class="arrow is-down" viewBox="0 0 16 16">
@@ -134,7 +134,7 @@
                     </p>
                     <figure class="tooltip-wrapper" id="first-slider">
                         <figcaption>Excerpts from the MAD style guide:</figcaption>
-                        <div class="slider">
+                        <div class="slider" tabindex="-1">
                             <img
                                 src="images/mad-courses-style-guide-1.webp"
                                 width="1920px"
@@ -167,7 +167,7 @@
                         their needs as a small startup. You can read more about that
                         process in the case study:
                     </p>
-                    <button>
+                    <button tabindex="-1">
                         <a href="/studies/mad-courses.html">
                             Read more
                             <svg class="arrow" viewBox="0 0 16 16">
@@ -190,14 +190,15 @@
                         <a href="https://unchartedventures.com" rel="noreferrer"
                             >Uncharted Ventures</a
                         >
-                        plans vacations for clients looking to experience a new place
-                        authentically and without exploitation. I designed their logo,
-                        and created business cards.
+                        is a trip planner focusing on remote destinations and
+                        non-explotative travel. I created their brand, and used it to
+                        create business cards.
                     </p>
                     <figure>
                         <figcaption>
                             The Uncharted Ventures logo is uses the reflection of a
-                            mountain and a setting sun to create the initials "UV".
+                            mountain and a setting sun to create the initials
+                            &ldquo;UV&rdquo;.
                         </figcaption>
                         <div class="column">
                             <img
@@ -212,56 +213,6 @@
                                 alt="Mockup of the Uncharted Ventures business cards" />
                         </div>
                     </figure>
-                </article>
-                <menu>
-                    <li>Carbon Pardon</li>
-                    <div class="track is-right">
-                        <svg class="star" viewBox="0 0 16 16">
-                            <use href="#star-symbol" />
-                        </svg>
-                    </div>
-                </menu>
-                <article id="carbon-pardon">
-                    <h3>Carbon Pardon</h3>
-                    <p>
-                        <a href="https://carbonpardon.org" rel="noreferrer"
-                            >Carbon Pardon</a
-                        >
-                        is a tongue-in-cheek climate change awareness campaign. Inspired
-                        by catholic indulgences, the website offers physical or digital
-                        "pardons" which absolve users of their greenhouse emission
-                        "sins."
-                    </p>
-                    <figure>
-                        <figcaption>
-                            The Carbon Pardon logo is a sort of visual pun, inspired by
-                            the decorative capitals from enlightened manuscripts and the
-                            periodic table symbol for carbon.
-                        </figcaption>
-                        <div class="column">
-                            <img
-                                src="images/carbon-pardon-logo.webp"
-                                width="1920px"
-                                height="1080px"
-                                alt="The Carbon Pardon logo" />
-                            <img
-                                src="images/carbon-pardon-website-tablet.webp"
-                                width="1920px"
-                                height="1080px"
-                                alt="Mockup of the Carbon Pardon website on a tablet" />
-                            <img
-                                src="images/carbon-pardon-photo.webp"
-                                width="1920px"
-                                height="1080px"
-                                alt="Photograph of a physical Carbon Pardon" />
-                        </div>
-                    </figure>
-                    <p>
-                        I designed the Carbon Pardon website and the paper pardons,
-                        which are made to order on paper inpregnated with plantable
-                        seeds (from a local Boulder business!). Proceeds go to
-                        hand-picked reforestation projects.
-                    </p>
                 </article>
                 <menu>
                     <li>Beginner&rsquo;s Guide</li>
@@ -280,6 +231,7 @@
                         related to activism and the polycrisis.
                     </p>
                     <figure>
+                        <hr />
                         <img
                             src="images/beginners-guide-photo.webp"
                             width="1920px"
@@ -288,7 +240,7 @@
                     </figure>
                     <figure>
                         <figcaption>Excerpts from the Climatique zine:</figcaption>
-                        <div class="slider">
+                        <div class="slider" tabindex="-1">
                             <img
                                 src="images/beginners-guide-excerpt-1.webp"
                                 width="396px"
@@ -326,7 +278,7 @@
                         tact and levity. These were handed out at a local concert venue,
                         accompanied by live protest music and good company.
                     </p>
-                    <button>
+                    <button tabindex="-1">
                         <a href="/zine">
                             Read the zine
                             <svg class="arrow" viewBox="0 0 16 16">
@@ -334,6 +286,60 @@
                             </svg>
                         </a>
                     </button>
+                </article>
+                <menu>
+                    <li>Carbon Pardon</li>
+                    <div class="track is-right">
+                        <svg class="star" viewBox="0 0 16 16">
+                            <use href="#star-symbol" />
+                        </svg>
+                    </div>
+                </menu>
+                <article id="carbon-pardon">
+                    <h3>Carbon Pardon</h3>
+                    <p>
+                        <a href="https://carbonpardon.org" rel="noreferrer"
+                            >Carbon Pardon</a
+                        >
+                        is a tongue-in-cheek climate change awareness campaign. Inspired
+                        by catholic indulgences, the website offers physical or digital
+                        "pardons" which absolve users of their greenhouse emission
+                        "sins."
+                    </p>
+                    <figure>
+                        <figcaption>
+                            The Carbon Pardon logo is a sort of visual pun, inspired by
+                            the decorative capitals from enlightened manuscripts and the
+                            periodic table symbol for carbon.
+                        </figcaption>
+                        <div class="column">
+                            <img
+                                src="images/carbon-pardon-logo.webp"
+                                width="1920px"
+                                height="1080px"
+                                alt="The Carbon Pardon logo" />
+                            <img
+                                src="images/carbon-pardon-website-tablet.webp"
+                                width="1920px"
+                                height="1080px"
+                                alt="Mockup of the Carbon Pardon website on a tablet" />
+                            <figcaption>
+                                Physical pardons are printed on paper impregnated with
+                                plantable seeds.
+                            </figcaption>
+                            <img
+                                src="images/carbon-pardon-photo.webp"
+                                width="1920px"
+                                height="1080px"
+                                alt="Photograph of a physical Carbon Pardon" />
+                        </div>
+                    </figure>
+                    <p>
+                        I designed the Carbon Pardon website and the paper pardons,
+                        which are made to order on seed paper from a
+                        <a href="bloomin" rel="norefferer">local Boulder business!</a>
+                        Proceeds go to hand-picked reforestation projects.
+                    </p>
                 </article>
                 <menu>
                     <li>Days of Type</li>
@@ -442,29 +448,33 @@
                     <hr />
                     <p>
                         Get in touch with me at
-                        <a id="email" href="#">email placeholder</a>, or fill out the
-                        form below.
+                        <a id="email" href="#" aria>email placeholder</a>, or fill out
+                        the form below.
                     </p>
-                    <form>
-                        <label for="name">Your name:<sup>*</sup></label>
+                    <form id="form">
+                        <label id="name-label" for="name">Your name:<sup>*</sup></label>
                         <input
                             id="name"
                             name="name"
                             type="text"
-                            autocomplete="nope"
-                            required />
-                        <label for="email">Your email:<sup>*</sup></label>
+                            required
+                            aria-required="true"
+                            aria-labelledby="name-label" />
+                        <label id="email-label" for="email"
+                            >Your email:<sup>*</sup></label
+                        >
                         <input
                             id="email"
                             name="email"
                             type="email"
-                            autocomplete="nope"
-                            required />
+                            required
+                            aria-required="true"
+                            aria-labelledby="email-label" />
                         <label for="message">How can I help?</label>
-                        <textarea id="message"></textarea>
+                        <textarea id="message" spellcheck="true"></textarea>
+                        <input type="submit" tabindex="-1" />
                     </form>
-                    <input type="submit" value="Submit" />
-                    <button>
+                    <button tabindex="-1" form="form" aria-controls="form">
                         <a id="submit" href="/success.html">
                             Submit
                             <svg class="arrow" viewBox="0 0 16 16">
@@ -479,8 +489,11 @@
             </footer>
         </main>
         <aside>
-            <button class="control-wrapper tooltip-wrapper" id="scroll-to-top">
-                <a class="control" href="#top">
+            <button
+                class="control-wrapper tooltip-wrapper"
+                id="scroll-to-top"
+                tabindex="-1">
+                <a class="control" href="#top" tabindex="2">
                     <svg class="arrow is-up" viewBox="0 0 16 16">
                         <use href="#arrow-symbol" />
                     </svg>
@@ -492,8 +505,11 @@
                     Scroll to the top
                 </div>
             </button>
-            <button class="control-wrapper tooltip-wrapper" id="dark-mode">
-                <div class="control">
+            <button
+                class="control-wrapper tooltip-wrapper"
+                id="dark-mode"
+                tabindex="-1">
+                <div class="control" tabindex="2">
                     <svg id="light-icon" viewBox="0 0 16 16">
                         <use href="#sun-symbol" />
                     </svg>
