@@ -11,15 +11,15 @@
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://tajdehart.com" />
         <meta property="og:image" content="images/profile.webp" />
-        <link href="css/index.css" rel="stylesheet"/>
-        <link href="css/main.css" rel="stylesheet"/>
+        <link href="css/index.css" rel="stylesheet" />
+        <link href="css/main.css" rel="stylesheet" />
         <script defer src="js/index.js"></script>
         <script defer src="js/main.js"></script>
         <svg width="0" height="0">
             <!--symbols.svg-->
         </svg>
     </head>
-    <body>
+    <body id="home">
         <div id="loader">
             <svg class="star" viewBox="0 0 16 16">
                 <use href="#star-symbol" />
@@ -78,7 +78,7 @@
                     <button>
                         <a href="#contact-me">
                             Contact me
-                            <svg class="arrow" viewBox="0 0 16 16">
+                            <svg class="arrow is-down" viewBox="0 0 16 16">
                                 <use href="#arrow-symbol" />
                             </svg>
                         </a>
@@ -97,7 +97,7 @@
                     <p>
                         I have a broad skillset, including web development, design and
                         creative writing. I&rsquo;ve had the opportunity to put these
-                        skills to work 
+                        skills to work
                     </p>
                 </article>
                 <menu>
@@ -130,7 +130,7 @@
                         I redesigned MAD&rsquo;s website, and crafted a style guide to
                         help them maintain a cohesive message across their work.
                     </p>
-                    <figure class="tooltip" id="first-slider">
+                    <figure class="tooltip-wrapper" id="first-slider">
                         <figcaption>Excerpts from the MAD style guide:</figcaption>
                         <div class="slider">
                             <img
@@ -196,8 +196,7 @@
                     <figure>
                         <figcaption>
                             The Carbon Pardon logo combined decorative capitals from
-                            enlightened manuscripts with the carbon elemental
-                            symbol.
+                            enlightened manuscripts with the carbon elemental symbol.
                         </figcaption>
                         <div class="column">
                             <img
@@ -222,6 +221,44 @@
                         </div>
                     </figure>
                 </article>
+
+                <menu>
+                    <li>Uncharted Ventures</li>
+                    <div class="track is-right">
+                        <svg class="star" viewBox="0 0 16 16">
+                            <use href="#star-symbol" />
+                        </svg>
+                    </div>
+                </menu>
+                <article id="uncharted-ventures">
+                    <h3>Uncharted Ventures</h3>
+                    <p>
+                        <a href="https://unchartedventures.com" rel="noreferrer"
+                            >Uncharted Ventures</a
+                        >
+                        plans vacations for clients looking to experience a new place
+                        authentically and without exploitation.
+                    </p>
+                    <figure>
+                        <figcaption>
+                            The Uncharted Ventures logo is a visual pun that uses the
+                            reflection of a mountain and a setting sun to create the
+                            initials "UV".
+                        </figcaption>
+                        <div class="column">
+                            <img
+                                src="images/uncharted-ventures-logo.webp"
+                                width="1920px"
+                                height="1280px"
+                                alt="The Uncharted Ventures logo" />
+                            <img
+                                src="images/uncharted-ventures-card.webp"
+                                width="1920px"
+                                height="1280px"
+                                alt="Mockup of the Uncharted Ventures business cards" />
+                        </div>
+                    </figure>
+                </article>
                 <menu>
                     <li>Beginner&rsquo;s Guide</li>
                     <div class="track is-right">
@@ -231,7 +268,7 @@
                     </div>
                 </menu>
                 <article id="beginners-guide">
-                    <h3>The Beginner&rsquo;s Guide to Changing the World</h3>
+                    <h3>A Beginner&rsquo;s Guide to Changing the World</h3>
                     <p>
                         I collaborated with a local Boulder nonprofit, Climatique, who
                         is working to make sustainable living less scary &mdash; and
@@ -312,7 +349,7 @@
                     </p>
                     <figure>
                         <figcaption>The logos I&rsquo;ve designed so far:</figcaption>
-                        <div class="grid is-4">
+                        <div class="grid is-3">
                             <img
                                 src="images/days-of-type-a.webp"
                                 width="500px"
@@ -404,9 +441,33 @@
                         <a id="email" href="#">email placeholder</a>, or fill out the
                         form below.
                     </p>
-                    <form></form>
-                    <div id="success"></div>
-                    <div id="failure"></div>
+                    <form>
+                        <label for="name">Your name:<sup>*</sup></label>
+                        <input
+                            id="name"
+                            name="name"
+                            type="text"
+                            autocomplete="nope"
+                            required />
+                        <label for="email">Your email:<sup>*</sup></label>
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            autocomplete="nope"
+                            required />
+                        <label for="message">How can I help?</label>
+                        <textarea id="message"></textarea>
+                    </form>
+                    <input type="submit" value="Submit" />
+                    <button>
+                        <a href="/success.html" id="submit">
+                            Submit
+                            <svg class="arrow" viewBox="0 0 16 16">
+                                <use href="#arrow-symbol" />
+                            </svg>
+                        </a>
+                    </button>
                 </article>
             </section>
             <footer>
@@ -414,21 +475,21 @@
             </footer>
         </main>
         <aside>
-            <button class="control tooltip" id="scroll-to-top">
-                <a href="#top">
-                    <svg class="arrow" viewBox="0 0 16 16">
+            <button class="control-wrapper tooltip-wrapper" id="scroll-to-top">
+                <a class="control" href="#top">
+                    <svg class="arrow is-up" viewBox="0 0 16 16">
                         <use href="#arrow-symbol" />
                     </svg>
                 </a>
-                <label id="scroll-to-top-tooltip">
+                <div class="tooltip" id="scroll-to-top-tooltip">
                     <svg class="star" viewBox="0 0 16 16">
                         <use href="#star-symbol" />
                     </svg>
                     Scroll to the top
-                </label>
+                </div>
             </button>
-            <button class="control tooltip" id="dark-mode">
-                <div>
+            <button class="control-wrapper tooltip-wrapper" id="dark-mode">
+                <div class="control">
                     <svg id="light-icon" viewBox="0 0 16 16">
                         <use href="#sun-symbol" />
                     </svg>
@@ -436,19 +497,19 @@
                         <use href="#moon-symbol" />
                     </svg>
                 </div>
-                <label id="dark-mode-tooltip">
+                <div class="tooltip" id="dark-mode-tooltip">
                     <svg class="star" viewBox="0 0 16 16">
                         <use href="#star-symbol" />
                     </svg>
                     Toggle dark mode
-                </label>
+                </div>
             </button>
         </aside>
-        <label class="is-follower" id="first-slider-tooltip">
+        <div class="tooltip is-follower" id="first-slider-tooltip">
             <svg class="star" viewBox="0 0 16 16">
                 <use href="#star-symbol" />
             </svg>
             Scroll or drag to browse.
-        </label>
+        </div>
     </body>
 </html>
