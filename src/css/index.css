@@ -640,10 +640,13 @@ footer {
  * ARIA Hidden 
  */
 
-.hide,
+.hidden,
 .mjalte {
  clip: rect(0 0 0 0);
+ position: absolute;
  clip-path: inset(50%);
+ margin: 0;
+ padding: 0;
  width: 1px;
  height: 1px;
 }
@@ -941,7 +944,7 @@ a:focus-visible,
  */
 
 .tooltip {
-    display: inline-block;
+    display: inline-flex;
     position: fixed;
     opacity: 0;
     z-index: 100;
@@ -950,12 +953,14 @@ a:focus-visible,
     border: 1px solid var(--black);
     border-radius: var(--radius-2);
     background-color: var(--white);
-    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    height: var(--button-size);
     pointer-events: none;
     color: var(--black);
     font-size: var(--body-text);
     font-size: var(--body-text);
-    line-height: 1.4;
+    padding: 0 0.25em 0 0.5em;
+    align-items: center;
+    justify-content: center;
     font-family: 'Miller', 'Georgia Pro', 'Georgia', 'Plantin', serif;
     white-space: nowrap;
 }
@@ -964,23 +969,24 @@ a:focus-visible,
     shape-rendering: geometricPrecision;
     fill: var(--black);
     position: absolute;
-    top: 0.75rem;
+    top: calc((0.5 * var(--button-size)) - ( 0.5 * var(--star-size)));
     left: calc(-0.5 * var(--star-size));
-    width: var(--star-size);
-    height: var(--star-size);
 }
 
 aside > button > .tooltip {
     position: absolute;
-    top: 50%;
-    right: 110%;
-    padding: 0.5rem 1rem 0.5rem 0.5rem;
 }
 
-aside > button > .tooltip > .star {
+aside > button > .tooltip > .star,
+.tooltip.is-left > .star {
     position: absolute;
     right: calc(-0.5 * var(--star-size));
     left: unset;
+}
+
+.tooltip.is-under > .star {
+    top: calc(-0.5 * var(--star-size));
+    left: 50%;
 }
 
 .tooltip::after,

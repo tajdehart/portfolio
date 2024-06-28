@@ -69,23 +69,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Form submission
 
-    const form = document.querySelector('form'),
+    const contactForm = document.getElementById('contact-form'),
         email = document.getElementById('emobbail'),
+        name = document.getElementById('nobbame'),
+        emailTooltip = document.getElementById('email-tooltip'),
+        emailRequiredTooltip = document.getElementById('email-required-tooltip'),
+        nameRequiredTooltip = document.getElementById('name-required-tooltip'),
         successURL = '/success.html',
         failureURL = '/failure.html',
-        emailValidated = true;
-    // formData = new FormData(form),
-    endPoint = '';
+        // formData = new FormData(form),
+        endPoint = '';
 
-    if (form) {
-        form.addEventListener('submit', (event) => {
+    if (contactForm) {
+        contactForm.addEventListener('submit', (event) => {
             event.preventDefault();
             event.stopPropagation();
 
-            if (validateEmail(email)) {
-                submit();
-            } else {
-                failure();
+            switch (validateForm()) {
+                case 'no-name':
+                    nameRequiredTooltip.style.opacity = '1';
+                    setTimeout(() => {
+                        nameRequiredTooltip.style.opacity = '0';
+                    }, 3000);
+                    break;
+                case 'no-email':
+                    emailRequiredTooltip.style.opacity = '1';
+                    setTimeout(() => {
+                        emailRequiredTooltip.style.opacity = '0';
+                    }, 3000);
+                    break;
+                case 'bad-email':
+                    emailTooltip.style.opacity = '1';
+                    setTimeout(() => {
+                        emailTooltip.style.opacity = '0';
+                    }, 3000);
+                    break;
+                case 'valid':
+                    submit();
+                    break;
             }
         });
     }
@@ -106,19 +127,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function validateEmail(input) {
+    function validateForm() {
         const emailRegex =
             /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
-        if (input.value && !emailRegex.test(input.value)) {
-            return false;
+        if (!name.value) {
+            return 'no-name';
         }
 
-        return true;
+        if (!email.value) {
+            return 'no-email';
+        }
+
+        if (!emailRegex.test(email.value)) {
+            return 'bad-email';
+        }
+
+        return 'valid';
     }
-
-    function failure() {}
-
     // Mobile nav logo slide
 
     const menu = document.querySelector('nav menu'),
@@ -252,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Tooltips
-    const wrappers = document.querySelectorAll('.tooltip-wrapper');
+    const wrappers = document.querySelectorAll('.tooltip-wrapper:not(#contact-form)');
 
     wrappers.forEach((wrapper) => {
         const tooltip = document.getElementById(`${wrapper.id}-tooltip`);

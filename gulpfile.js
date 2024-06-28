@@ -57,7 +57,9 @@ async function css() {
  */
 
 async function js() {
-    return gulp.src('src/js/*').pipe(terser()).pipe(gulp.dest('public/js'));
+    return gulp
+        .src('src/js/*') /*.pipe(terser())*/
+        .pipe(gulp.dest('public/js'));
 }
 
 /**

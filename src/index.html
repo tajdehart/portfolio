@@ -51,7 +51,7 @@
             </nav>
         </header>
         <main>
-            <h1>Taj DeHart</h1>
+            <h1 class="hidden">Taj DeHart</h1>
             <section id="about-me">
                 <article>
                     <h2>About me</h2>
@@ -451,13 +451,13 @@
                         <a id="email" href="#" aria>email placeholder</a>, or fill out
                         the form below.
                     </p>
-                    <form class="tooltip-wrapper" id="form">
+                    <form class="tooltip-wrapper" id="contact-form">
                         <!-- enë me mjaltë -->
                         <fieldset class="mjalte">
                             <label for="name"></label>
                             <input
                                 id="name"
-                                autocomplete="off"
+                                autocomplete="one-time-code"
                                 type="text"
                                 name="name"
                                 placeholder="Your name here"
@@ -465,7 +465,7 @@
                             <label for="email"></label>
                             <input
                                 id="email"
-                                autocomplete="off"
+                                autocomplete="one-time-code"
                                 type="email"
                                 name="email"
                                 placeholder="Your e-mail here"
@@ -477,13 +477,19 @@
                         >
                         <fieldset>
                             <input
-                                id="naobbme"
+                                id="nobbame"
                                 name="naobbme"
                                 type="text"
-                                required
+                                maxlength="100"
                                 aria-required="true"
                                 aria-labelledby="name-label" />
                         </fieldset>
+                        <div class="tooltip is-under" id="name-required-tooltip">
+                            <svg class="star" viewBox="0 0 16 16">
+                                <use href="#star-symbol" />
+                            </svg>
+                            Please enter your name.
+                        </div>
                         <label id="email-label" for="emobbail"
                             >Your email:<sup>*</sup></label
                         >
@@ -492,23 +498,28 @@
                                 id="emobbail"
                                 name="emobbail"
                                 type="text"
-                                required
+                                maxlength="100"
                                 aria-required="true"
                                 aria-labelledby="email-label" />
                         </fieldset>
-                        <div class="tooltip is-error" id="email-tooltip">
+                        <div class="tooltip is-under" id="email-tooltip">
                             <svg class="star" viewBox="0 0 16 16">
                                 <use href="#star-symbol" />
                             </svg>
-                            Toggle dark mode
+                            Please enter a valid email.
+                        </div>
+                        <div class="tooltip is-under" id="email-required-tooltip">
+                            <svg class="star" viewBox="0 0 16 16">
+                                <use href="#star-symbol" />
+                            </svg>
+                            Please enter an email.
                         </div>
                         <label for="message">How can I help?</label>
                         <fieldset>
                             <textarea id="message" spellcheck="true"></textarea>
                         </fieldset>
-                        <input class="hidden" type="submit" tabindex="-1" />
-                        <button tabindex="-1" aria-controls="form">
-                            <a id="submit" href="/success.html">
+                        <button type="submit" tabindex="-1" aria-controls="contact-form" form="contact-form">
+                            <a id="submit">
                                 Submit
                                 <svg class="arrow" viewBox="0 0 16 16">
                                     <use href="#arrow-symbol" />
