@@ -70,52 +70,71 @@ document.addEventListener('DOMContentLoaded', () => {
     // Form submission
 
     const form = document.querySelector('form'),
+        email = document.getElementById('emobbail'),
         successURL = '/success.html',
         failureURL = '/failure.html',
-        // formData = new FormData(form),
-        endPoint = '';
+        emailValidated = true;
+    // formData = new FormData(form),
+    endPoint = '';
 
     if (form) {
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             event.stopPropagation();
 
-            submit();
+            if (validateEmail(email)) {
+                submit();
+            } else {
+                failure();
+            }
         });
     }
 
     async function submit() {
         pageOut(successURL);
-        // try {
-        //     const response = await fetch(endPoint, {
-        //         method: 'PUT',
-        //         body: formData,
-        //     });
-        //     const result = await response.json();
-        //     console.log('Success:', result);
-        //     pageOut(successURL);
-        // } catch (error) {
-        //     console.error('Error:', error);
-        //     pageOut(failureURL);
-        // }
+        try {
+            const response = await fetch(endPoint, {
+                method: 'PUT',
+                body: formData,
+            });
+            const result = await response.json();
+            console.log('Success:', result);
+            pageOut(successURL);
+        } catch (error) {
+            console.error('Error:', error);
+            pageOut(failureURL);
+        }
     }
+
+    function validateEmail(input) {
+        const emailRegex =
+            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+        if (input.value && !emailRegex.test(input.value)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    function failure() {}
 
     // Mobile nav logo slide
 
     const menu = document.querySelector('nav menu'),
         logo = document.getElementById('logo');
 
-        function logoOut() {
-            if (window.scrollY > 25) {
-                menu.classList.add('on');
-                logo.classList.add('off');
-                window.removeEventListener('scroll', logoOut);
-            }
+    function logoOut() {
+        if (window.scrollY > 25) {
+            menu.classList.add('on');
+            logo.classList.add('off');
+            window.removeEventListener('scroll', logoOut);
         }
+    }
 
-        if (window.innerWidth < 651) {
-            window.addEventListener('scroll', logoOut, {passive: true});
-        }
+    if (window.innerWidth < 651) {
+        window.addEventListener('scroll', logoOut, {passive: true});
+    }
 
     // Dark mode toggle
 

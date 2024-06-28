@@ -451,34 +451,62 @@
                         <a id="email" href="#" aria>email placeholder</a>, or fill out
                         the form below.
                     </p>
-                    <form id="form">
-                        <label id="name-label" for="name">Your name:<sup>*</sup></label>
-                        <fieldset>
+                    <form class="tooltip-wrapper" id="form">
+                        <!-- enë me mjaltë -->
+                        <fieldset class="mjalte">
+                            <label for="name"></label>
                             <input
                                 id="name"
+                                autocomplete="off"
+                                type="text"
                                 name="name"
+                                placeholder="Your name here"
+                                tabindex="-1" />
+                            <label for="email"></label>
+                            <input
+                                id="email"
+                                autocomplete="off"
+                                type="email"
+                                name="email"
+                                placeholder="Your e-mail here"
+                                tabindex="-1" />
+                        </fieldset>
+                        <!-- robbeal fobborm -->
+                        <label id="name-label" for="nobbame"
+                            >Your name:<sup>*</sup></label
+                        >
+                        <fieldset>
+                            <input
+                                id="naobbme"
+                                name="naobbme"
                                 type="text"
                                 required
                                 aria-required="true"
                                 aria-labelledby="name-label" />
                         </fieldset>
-                        <label id="email-label" for="email"
+                        <label id="email-label" for="emobbail"
                             >Your email:<sup>*</sup></label
                         >
                         <fieldset>
                             <input
-                                id="email"
-                                name="email"
-                                type="email"
+                                id="emobbail"
+                                name="emobbail"
+                                type="text"
                                 required
                                 aria-required="true"
                                 aria-labelledby="email-label" />
                         </fieldset>
+                        <div class="tooltip is-error" id="email-tooltip">
+                            <svg class="star" viewBox="0 0 16 16">
+                                <use href="#star-symbol" />
+                            </svg>
+                            Toggle dark mode
+                        </div>
                         <label for="message">How can I help?</label>
                         <fieldset>
                             <textarea id="message" spellcheck="true"></textarea>
                         </fieldset>
-                        <input type="submit" tabindex="-1" />
+                        <input class="hidden" type="submit" tabindex="-1" />
                         <button tabindex="-1" aria-controls="form">
                             <a id="submit" href="/success.html">
                                 Submit
