@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         nameRequiredTooltip = document.getElementById('name-required-tooltip'),
         successURL = '/success.html',
         failureURL = '/failure.html',
-        endPoint = 'https://tools.greenvisionmedia.net/honeypot/index.php';
+        endPoint = contactForm.action;
 
     if (contactForm) {
         submit.addEventListener('click', (event) => {
