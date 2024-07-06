@@ -15,6 +15,9 @@ import svgmin from 'gulp-svgmin';
 import fs from 'fs';
 import frontMatter from 'gulp-front-matter';
 
+/* Main compression task
+   ========================================================================== */
+
 /**
  * Replaces all injection strings with their respective files
  */
@@ -197,3 +200,130 @@ gulp.task(
         gulp.parallel(html, js, css, images, studies, scrub, staticFiles, staticFolders)
     )
 );
+
+/* Pull images/studies from crypt
+   ========================================================================== */
+
+/**
+ * Pulls studies and converts all .jpg/.png references to webp
+ */
+
+async function pullStudies() {
+    return gulp
+        .src('/mnt/c/users/public/desktop/reference/freelance/portfolio/studies/*.md')
+        .pipe(
+            replace('.png', () => {
+                return '.webp';
+            })
+        )
+        .pipe(
+            replace('.jpg', () => {
+                return '.webp';
+            })
+        )
+        .pipe(
+            replace('.jpeg', () => {
+                return '.webp';
+            })
+        )
+        .pipe(gulp.dest('src/studies/'));
+}
+
+/**
+ * Converts all images to webp
+ */
+
+async function pullImages() {
+    return gulp
+        .src('/mnt/c/users/public/desktop/reference/freelance/portfolio/images/*')
+        .pipe(webp())
+        .pipe(gulp.dest('src/images/'));
+}
+
+/**
+ * Pulls svg and puts into symbols.svg
+ */
+
+async function pullSVG() {
+    return gulp
+        .src('/mnt/c/users/public/desktop/reference/freelance/portfolio/svg/*')
+        .pipe(
+            svgmin({
+                full: true,
+                plugins: [
+                    'removeStyleElement',
+                    {
+                        name: 'removeViewBox',
+                        active: false,
+                    },
+                    {
+                        name: 'removeAttrs',
+                        params: {
+                            attrs: ['path:style', 'path:id', 'path:class'],
+                            elemSeparator: ':',
+                        },
+                    },
+                ],
+            })
+        )
+        .pipe(symbols())
+        .pipe(gulp.dest('src/svg/'));
+}
+
+/**
+ * Pulls my resume .pdf and the climatique zine to webp
+ */
+
+async function pullResume() {
+    return gulp
+        .src('/mnt/c/users/public/desktop/reference/resume/exports/resume.pdf*')
+        .pipe(gulp.dest('src/resume/'));
+}
+
+async function pullZine() {
+    return gulp
+        .src('/mnt/c/users/public/desktop/reference/climatique/zine/exports/better-world.pdf*')
+        .pipe(gulp.dest('src/zine/'));
+}
+
+gulp.task(
+    'pull-wsl',
+    gulp.series(pullStudies, pullImages, pullResume, pullZine, pullSVG)
+);
+gulp.task('pull-studies', pullStudies);
+gulp.task('pull-images', pullImages);
+gulp.task('pull-svg', pullSVG);
+
+/* Get robots.txt from DarkVisitors
+   ========================================================================== */
+
+async function pullRobots() {
+    const token = '7515ff20-f0c1-44bb-a1ce-10dbbfe472dc';
+
+    const robotsJSON = await fetch('https://api.darkvisitors.com/robots-txts', {
+        method: 'POST',
+        headers: {
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            agent_types: [
+                'AI Assistant',
+                'AI Data Scraper',
+                'AI Search Crawler',
+                'Undocumented AI Agent',
+            ],
+            disallow: '/',
+        }),
+    });
+
+    const robotsTXT = await robotsJSON.text();
+
+    return fs.writeFile('src/robots.txt', robotsTXT, (err) => {
+        if (err) {
+            console.error(err);
+        }
+    });
+}
+
+gulp.task('pull-robots', pullRobots);
