@@ -958,11 +958,15 @@ a:focus-visible,
     color: var(--black);
     font-size: var(--body-text);
     font-size: var(--body-text);
-    padding: 0 0.25em 0 0.5em;
+    padding: 0 0.5em;
     align-items: center;
     justify-content: center;
     font-family: 'Miller', 'Georgia Pro', 'Georgia', 'Plantin', serif;
     white-space: nowrap;
+}
+
+aside .tooltip {
+    margin-right: 3rem;
 }
 
 .tooltip > .star {
@@ -1026,7 +1030,7 @@ aside > button > .tooltip > .star,
         --heading-3: 2rem;
         --heading-4: 1rem;
         --button-size: 2rem;
-        --star-size: 0.5rem;
+        --star-size: 0.66rem;
     }
 }
 
@@ -1127,7 +1131,7 @@ aside > button > .tooltip > .star,
         translate: 0%;
     }
 
-    /* Variables
+    /* Style
    ========================================================================== */
 
     /**
