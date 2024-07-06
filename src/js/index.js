@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Form submission
 
     const contactForm = document.getElementById('contact-form'),
+        submit = document.getElementById('submit'),
         email = document.getElementById('emobbail'),
         name = document.getElementById('nobbame'),
         emailTooltip = document.getElementById('email-tooltip'),
@@ -77,11 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
         nameRequiredTooltip = document.getElementById('name-required-tooltip'),
         successURL = '/success.html',
         failureURL = '/failure.html',
-        // formData = new FormData(form),
-        endPoint = '';
+        endPoint = 'https://tools.greenvisionmedia.net/honeypot/index.php';
 
     if (contactForm) {
-        contactForm.addEventListener('submit', (event) => {
+        submit.addEventListener('click', (event) => {
             event.preventDefault();
             event.stopPropagation();
 
@@ -105,17 +105,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     }, 3000);
                     break;
                 case 'valid':
-                    submit();
+                    submitForm();
                     break;
             }
         });
     }
 
-    async function submit() {
+    async function submitForm() {
+        const formData = new FormData(contactForm);
+
         pageOut(successURL);
+
         try {
             const response = await fetch(endPoint, {
-                method: 'PUT',
+                method: 'POST',
                 body: formData,
             });
             const result = await response.json();
