@@ -9,7 +9,7 @@ import replace from 'gulp-replace';
 import clean from 'gulp-clean';
 import markdown from 'gulp-markdown';
 import header from 'gulp-header';
-import footer from 'gulp-footer';
+import footer from 'gulp-footer'; 
 import webp from 'gulp-webp';
 import symbols from 'gulp-svg-symbols';
 import svgmin from 'gulp-svgmin';
