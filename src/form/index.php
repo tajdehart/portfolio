@@ -46,9 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $sender) !== fals
     $message = $_POST['message'];
     $from = 'info@greenvision.media';
     $to = 'tajdehart@gmail.com';
-    $subject = "Honeypot testing!";
-    $headers = "From: Honeypot test website <" . $from . ">\r\n";
-    $headers .= "Reply-To: " . $from . "\r\n";
+    $subject = "Website lead!";
     $headers .= "X-Mailer: PHP/" . phpversion();
 
     $email_message = "Thusly spract the website at $time\n";
