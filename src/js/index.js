@@ -316,9 +316,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             document.removeEventListener('mousemove', move);
                         }, leaveDelay);
                     }
-
-                    tooltip.style.top = `${event.clientY}px`;
-                    tooltip.style.left = `${event.clientX}px`;
+                    if (window.scrollY > 40) {
+                        tooltip.style.top = `${event.clientY}px`;
+                        tooltip.style.left = `${event.clientX}px`;
+                    }
                 },
                 {passive: true}
             );
