@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: 🚚 Get latest code
-      uses: actions/checkout@v3   
+      uses: actions/checkout@v4   
 
     # Sets up node
     - name: 🧰 Setup node
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v4
       with:
           node-version: 22
 
@@ -23,10 +23,10 @@ jobs:
 
     # Runs gulp to build
     - name: 🏗️ Build with gulp
-      run: gulp
+      run: npx gulp
 
     - name: 📩 Deploy to custom domain
-      uses: SamKirkland/FTP-Deploy-Action@4.3.1
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: taj.greenvisionmedia.net  
         username: taj@greenvisionmedia.net
