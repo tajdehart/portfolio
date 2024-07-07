@@ -9,7 +9,7 @@ import replace from 'gulp-replace';
 import clean from 'gulp-clean';
 import markdown from 'gulp-markdown';
 import header from 'gulp-header';
-import footer from 'gulp-footer'; 
+import footer from 'gulp-footer';
 import webp from 'gulp-webp';
 import symbols from 'gulp-svg-symbols';
 import svgmin from 'gulp-svgmin';
@@ -19,228 +19,208 @@ import frontMatter from 'gulp-front-matter';
 /* Main compression task
    ========================================================================== */
 
-   /**
-    * Replaces all injection strings with their respective files
-    */
+/**
+ * Replaces all injection strings with their respective files
+ */
 
-   function fileReplace(pragma, path) {
-       return replace(`${pragma}`, () => {
-           return '' + fs.readFileSync(`${path}`, 'utf8');
-       });
-   }
+function fileReplace(pragma, path) {
+    return replace(`${pragma}`, () => {
+        return '' + fs.readFileSync(`${path}`, 'utf8');
+    });
+}
 
-   /**
-    * Creates a new public folder if one doesn't already exist
-    */
+/**
+ * Creates a new public folder if one doesn't already exist
+ */
 
-   async function init() {
-       if (!fs.existsSync('public')) {
-           fs.mkdirSync('public');
-       }
-       return;
-   }
+async function init() {
+    if (!fs.existsSync('public')) {
+        fs.mkdirSync('public');
+    }
+    return;
+}
 
-   /**
-    * Creates index.html
-    */
+/**
+ * Creates index.html
+ */
 
-   async function html() {
-       return gulp
-           .src('src/*.html')
-           .pipe(fileReplace('<!--symbols.svg-->', 'src/svg-symbols.svg'))
-           .pipe(
-               htmlmin({
-                   collapseWhitespace: true,
-                   removeComments: true,
-                   minifyCSS: true,
-                   minifyJS: true,
-               })
-           )
-           .pipe(gulp.dest('public'));
-   }
+async function html() {
+    return gulp
+        .src('src/*.html')
+        .pipe(fileReplace('<!--symbols.svg-->', 'src/svg-symbols.svg'))
+        .pipe(
+            htmlmin({
+                collapseWhitespace: true,
+                removeComments: true,
+                minifyCSS: true,
+                minifyJS: true,
+            })
+        )
+        .pipe(gulp.dest('public'));
+}
 
-   /**
-    * Compress css
-    */
+/**
+ * Compress css
+ */
 
-   async function css() {
-       return gulp.src('src/css/*').pipe(cssnano()).pipe(gulp.dest('public/css'));
-   }
+async function css() {
+    return gulp.src('src/css/*').pipe(cssnano()).pipe(gulp.dest('public/css'));
+}
 
-   /**
-    * Compress css
-    */
+/**
+ * Compress css
+ */
 
-   async function js() {
-       return gulp
-           .src('src/js/*') /*.pipe(terser())*/
-           .pipe(gulp.dest('public/js'));
-   }
+async function js() {
+    return gulp
+        .src('src/js/*') /*.pipe(terser())*/
+        .pipe(gulp.dest('public/js'));
+}
 
-   /**
-    * Creates studies folder
-    */
+/**
+ * Creates studies folder
+ */
 
-   async function studies() {
-       function hero(file) {
-           file.contents = Buffer.from(
-               String(file.contents).replaceAll('%hero%', file.frontMatter.hero)
-           );
-       }
-       function title(file) {
-           file.contents = Buffer.from(
-               String(file.contents).replaceAll('<!--title-->', file.frontMatter.title)
-           );
-       }
-       function description(file) {
-           file.contents = Buffer.from(
-               String(file.contents).replaceAll(
-                   '%description%',
-                   file.frontMatter.description
-               )
-           );
-       }
-       return gulp
-           .src('src/studies/*.md')
-           .pipe(
-               frontMatter({
-                   property: 'frontMatter',
-                   remove: true,
-               })
-           )
-           .pipe(
-               replace('.png', () => {
-                   return '.webp';
-               })
-           )
-           .pipe(
-               replace('.jpg', () => {
-                   return '.webp';
-               })
-           )
-           .pipe(
-               replace('.jpeg', () => {
-                   return '.webp';
-               })
-           )
-           .pipe(markdown())
-           .pipe(header(fs.readFileSync('src/studies/header.html', 'utf8')))
-           .pipe(footer(fs.readFileSync('src/studies/footer.html', 'utf8')))
-           .pipe(fileReplace('<!--symbols.svg-->', 'src/svg-symbols.svg'))
-           .pipe(tap(title))
-           .pipe(tap(hero))
-           .pipe(tap(description))
-           .pipe(
-               htmlmin({
-                   collapseWhitespace: true,
-                   removeComments: true,
-                   minifyCSS: true,
-                   minifyJS: true,
-               })
-           )
-           .pipe(flatten())
-           .pipe(gulp.dest('public/studies'));
-   }
+async function studies() {
+    function hero(file) {
+        file.contents = Buffer.from(
+            String(file.contents).replaceAll('%hero%', file.frontMatter.hero)
+        );
+    }
+    function title(file) {
+        file.contents = Buffer.from(
+            String(file.contents).replaceAll('<!--title-->', file.frontMatter.title)
+        );
+    }
+    function description(file) {
+        file.contents = Buffer.from(
+            String(file.contents).replaceAll(
+                '%description%',
+                file.frontMatter.description
+            )
+        );
+    }
+    return gulp
+        .src('src/studies/*.md')
+        .pipe(
+            frontMatter({
+                property: 'frontMatter',
+                remove: true,
+            })
+        )
+        .pipe(
+            replace('.png', () => {
+                return '.webp';
+            })
+        )
+        .pipe(
+            replace('.jpg', () => {
+                return '.webp';
+            })
+        )
+        .pipe(
+            replace('.jpeg', () => {
+                return '.webp';
+            })
+        )
+        .pipe(markdown())
+        .pipe(header(fs.readFileSync('src/studies/header.html', 'utf8')))
+        .pipe(footer(fs.readFileSync('src/studies/footer.html', 'utf8')))
+        .pipe(fileReplace('<!--symbols.svg-->', 'src/svg-symbols.svg'))
+        .pipe(tap(title))
+        .pipe(tap(hero))
+        .pipe(tap(description))
+        .pipe(
+            htmlmin({
+                collapseWhitespace: true,
+                removeComments: true,
+                minifyCSS: true,
+                minifyJS: true,
+            })
+        )
+        .pipe(flatten())
+        .pipe(gulp.dest('public/studies'));
+}
 
-   /**
-    * Creates symbol sheet from svg source
-    */
-   async function svg() {
-       return gulp
-           .src('src/svg/*.svg')
-           .pipe(
-               svgmin({
-                   full: true,
-                   plugins: [
-                       'removeStyleElement',
-                       {
-                           name: 'removeViewBox',
-                           active: false,
-                       },
-                       {
-                           name: 'removeAttrs',
-                           params: {
-                               attrs: ['path:style', 'path:id', 'path:class'],
-                               elemSeparator: ':',
-                           },
-                       },
-                   ],
-               })
-           )
-           .pipe(symbols())
-           .pipe(gulp.dest('src/'));
-   }
+/**
+ * Creates symbol sheet from svg source
+ */
+async function svg() {
+    return gulp
+        .src('src/svg/*.svg')
+        .pipe(
+            svgmin({
+                full: true,
+                plugins: [
+                    'removeStyleElement',
+                    {
+                        name: 'removeViewBox',
+                        active: false,
+                    },
+                    {
+                        name: 'removeAttrs',
+                        params: {
+                            attrs: ['path:style', 'path:id', 'path:class'],
+                            elemSeparator: ':',
+                        },
+                    },
+                ],
+            })
+        )
+        .pipe(symbols())
+        .pipe(gulp.dest('src/'));
+}
 
-   /**
-    * Convert images to webp and moves them
-    */
+/**
+ * Convert images to webp and moves them
+ */
 
-   async function images() {
-       return gulp
-           .src('src/images/*', {encoding: false})
-           .pipe(webp())
-           .pipe(gulp.dest('public/images/'));
-   }
+async function images() {
+    return gulp
+        .src('src/images/*', {encoding: false})
+        .pipe(webp())
+        .pipe(gulp.dest('public/images/'));
+}
 
-   /**
-    * Convert images to webp and moves them
-    */
+/**
+ * Convert images to webp and moves them
+ */
 
-   async function form() {
-       return gulp
-           .src('src/form/index.php')
-           .pipe(phpmin())
-           .pipe(gulp.dest('public/form'));
-   }
+async function form() {
+    return gulp.src('src/form/index.php').pipe(phpmin()).pipe(gulp.dest('public/form'));
+}
 
-   /**
-    * Moves static files to /public
-    */
+/**
+ * Moves static files to /public
+ */
 
-   async function staticFiles() {
-       const files = ['robots.txt', '.htaccess'];
-       files.forEach((file) => {
-           fs.copyFileSync(`src/${file}`, `public/${file}`);
-       });
-       return;
-   }
+async function statics() {
+    const paths = ['robots.txt', '.htaccess', 'zine', 'resume', 'fonts', 'videos'];
+    paths.forEach((path) => {
+        fs.cpSync(`src/${path}`, `public/${path}`, {recursive: true});
+    });
+    return;
+}
 
-   async function staticFolders() {
-       const folders = ['zine', 'resume', 'fonts', 'videos'];
-       folders.forEach((folder) => {
-           fs.cpSync(`src/${folder}/`, `public/${folder}/`, {recursive: true});
-       });
-       return;
-   }
+/**
+ * Cleans unneccessary files
+ */
 
-   /**
-    * Cleans unneccessary files
-    */
+async function scrub() {
+    return gulp
+        .src(['public/*.js', 'public/*.css', 'src/svg-symbols.css'])
+        .pipe(clean());
+}
 
-   async function scrub() {
-       return gulp
-           .src(['public/*.js', 'public/*.css', 'src/svg-symbols.css'])
-           .pipe(clean());
-   }
-
-   gulp.task(
-       'default',
-       gulp.series(
-           init,
-           svg,
-           gulp.parallel(
-               html,
-               js,
-               css,
-               form,
-               images,
-               studies,
-               staticFiles,
-               staticFolders
-           ),
-           scrub
-       )
-   );
+gulp.task(
+    'default',
+    gulp.series(
+        init,
+        svg,
+        gulp.parallel(html, js, css, form, images, studies, statics),
+        scrub
+    )
+);
 
 /* Pull images/studies from crypt
    ========================================================================== */
@@ -276,7 +256,10 @@ async function pullStudies() {
 
 async function pullImages() {
     return gulp
-        .src('/mnt/c/users/public/desktop/reference/freelance/portfolio/images/*')
+        .src('/mnt/c/users/public/desktop/reference/freelance/portfolio/images/*', {
+            encoding: false,
+            read: false,
+        })
         .pipe(gulp.dest('src/images/'));
 }
 
@@ -286,7 +269,10 @@ async function pullImages() {
 
 async function pullSVG() {
     return gulp
-        .src('/mnt/c/users/public/desktop/reference/freelance/portfolio/svg/*')
+        .src('/mnt/c/users/public/desktop/reference/freelance/portfolio/svg/*', {
+            encoding: false,
+            read: false,
+        })
         .pipe(
             svgmin({
                 full: true,
@@ -316,14 +302,18 @@ async function pullSVG() {
 
 async function pullResume() {
     return gulp
-        .src('/mnt/c/users/public/desktop/reference/resume/exports/resume.pdf*')
+        .src('/mnt/c/users/public/desktop/reference/resume/exports/resume.pdf*', {
+            encoding: false,
+            read: false,
+        })
         .pipe(gulp.dest('src/resume/'));
 }
 
 async function pullZine() {
     return gulp
         .src(
-            '/mnt/c/users/public/desktop/reference/climatique/zine/exports/better-world.pdf*'
+            '/mnt/c/users/public/desktop/reference/climatique/zine/exports/better-world.pdf*',
+            {encoding: false, read: false}
         )
         .pipe(gulp.dest('src/zine/'));
 }
@@ -332,6 +322,7 @@ gulp.task(
     'pull-wsl',
     gulp.series(pullStudies, pullImages, pullResume, pullZine, pullSVG)
 );
+
 gulp.task('pull-studies', pullStudies);
 gulp.task('pull-images', pullImages);
 gulp.task('pull-svg', pullSVG);
