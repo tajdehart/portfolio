@@ -210,7 +210,7 @@ gulp.task(
     'default',
     gulp.series(
         svg,
-        gulp.parallel(html, js, css, form, images, studies, staticFiles, staticFolders),
+        gulp.parallel(html, js, css, images, studies, staticFiles, staticFolders),
         scrub
     )
 );
