@@ -208,9 +208,7 @@ import frontMatter from 'gulp-front-matter';
    async function staticFolders() {
        const folders = ['zine', 'resume', 'fonts', 'videos'];
        folders.forEach((folder) => {
-           gulp.src(`src/${folder}/*`, {encoding: false}).pipe(
-               gulp.dest(`public/${folder}/`)
-           );
+           fs.cpSync(`src/${folder}/`, `public/${folder}/`, {recursive: true});
        });
        return;
    }
