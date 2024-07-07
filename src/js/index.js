@@ -56,10 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
         pageIn();
     });
 
-    window.addEventListener('beforeunload', () => {
-        pageIn();
-    });
-
     transitionLinks.forEach((link) => {
         link.addEventListener('click', (event) => {
             event.preventDefault();
