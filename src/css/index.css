@@ -1017,6 +1017,7 @@ aside > button > .tooltip > .star,
         --gutter-1: 16rem;
         --gutter-2: 24vw;
         --spacing-1: 1.125rem;
+        --hero-size: 22rem;
     }
 }
 
