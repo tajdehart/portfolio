@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Page animations
+    /* Page animations
+       ========================================================================== */
+
+    // All-purpose function to grab variables defined in CSS
 
     function getValue(variable) {
         let prop = window
@@ -53,6 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
         pageIn();
     });
 
+    window.addEventListener('beforeunload', () => {
+        pageIn();
+    });
+
     transitionLinks.forEach((link) => {
         link.addEventListener('click', (event) => {
             event.preventDefault();
@@ -67,7 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Form submission
+    /* Form submission
+       ========================================================================== */
 
     const contactForm = document.getElementById('contact-form'),
         submit = document.getElementById('submit'),
@@ -148,7 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return 'valid';
     }
-    // Mobile nav logo slide
+
+    /* FMobile logo slide out
+       ========================================================================== */
 
     const menu = document.querySelector('nav menu'),
         logo = document.getElementById('logo');
@@ -165,7 +175,8 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('scroll', logoOut);
     }
 
-    // Dark mode toggle
+    /* Toggle dark mode
+       ========================================================================== */
 
     function setValue(prop, variable) {
         return root.style.setProperty(`--${prop}`, variable);
@@ -230,7 +241,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Carbon value
+    /* Website carbon
+       ========================================================================== */
+
     const carbon = document.getElementById('carbon'),
         domain = encodeURIComponent(window.location.href);
 
@@ -280,7 +293,9 @@ document.addEventListener('DOMContentLoaded', () => {
         newRequest();
     }
 
-    // Tooltips
+    /* Tooltips
+       ========================================================================== */
+
     const wrappers = document.querySelectorAll('.tooltip-wrapper:not(#contact-form)');
 
     wrappers.forEach((wrapper) => {
