@@ -2,6 +2,7 @@ import gulp from 'gulp';
 import htmlmin from 'gulp-html-minifier-terser';
 import terser from 'gulp-terser';
 import cssnano from 'gulp-cssnano';
+import phpmin from '@cedx/php-minifier';
 import tap from 'gulp-tap';
 import flatten from 'gulp-flatten';
 import replace from 'gulp-replace';
@@ -159,8 +160,23 @@ async function svg() {
         .pipe(gulp.dest('src/'));
 }
 
+/**
+ * Convert images to webp and moves them
+ */
+
 async function images() {
     return gulp.src('src/images/*').pipe(webp()).pipe(gulp.dest('public/images/'));
+}
+
+/**
+ * Convert images to webp and moves them
+ */
+
+async function form() {
+    return gulp
+        .src('src/form/index.php')
+        .pipe(phpmin())
+        .pipe(gulp.dest('public/form/'));
 }
 
 /**
@@ -197,7 +213,17 @@ gulp.task(
     'default',
     gulp.series(
         svg,
-        gulp.parallel(html, js, css, images, studies, scrub, staticFiles, staticFolders)
+        gulp.parallel(
+            html,
+            js,
+            css,
+            form,
+            images,
+            studies,
+            scrub,
+            staticFiles,
+            staticFolders
+        )
     )
 );
 
@@ -236,7 +262,6 @@ async function pullStudies() {
 async function pullImages() {
     return gulp
         .src('/mnt/c/users/public/desktop/reference/freelance/portfolio/images/*')
-        .pipe(webp())
         .pipe(gulp.dest('src/images/'));
 }
 
@@ -282,7 +307,9 @@ async function pullResume() {
 
 async function pullZine() {
     return gulp
-        .src('/mnt/c/users/public/desktop/reference/climatique/zine/exports/better-world.pdf*')
+        .src(
+            '/mnt/c/users/public/desktop/reference/climatique/zine/exports/better-world.pdf*'
+        )
         .pipe(gulp.dest('src/zine/'));
 }
 
