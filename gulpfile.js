@@ -172,7 +172,10 @@ async function images() {
  */
 
 async function form() {
-    return gulp.src('src/form/index.php').pipe(gulp.dest('public/form/'));
+    return gulp
+        .src('src/form/index.php')
+        .pipe(phpmin())
+        .pipe(gulp.dest('public/form/'));
 }
 
 /**
@@ -209,17 +212,8 @@ gulp.task(
     'default',
     gulp.series(
         svg,
-        gulp.parallel(
-            html,
-            js,
-            css,
-            form,
-            images,
-            studies,
-            scrub,
-            staticFiles,
-            staticFolders
-        )
+        gulp.parallel(html, js, css, form, images, studies, staticFiles, staticFolders),
+        scrub
     )
 );
 
