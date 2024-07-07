@@ -1,6 +1,7 @@
 <?php
 
-$dir_sender = 'https://taj.greenvisionmedia.net';
+$dir_sender = 'greenvisionmedia.net';
+$referrer = $_SERVER['HTTP_REFERER'];
 $timestamp = date('Y-m-d H:i:s');
 
 // Build and run time for globalists
