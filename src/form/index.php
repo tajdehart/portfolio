@@ -1,6 +1,6 @@
 <?php
 
-$dir_sender = 'greenvisionmedia.net';
+$sender = 'greenvisionmedia.net';
 $referrer = $_SERVER['HTTP_REFERER'];
 $timestamp = date('Y-m-d H:i:s');
 
@@ -22,7 +22,7 @@ function getTime()
 $time = getTime();
 
 // Set safe state or redirect
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $dir_sender) !== false) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $sender) !== false) {
 
     // Sanitize text fields and validate email
     foreach ($_POST as $key => $value) {
