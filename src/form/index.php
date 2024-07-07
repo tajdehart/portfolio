@@ -1,5 +1,6 @@
 <?php
 
+$dir_sender = 'taj.greenvisionmedia.net';
 $timestamp = date('Y-m-d H:i:s');
 
 // Build and run time for globalists
@@ -20,7 +21,7 @@ function getTime()
 $time = getTime();
 
 // Set safe state or redirect
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $dir_sender) !== false) {
 
     // Sanitize text fields and validate email
     foreach ($_POST as $key => $value) {
