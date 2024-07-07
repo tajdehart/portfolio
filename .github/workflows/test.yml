@@ -23,7 +23,7 @@ jobs:
 
     # Runs gulp to build
     - name: 🏗️ Build with gulp
-      run: gulp
+      run: npx gulp
 
     - name: 📩 Deploy to custom domain
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
