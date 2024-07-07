@@ -258,7 +258,6 @@ async function pullImages() {
     return gulp
         .src('/mnt/c/users/public/desktop/reference/freelance/portfolio/images/*', {
             encoding: false,
-            read: false,
         })
         .pipe(gulp.dest('src/images/'));
 }
@@ -271,7 +270,6 @@ async function pullSVG() {
     return gulp
         .src('/mnt/c/users/public/desktop/reference/freelance/portfolio/svg/*', {
             encoding: false,
-            read: false,
         })
         .pipe(
             svgmin({
@@ -304,7 +302,6 @@ async function pullResume() {
     return gulp
         .src('/mnt/c/users/public/desktop/reference/resume/exports/resume.pdf*', {
             encoding: false,
-            read: false,
         })
         .pipe(gulp.dest('src/resume/'));
 }
@@ -313,7 +310,7 @@ async function pullZine() {
     return gulp
         .src(
             '/mnt/c/users/public/desktop/reference/climatique/zine/exports/better-world.pdf*',
-            {encoding: false, read: false}
+            {encoding: false}
         )
         .pipe(gulp.dest('src/zine/'));
 }
