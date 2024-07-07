@@ -1,6 +1,7 @@
 import gulp from 'gulp';
 import htmlmin from 'gulp-html-minifier-terser';
 import terser from 'gulp-terser';
+import phpMinifier from '@cedx/php-minifier';
 import cssnano from 'gulp-cssnano';
 import tap from 'gulp-tap';
 import flatten from 'gulp-flatten';
