@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (window.innerWidth < 651) {
-        window.addEventListener('scroll', logoOut, {passive: true});
+        window.addEventListener('scroll', logoOut);
     }
 
     // Dark mode toggle
@@ -308,16 +308,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (tooltip.classList.contains('is-follower')) {
             leaveDelay = 500;
 
-            document.addEventListener('mousemove', function move(event) {
-                if (wasHovered) {
-                    setTimeout(() => {
-                        document.removeEventListener('mousemove', move);
-                    }, leaveDelay);
-                }
+            document.addEventListener(
+                'mousemove',
+                function move(event) {
+                    if (wasHovered) {
+                        setTimeout(() => {
+                            document.removeEventListener('mousemove', move);
+                        }, leaveDelay);
+                    }
 
-                tooltip.style.top = `${event.clientY}px`;
-                tooltip.style.left = `${event.clientX}px`;
-            });
+                    tooltip.style.top = `${event.clientY}px`;
+                    tooltip.style.left = `${event.clientX}px`;
+                },
+                {passive: true}
+            );
         }
 
         function endFollow() {
