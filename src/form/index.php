@@ -1,6 +1,6 @@
 <?php
 
-$dir_sender = 'taj.greenvisionmedia.net';
+$dir_sender = 'https://taj.greenvisionmedia.net';
 $timestamp = date('Y-m-d H:i:s');
 
 // Build and run time for globalists
