@@ -19,13 +19,6 @@ import frontMatter from 'gulp-front-matter';
 /* Main compression task
    ========================================================================== */
 
-   async function init() {
-       if (!fs.existsSync('public')) {
-           fs.mkdirSync('public');
-       }
-       return;
-   }
-
    /**
     * Replaces all injection strings with their respective files
     */
@@ -34,6 +27,17 @@ import frontMatter from 'gulp-front-matter';
        return replace(`${pragma}`, () => {
            return '' + fs.readFileSync(`${path}`, 'utf8');
        });
+   }
+
+   /**
+    * Creates a new public folder if one doesn't already exist
+    */
+
+   async function init() {
+       if (!fs.existsSync('public')) {
+           fs.mkdirSync('public');
+       }
+       return;
    }
 
    /**
@@ -172,7 +176,10 @@ import frontMatter from 'gulp-front-matter';
     */
 
    async function images() {
-       return gulp.src('src/images/*').pipe(webp()).pipe(gulp.dest('public/images/'));
+       return gulp
+           .src('src/images/*', {encoding: false})
+           .pipe(webp())
+           .pipe(gulp.dest('public/images/'));
    }
 
    /**
@@ -193,7 +200,7 @@ import frontMatter from 'gulp-front-matter';
    async function staticFiles() {
        const files = ['robots.txt', '.htaccess'];
        files.forEach((file) => {
-           gulp.src(`src/${file}`).pipe(gulp.dest('public/'));
+           fs.copyFileSync(`src/${file}`, `public/${file}`);
        });
        return;
    }
@@ -201,7 +208,9 @@ import frontMatter from 'gulp-front-matter';
    async function staticFolders() {
        const folders = ['zine', 'resume', 'fonts', 'videos'];
        folders.forEach((folder) => {
-           gulp.src(`src/${folder}/*`).pipe(gulp.dest(`public/${folder}/`));
+           gulp.src(`src/${folder}/*`, {encoding: false}).pipe(
+               gulp.dest(`public/${folder}/`)
+           );
        });
        return;
    }
