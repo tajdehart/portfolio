@@ -6,7 +6,7 @@ import cssnano from 'gulp-cssnano';
 import tap from 'gulp-tap';
 import flatten from 'gulp-flatten';
 import replace from 'gulp-replace';
-import clean from 'gulp-clean';
+import clean from 'gulp-clen';
 import markdown from 'gulp-markdown';
 import header from 'gulp-header';
 import footer from 'gulp-footer';
@@ -173,10 +173,7 @@ async function images() {
  */
 
 async function form() {
-    return gulp
-        .src('src/form/index.php')
-        .pipe(phpmin())
-        .pipe(gulp.dest('public/form/'));
+    return gulp.src('src/form/index.php').pipe(phpmin()).pipe(gulp.dest('public/form'));
 }
 
 /**
