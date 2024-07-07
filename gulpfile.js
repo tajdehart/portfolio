@@ -2,7 +2,6 @@ import gulp from 'gulp';
 import htmlmin from 'gulp-html-minifier-terser';
 import terser from 'gulp-terser';
 import cssnano from 'gulp-cssnano';
-import phpmin from '@cedx/php-minifier';
 import tap from 'gulp-tap';
 import flatten from 'gulp-flatten';
 import replace from 'gulp-replace';
@@ -173,10 +172,7 @@ async function images() {
  */
 
 async function form() {
-    return gulp
-        .src('src/form/index.php')
-        .pipe(phpmin())
-        .pipe(gulp.dest('public/form/'));
+    return gulp.src('src/form/index.php').pipe(gulp.dest('public/form/'));
 }
 
 /**
