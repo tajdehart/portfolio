@@ -72,9 +72,7 @@ async function css() {
  */
 
 async function js() {
-    return gulp
-        .src('src/js/*') /*.pipe(terser())*/
-        .pipe(gulp.dest('public/js'));
+    return gulp.src('src/js/*').pipe(terser()).pipe(gulp.dest('public/js'));
 }
 
 /**
@@ -178,7 +176,11 @@ async function svg() {
 async function images() {
     return gulp
         .src('src/images/*', {encoding: false})
-        .pipe(webp())
+        .pipe(
+            webp().on('error', function (e) {
+                console.log(e);
+            })
+        )
         .pipe(gulp.dest('public/images/'));
 }
 
