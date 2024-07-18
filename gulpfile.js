@@ -176,11 +176,7 @@ async function svg() {
 async function images() {
     return gulp
         .src('src/images/*', {encoding: false})
-        .pipe(
-            webp().on('error', function (e) {
-                console.log(e);
-            })
-        )
+        .pipe(webp())
         .pipe(gulp.dest('public/images/'));
 }
 
