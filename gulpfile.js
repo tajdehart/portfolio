@@ -47,7 +47,7 @@ async function init() {
 async function html() {
     return gulp
         .src('src/*.html')
-        .pipe(fileReplace('<!--symbols.svg-->', 'src/svg-symbols.svg'))
+        .pipe(fileReplace('<!--symbols.svg-->', 'src/svg/svg-symbols.svg'))
         .pipe(
             htmlmin({
                 collapseWhitespace: true,
@@ -124,7 +124,7 @@ async function studies() {
         .pipe(markdown())
         .pipe(header(fs.readFileSync('src/studies/header.html', 'utf8')))
         .pipe(footer(fs.readFileSync('src/studies/footer.html', 'utf8')))
-        .pipe(fileReplace('<!--symbols.svg-->', 'src/svg-symbols.svg'))
+        .pipe(fileReplace('<!--symbols.svg-->', 'src/svg/svg-symbols.svg'))
         .pipe(tap(title))
         .pipe(tap(hero))
         .pipe(tap(description))
@@ -141,11 +141,82 @@ async function studies() {
 }
 
 /**
- * Creates symbol sheet from svg source
+ * Form php minification
  */
-async function svg() {
+
+async function form() {
+    return gulp.src('src/form/index.php').pipe(phpmin()).pipe(gulp.dest('public/form'));
+}
+
+/**
+ * Moves static files to /public
+ */
+
+async function statics() {
+    const paths = [
+        'robots.txt',
+        '.htaccess',
+        'zine',
+        'resume',
+        'fonts',
+        'videos',
+        'images',
+    ];
+    paths.forEach((path) => {
+        fs.cpSync(`src/${path}`, `public/${path}`, {recursive: true});
+    });
+    return;
+}
+
+/**
+ * Cleans unneccessary files
+ */
+
+async function scrub() {
     return gulp
-        .src('src/svg/*.svg')
+        .src(
+            [
+                'public/*.js',
+                'public/*.css',
+                'src/svg/svg-symbols.css',
+                'src/images/*.jpg',
+                'src/images/*.png',
+            ],
+            {allowEmpty: true}
+        )
+        .pipe(clean());
+}
+
+gulp.task(
+    'default',
+    gulp.series(init, gulp.parallel(html, js, css, form, studies, statics), scrub)
+);
+
+/* Crunch images to webp and svg to symbols file
+   ========================================================================== */
+
+/**
+ * Converts all images to webp
+ */
+
+async function crunchImages() {
+    return gulp
+        .src('src/images/*', {
+            encoding: false,
+        })
+        .pipe(webp())
+        .pipe(gulp.dest('src/images/'));
+}
+
+/**
+ * Pulls svg and puts into symbols.svg
+ */
+
+async function crunchSVG() {
+    return gulp
+        .src(['src/svg/*.svg', '!src/svg/svg-symbols.svg'], {
+            encoding: false,
+        })
         .pipe(
             svgmin({
                 full: true,
@@ -166,59 +237,14 @@ async function svg() {
             })
         )
         .pipe(symbols())
-        .pipe(gulp.dest('src/'));
+        .pipe(gulp.dest('src/svg/'));
 }
 
-/**
- * Convert images to webp and moves them
- */
+gulp.task('crunch', gulp.series(crunchImages, crunchSVG));
 
-async function images() {
-    return gulp
-        .src('src/images/*', {encoding: false})
-        .pipe(webp())
-        .pipe(gulp.dest('public/images/'));
-}
+gulp.task('crunch-images', crunchImages);
 
-/**
- * Convert images to webp and moves them
- */
-
-async function form() {
-    return gulp.src('src/form/index.php').pipe(phpmin()).pipe(gulp.dest('public/form'));
-}
-
-/**
- * Moves static files to /public
- */
-
-async function statics() {
-    const paths = ['robots.txt', '.htaccess', 'zine', 'resume', 'fonts', 'videos'];
-    paths.forEach((path) => {
-        fs.cpSync(`src/${path}`, `public/${path}`, {recursive: true});
-    });
-    return;
-}
-
-/**
- * Cleans unneccessary files
- */
-
-async function scrub() {
-    return gulp
-        .src(['public/*.js', 'public/*.css', 'src/svg-symbols.css'])
-        .pipe(clean());
-}
-
-gulp.task(
-    'default',
-    gulp.series(
-        init,
-        svg,
-        gulp.parallel(html, js, css, form, images, studies, statics),
-        scrub
-    )
-);
+gulp.task('crunch-svg', crunchSVG);
 
 /* Pull images/studies from crypt
    ========================================================================== */
@@ -269,26 +295,6 @@ async function pullSVG() {
         .src('/mnt/c/users/public/desktop/reference/freelance/portfolio/svg/*', {
             encoding: false,
         })
-        .pipe(
-            svgmin({
-                full: true,
-                plugins: [
-                    'removeStyleElement',
-                    {
-                        name: 'removeViewBox',
-                        active: false,
-                    },
-                    {
-                        name: 'removeAttrs',
-                        params: {
-                            attrs: ['path:style', 'path:id', 'path:class'],
-                            elemSeparator: ':',
-                        },
-                    },
-                ],
-            })
-        )
-        .pipe(symbols())
         .pipe(gulp.dest('src/svg/'));
 }
 
@@ -298,7 +304,7 @@ async function pullSVG() {
 
 async function pullResume() {
     return gulp
-        .src('/mnt/c/users/public/desktop/reference/resume/exports/resume.pdf*', {
+        .src('/mnt/c/users/public/desktop/reference/resume/resume.pdf*', {
             encoding: false,
         })
         .pipe(gulp.dest('src/resume/'));
@@ -313,10 +319,7 @@ async function pullZine() {
         .pipe(gulp.dest('src/zine/'));
 }
 
-gulp.task(
-    'pull-wsl',
-    gulp.series(pullStudies, pullImages, pullResume, pullZine, pullSVG)
-);
+gulp.task('pull', gulp.series(pullStudies, pullImages, pullResume, pullZine, pullSVG));
 
 gulp.task('pull-studies', pullStudies);
 gulp.task('pull-images', pullImages);
