@@ -192,6 +192,8 @@ gulp.task(
     gulp.series(init, gulp.parallel(html, js, css, form, studies, statics), scrub)
 );
 
+gulp.task('scrub', scrub);
+
 /* Crunch images to webp and svg to symbols file
    ========================================================================== */
 

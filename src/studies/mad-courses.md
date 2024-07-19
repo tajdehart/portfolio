@@ -33,8 +33,6 @@ I came up with the idea of emulating the ink designs of a passport stamp or a sc
 
 ![General assets in the inky screenprint style](../images/mad-courses-ink-assets.webp)
 
-  
-
 ![Examples of some illustrations in this style](../images/mad-courses-ink-assets-close-up.webp)
 
 Some of MAD's projects would require more visual intrigue. My second idea was also _skeumorphic,_ a term that broadly means 2D design that emulates real 3D objects. This time I took that definition to it’s extreme, creating illustrations which mimic actual maps, boarding passes, stamps and notebook pages. I wanted to lend a tactile, realistic feel to the tools MAD was creating, to help them stand out from other education technology.
