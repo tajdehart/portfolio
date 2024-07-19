@@ -1,5 +1,3 @@
-const {mkdirSync} = require('fs');
-
 document.addEventListener('DOMContentLoaded', () => {
     /* Page animations
        ========================================================================== */
