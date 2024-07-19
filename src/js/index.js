@@ -1,3 +1,5 @@
+const {mkdirSync} = require('fs');
+
 document.addEventListener('DOMContentLoaded', () => {
     /* Page animations
        ========================================================================== */
@@ -14,13 +16,20 @@ document.addEventListener('DOMContentLoaded', () => {
         return prop;
     }
 
+    // Get animated elements
+
     const main = document.querySelector('main'),
         header = document.querySelector('header'),
         loader = document.getElementById('loader'),
         aside = document.querySelector('body > aside');
 
+    // Get all links that trigger animations and timing CSS var
+
     const transitionLinks = document.querySelectorAll('a[href^="/"]'),
-        transitionTime = getValue('page-transition-time');
+        transitionTime = getValue('page-transition-time'),
+        loadingTime = 2500;
+
+    // Page in animation
 
     function pageIn() {
         main.classList.add('on');
@@ -35,6 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         loader.classList.add('off');
     }
+
+    // Page out animation
 
     function pageOut(url) {
         main.classList.remove('on');
@@ -52,19 +63,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }, transitionTime);
     }
 
-    window.addEventListener('pageshow', () => {
+    setTimeout(() => {
         pageIn();
-    });
+    }, loadingTime);
 
     transitionLinks.forEach((link) => {
         link.addEventListener('click', (event) => {
             event.preventDefault();
             event.stopPropagation();
-
-            if (link.id == 'submit') {
-                submit(link);
-                return;
-            }
 
             pageOut(link.href);
         });
