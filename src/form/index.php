@@ -21,8 +21,17 @@ function getTime()
 
 $time = getTime();
 
+// Reject honeypot filled submissions
+$hp_name = $_POST['name'];
+$hp_email = $_POST['email'];
+$is_spammer = false;
+
+if (!empty($hp_name) || !empty($req[$hp_email])) {
+    $is_spammer = true;
+}
+
 // Set safe state or redirect
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $sender) !== false) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $sender) !== false && !$is_spammer) {
 
     // Sanitize text fields and validate email
     foreach ($_POST as $key => $value) {
@@ -59,20 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $sender) !== fals
     $email_message .= "      Message: $message\n";
     $email_message .= "\n\n";
 
-    // Honeypot vars
-    $hp_name = $_POST['name'];
-    $hp_email = $_POST['email'];
-    $is_spammer = false;
-
-    // Reject honeypot filled submissions
-    if (!empty($hp_name) || !empty($req[$hp_email])) {
-        $is_spammer = true;
-    }
-
-    // Send email
-    if (!$is_spammer) {
-        mail($to, $subject, $email_message, $headers);
-    }
+    mail($to, $subject, $email_message, $headers);
 
 } else {
     exit;
