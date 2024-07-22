@@ -46,13 +46,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $sender) !== fals
     $message = $_POST['message'];
     $from = 'info@greenvision.media';
     $to = 'tajdehart@gmail.com';
-    $subject = "Website lead!";
-    $headers = "From: Honeypot test website <" . $from . ">\r\n";
+    $subject = "Portfolio lead!";
+    $headers = "From: Taj's Portfolio Website <" . $from . ">\r\n";
     $headers .= "Reply-To: " . $from . "\r\n";
     $headers .= "CC: " . $cc . "\r\n";
     $headers .= "X-Mailer: PHP/" . phpversion();
 
-    $email_message = "Thusly spract the website at $time\n";
+    $email_message = "Also spake the website at $time\n";
     $email_message .= "Here is what we got:\n";
     $email_message .= "      Email: $email\n";
     $email_message .= "      Name: $name\n";
@@ -63,6 +63,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $sender) !== fals
     $hp_name = $_POST['name'];
     $hp_email = $_POST['email'];
     $is_spammer = false;
+
+    // Reject honeypot filled submissions
+    if (!empty($hp_name) || !empty($req[$hp_email])) {
+        $is_spammer = true;
+    }
 
     // Send email
     if (!$is_spammer) {
