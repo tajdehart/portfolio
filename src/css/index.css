@@ -34,9 +34,11 @@
     right: 0;
     bottom: 0;
     left: 0;
+    z-index: 1001;
     justify-content: center;
     align-items: center;
-    transition: opacity 300ms var(--easing);
+    transition: opacity 500ms var(--easing);
+    opacity: 0;
 }
 
 #loader > svg {
@@ -48,8 +50,7 @@
     animation: load-appear 1 1000ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-
-#loader.off > svg {
+#loader.off {
     display: none;
 }
 
@@ -997,7 +998,7 @@ a:focus-visible,
     color: var(--black);
     font-size: var(--body-text);
     font-size: var(--body-text);
-    padding: 0 0.75em 0 0.5em;
+    padding: 0 0.5em;
     align-items: center;
     justify-content: center;
     font-family: 'Miller', 'Georgia Pro', 'Georgia', 'Plantin', serif;
@@ -1006,6 +1007,7 @@ a:focus-visible,
 
 aside .tooltip {
     margin-right: 3rem;
+    padding-right: 0.75em;
 }
 
 .tooltip > .star {

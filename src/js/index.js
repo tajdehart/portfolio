@@ -37,8 +37,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Page in animation
 
     function pageIn() {
-        blocker.classList.add('off');
         loader.classList.add('on');
+
+        setTimeout(() => {
+            blocker.classList.add('off');
+        }, 1000);
 
         setTimeout(() => {
             main.classList.add('on');
@@ -50,11 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (aside) {
                 aside.classList.add('on');
             }
-        }, loadingTime);
 
-        setTimeout(() => {
-            loader.classList.add('off');
-        }, transitionTime + 100);
+            setTimeout(() => {
+                loader.classList.add('off');
+                loader.classList.remove('on');
+            }, transitionTime - 400);
+        }, loadingTime);
     }
 
     // Page out animation
