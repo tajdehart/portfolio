@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // All-purpose functions to grab and change variables defined in CSS
 
+    document.body.style.visibility = 'visible';
+
     function getValue(variable) {
         let prop = window
             .getComputedStyle(document.documentElement)
@@ -38,10 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function pageIn() {
         loader.classList.add('on');
-
-        setTimeout(() => {
-            blocker.classList.add('off');
-        }, 1000);
 
         setTimeout(() => {
             main.classList.add('on');
