@@ -40,7 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
             aside.classList.add('on');
         }
 
-        loader.classList.add('off');
+        setTimeout(() => {
+            loader.classList.add('off');
+        }, transitionTime + 100);
     }
 
     // Page out animation
@@ -85,10 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
         emailRequiredTooltip = document.getElementById('email-required-tooltip'),
         nameRequiredTooltip = document.getElementById('name-required-tooltip'),
         successURL = '/success.html',
-        failureURL = '/failure.html',
-        endPoint = contactForm.action;
+        failureURL = '/failure.html';
 
     if (contactForm) {
+        const endPoint = contactForm.action;
         submit.addEventListener('click', (event) => {
             event.preventDefault();
             event.stopPropagation();

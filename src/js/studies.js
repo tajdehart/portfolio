@@ -1,50 +1,52 @@
-// Move first paragraph
-const paragraphs = document.querySelectorAll('p');
+document.addEventListener('DOMContentLoaded', () => {
+    // Move first paragraph
+    const paragraphs = document.querySelectorAll('p');
 
-paragraphs[0].innerHTML = paragraphs[1].innerHTML;
-paragraphs[1].remove();
+    paragraphs[0].innerHTML = paragraphs[1].innerHTML;
+    paragraphs[1].remove();
 
-// Scroll indicator
-const progress = document.getElementById('progress');
+    // Scroll indicator
+    const progress = document.getElementById('progress');
 
-let timeOfLastScroll = 0;
-let requestedAniFrame = false;
+    let timeOfLastScroll = 0;
+    let requestedAniFrame = false;
 
-function scroll() {
-    if (!requestedAniFrame) {
-        requestAnimationFrame(updateProgress);
-        requestedAniFrame = true;
+    function scroll() {
+        if (!requestedAniFrame) {
+            requestAnimationFrame(updateProgress);
+            requestedAniFrame = true;
+        }
+        timeOfLastScroll = Date.now();
     }
-    timeOfLastScroll = Date.now();
-}
 
-document.addEventListener('scroll', scroll);
+    document.addEventListener('scroll', scroll);
 
-let winHeight = 1000;
-let bottom = 10000;
+    let winHeight = 1000;
+    let bottom = 10000;
 
-function updateProgress() {
-    requestedAniFrame = false;
+    function updateProgress() {
+        requestedAniFrame = false;
 
-    var percent = Math.min(
-        (document.scrollingElement.scrollTop / (bottom - winHeight)) * 100,
-        100
-    );
+        var percent = Math.min(
+            (document.scrollingElement.scrollTop / (bottom - winHeight)) * 100,
+            100
+        );
 
-    progress.style.paddingLeft = `${percent}%`;
+        progress.style.paddingLeft = `${percent}%`;
 
-    if (Date.now() - timeOfLastScroll < 3000) {
-        requestAnimationFrame(updateProgress);
-        requestedAniFrame = true;
+        if (Date.now() - timeOfLastScroll < 3000) {
+            requestAnimationFrame(updateProgress);
+            requestedAniFrame = true;
+        }
     }
-}
 
-new ResizeObserver(() => {
-    bottom =
-        document.scrollingElement.scrollTop +
-        document.querySelector('#comments,footer').getBoundingClientRect().top;
+    new ResizeObserver(() => {
+        bottom =
+            document.scrollingElement.scrollTop +
+            document.querySelector('#comments,footer').getBoundingClientRect().top;
 
-    winHeight = window.innerHeight;
+        winHeight = window.innerHeight;
 
-    scroll();
-}).observe(document.body);
+        scroll();
+    }).observe(document.body);
+});
