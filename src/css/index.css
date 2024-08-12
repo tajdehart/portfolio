@@ -1,3 +1,90 @@
+/* FOUC priority
+   ========================================================================== */
+
+/**
+ * Page animations
+ */
+
+ @media screen and (scripting: enabled) {
+    main,
+    header {
+        translate: -100%;
+        transition: var(--slide-transition);
+    }
+
+    main.on,
+    header.on {
+        translate: 0%;
+    }
+
+    body > aside {
+        translate: 0 var(--button-offset);
+        transition: var(--slide-transition);
+    }
+
+    body > aside.on {
+        translate: 0%;
+    }
+}
+
+#loader {
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 300ms var(--easing);
+}
+
+#loader > svg {
+    fill: var(--white);
+    animation: load-spin infinite 4000ms linear;
+}
+
+#loader.on {
+    animation: load-appear 1 1000ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+
+#loader.off > svg {
+    display: none;
+}
+
+#blocker {
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: var(--black);
+}
+
+#blocker.off {
+    display: none;
+}
+
+@keyframes load-spin {
+    to {
+        rotate: 360deg;
+    }
+}
+
+@keyframes load-appear {
+    from {
+        opacity: 0;
+        translate: 0 1.5rem;
+    }
+    to {
+        opacity: 2;
+        translate: 0 0;
+    }
+}
+
 /* Variables
    ========================================================================== */
 
@@ -844,71 +931,6 @@ button {
     transition-duration: var(--color-transition-time);
     transition-property: box-shadow, background-color;
     transition-timing-function: var(--easing);
-}
-
-/**
- * Page animations
- */
-
-@media screen and (scripting: enabled) {
-    main,
-    header {
-        translate: -100%;
-        transition: var(--slide-transition);
-    }
-
-    main.on,
-    header.on {
-        translate: 0%;
-    }
-
-    body > aside {
-        translate: 0 var(--button-offset);
-        transition: var(--slide-transition);
-    }
-
-    body > aside.on {
-        translate: 0%;
-    }
-}
-
-#loader {
-    display: flex;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 300ms var(--easing);
-    animation: load-appear 1 1000ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-#loader > svg {
-    fill: var(--white);
-    animation: load-spin infinite 4000ms linear;
-}
-
-#loader.off > svg {
-    opacity: 0;
-}
-
-@keyframes load-spin {
-    to {
-        rotate: 360deg;
-    }
-}
-
-@keyframes load-appear {
-    from {
-        opacity: 0;
-        translate: 0 1.5rem;
-    }
-    to {
-        opacity: 2;
-        translate: 0 0;
-    }
 }
 
 /**

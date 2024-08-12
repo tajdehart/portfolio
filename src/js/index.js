@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const main = document.querySelector('main'),
         header = document.querySelector('header'),
         loader = document.getElementById('loader'),
+        blocker = document.getElementById('blocker'),
         aside = document.querySelector('body > aside');
 
     // Get all links that trigger animations and timing CSS var
@@ -30,15 +31,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Page in animation
 
     function pageIn() {
-        main.classList.add('on');
+        blocker.classList.add('off');
+        loader.classList.add('on');
 
-        if (header) {
-            header.classList.add('on');
-        }
+        setTimeout(() => {
+            main.classList.add('on');
 
-        if (aside) {
-            aside.classList.add('on');
-        }
+            if (header) {
+                header.classList.add('on');
+            }
+
+            if (aside) {
+                aside.classList.add('on');
+            }
+        }, loadingTime);
 
         setTimeout(() => {
             loader.classList.add('off');
@@ -63,9 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, transitionTime);
     }
 
-    setTimeout(() => {
-        pageIn();
-    }, loadingTime);
+    pageIn();
 
     transitionLinks.forEach((link) => {
         link.addEventListener('click', (event) => {
@@ -214,8 +218,10 @@ document.addEventListener('DOMContentLoaded', () => {
         setValue('blue-hover', greenHover);
         setValue('light-shadow', darkShadow);
         setValue('dark-shadow', lightShadow);
-        darkIcon.classList.add('on');
-        lightIcon.classList.remove('on');
+        if (darkIcon) {
+            darkIcon.classList.add('on');
+            lightIcon.classList.remove('on');
+        }
         isDark = true;
     }
 
@@ -228,8 +234,10 @@ document.addEventListener('DOMContentLoaded', () => {
         setValue('green-hover', greenHover);
         setValue('light-shadow', lightShadow);
         setValue('dark-shadow', darkShadow);
-        darkIcon.classList.remove('on');
-        lightIcon.classList.add('on');
+        if (darkIcon) {
+            darkIcon.classList.remove('on');
+            lightIcon.classList.add('on');
+        }
         isDark = false;
     }
 
