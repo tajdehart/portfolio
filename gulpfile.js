@@ -161,6 +161,7 @@ async function statics() {
         'fonts',
         'videos',
         'images',
+        'contracts',
     ];
     paths.forEach((path) => {
         fs.cpSync(`src/${path}`, `public/${path}`, {recursive: true});
