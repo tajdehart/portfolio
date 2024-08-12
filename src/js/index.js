@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const transitionLinks = document.querySelectorAll('a[href^="/"]'),
         transitionTime = getValue('page-transition-time'),
-        loadingTime = 2000;
+        loadingTime = 1000;
 
     // Page in animation
 

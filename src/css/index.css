@@ -882,20 +882,32 @@ button {
     justify-content: center;
     align-items: center;
     transition: opacity 300ms var(--easing);
+    animation: load-appear 1 300ms ease-out both;
 }
 
 #loader > svg {
     fill: var(--white);
-    animation: load infinite 4000ms linear;
+    animation: load-spin infinite 4000ms linear;
 }
 
 #loader.off {
     opacity: 0;
 }
 
-@keyframes load {
+@keyframes load-spin {
     to {
         rotate: 360deg;
+    }
+}
+
+@keyframes load-appear {
+    from {
+        opacity: 0;
+        translate: 0 1.5rem;
+    }
+    to {
+        opacity: 2;
+        translate: 0 0;
     }
 }
 
