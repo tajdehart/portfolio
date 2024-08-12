@@ -47,7 +47,7 @@ async function init() {
 async function html() {
     return gulp
         .src('src/*.html')
-        .pipe(fileReplace('<!--symbols.svg-->', 'src/svg/svg-symbols.svg'))
+        .pipe(fileReplace('<!--svg-symbols.svg-->', 'src/svg/svg-symbols.svg'))
         .pipe(
             htmlmin({
                 collapseWhitespace: true,
@@ -68,7 +68,7 @@ async function css() {
 }
 
 /**
- * Compress css
+ * Compress js
  */
 
 async function js() {
@@ -124,7 +124,7 @@ async function studies() {
         .pipe(markdown())
         .pipe(header(fs.readFileSync('src/studies/header.html', 'utf8')))
         .pipe(footer(fs.readFileSync('src/studies/footer.html', 'utf8')))
-        .pipe(fileReplace('<!--symbols.svg-->', 'src/svg/svg-symbols.svg'))
+        .pipe(fileReplace('<!--svg-symbols.svg-->', 'src/svg/svg-symbols.svg'))
         .pipe(tap(title))
         .pipe(tap(hero))
         .pipe(tap(description))
