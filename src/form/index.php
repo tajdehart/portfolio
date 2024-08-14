@@ -1,11 +1,20 @@
 <?php
 
-$sender = 'greenvisionmedia.net';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+$dir_sender = 'greenvisionmedia.net';
+
+//set security globals
+$error_file = './errors.csv';
+$ipAddress = $_SERVER['REMOTE_ADDR'];
 $referrer = $_SERVER['HTTP_REFERER'];
+$userAgent = $_SERVER['HTTP_USER_AGENT'];
 $timestamp = date('Y-m-d H:i:s');
 
-// Build and run time for globalists
-function getTime()
+//Build and run Time for globalists
+function GetTime4Globalists()
 {
     $timezone_cest = 'Europe/Paris';
     date_default_timezone_set($timezone_cest);
@@ -15,25 +24,72 @@ function getTime()
     date_default_timezone_set($timezone_mt);
     $timestamp_mt = date('h:i A');
 
-    $time = $timestamp_cest . ' CEST or about ' . $timestamp_mt . ' in Boulder.';
-    return $time;
+    $time_4_globalists = $timestamp_cest . ' CEST or about ' . $timestamp_mt . ' in Boulder.';
+    return $time_4_globalists;
 }
 
-$time = getTime();
+$time_4_globalists = GetTime4Globalists();
 
-// Reject honeypot filled submissions
-$hp_name = $_POST['name'];
-$hp_email = $_POST['email'];
-$is_spammer = false;
 
-if (!empty($hp_name) || !empty($req[$hp_email])) {
-    $is_spammer = true;
+// build error array
+$error_log = array();
+$error_log['ipAddress'] = $ipAddress;
+$error_log['referrer'] = $referrer;
+$error_log['userAgent'] = $userAgent;
+$error_log['timestamp'] = $time_4_globalists;
+
+// quietly log errors
+function something_went_south($error, $error_log, $error_file)
+{
+
+    $error_log['error'] = $error;
+    $maxAttempts = 5;
+    $attempt = 1;
+
+    while ($attempt <= $maxAttempts) {
+        // Create the file if it doesn't exist
+        if (!file_exists($error_file)) {
+            $file = fopen($error_file, 'w');
+            $FirstRow = array('IP Address', 'Referrer', 'User Agent', 'Timestamp', 'Error');
+
+            fputcsv($file, $FirstRow);
+            if (!$file) {
+                // Supress the error code: #");
+            }
+        } else {
+            // Open existing in append
+            $file = fopen($error_file, 'a');
+        }
+
+        // Successfully opened?
+        if ($file) {
+            // Write new row
+            fputcsv($file, $error_log);
+
+            // Close file handle
+            fclose($file);
+
+            // loop successful, exit
+            break;
+        }
+
+        // File not opened, wait 5 seconds
+        sleep(5);
+
+        // Increment counter
+        $attempt++;
+    }
+
+    // Check max reached
+    if ($attempt > $maxAttempts) {
+        // later alert sent or flag file set
+    }
 }
 
-// Set safe state or redirect
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $sender) !== false && !$is_spammer) {
+// set safe state or redirect
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $dir_sender) !== false) {
+    //sanitize text fields and validate email
 
-    // Sanitize text fields and validate email
     foreach ($_POST as $key => $value) {
         if (strpos($key, '[]') === false) {
             $_POST[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
@@ -47,31 +103,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($referrer, $sender) !== fals
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             unset($email);
+            $error = 'invalid email';
+            something_went_south($error, $error_log, $error_file);
         }
     }
 
-    // Email vars
     $name = $_POST['nobbame'];
     $message = $_POST['message'];
     $from = 'info@greenvision.media';
     $to = 'tajdehart@gmail.com';
-    $subject = "Portfolio lead!";
-    $headers = "From: Taj's Portfolio Website <" . $from . ">\r\n";
+    $subject = "Honeypot testing!";
+    $headers = "From: Honeypot test website <" . $from . ">\r\n";
     $headers .= "Reply-To: " . $from . "\r\n";
-    $headers .= "CC: " . $cc . "\r\n";
     $headers .= "X-Mailer: PHP/" . phpversion();
 
-    $email_message = "Also spake the website at $time\n";
+    //TEMP later html email? 
+    $email_message = "Thusly spract the website at $time_4_globalists\n";
     $email_message .= "Here is what we got:\n";
     $email_message .= "      Email: $email\n";
     $email_message .= "      Name: $name\n";
     $email_message .= "      Message: $message\n";
     $email_message .= "\n\n";
 
-    mail($to, $subject, $email_message, $headers);
+    // Recipient entry
+
+    if (!empty($_POST['recipient'])) {
+        $to = $_POST['recipient'];
+    }
+
+    // Honeypot vars
+
+    $hp_name = $_POST['name'];
+    $hp_email = $_POST['email'];
+    $is_spammer = false;
+    $mail_success = false;
+
+    // Honeypot test
+
+    if (!empty($hp_name) || !empty($req[$hp_email])) {
+        $is_spammer = true;
+    }
+
+    // Send email
+    if (!$is_spammer) {
+        mail($to, $subject, $email_message, $headers);
+        $mail_success = true;
+    }
+
+    if ($mail_success) {
+        $error = 'Unable to send email';
+        something_went_south($error, $error_log, $error_file);
+    }
 
 } else {
+    $error = 'Request not POST or referrer not from subdomain';
+    something_went_south($error, $error_log, $error_file);
     exit;
 }
 
+echo 'success';
+// use for debugging
+//echo '<br clear="all"><a href="' . $form_address . '?' . uniqid() . '">Run again?</a>';
 exit;
