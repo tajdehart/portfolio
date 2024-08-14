@@ -1,206 +1,369 @@
-/*! index.js | If you can read this you're tailgaiting */
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Nav selector star slide
-    const star = document.getElementById('star');
-    document.body.querySelectorAll('i').forEach((trigger) => {
-        new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting && entry.target.id == 'a-trigger') {
-                    star.style.marginRight = '77%';
-                }
-                if (entry.isIntersecting && entry.target.id == 'wd-trigger') {
-                    star.style.marginRight = '29%';
-                }
-                if (entry.isIntersecting && entry.target.id == 'gd-trigger') {
-                    star.style.marginRight = '-24%';
-                }
-                if (entry.isIntersecting && entry.target.id == 'gd-trigger-b') {
-                    star.style.marginRight = '-24%';
-                }
-                if (entry.isIntersecting && entry.target.id == 'c-trigger') {
-                    star.style.marginRight = '-77%';
-                }
-            });
-        }).observe(trigger);
-    });
-    // Mobile nav logo slide
-    const menu = document.getElementById('menu'),
-        logo = document.getElementById('logo');
-    if (window.innerWidth < 651) {
-        window.addEventListener(
-            'scroll',
-            function slide() {
-                if (window.scrollY > 25) {
-                    menu.style.transform = 'translate(0)';
-                    logo.style.transform = 'translate(-230%)';
-                    removeEventListener('scroll', slide, false);
-                }
-            },
-            {passive: true}
-        );
+    /* Page animations
+       ========================================================================== */
+
+    // All-purpose functions to grab and change variables defined in CSS
+
+    document.body.style.visibility = 'visible';
+
+    function getValue(variable) {
+        let prop = window
+            .getComputedStyle(document.documentElement)
+            .getPropertyValue(`--${variable}`);
+        if (prop.charAt(prop.length - 1) == 's') {
+            prop = prop.replace(/\D/g, '');
+        }
+        return prop;
     }
-    // Dark mode toggle
-    const root = document.querySelector(':root'),
-        darkMode = document.getElementById('dark-mode'),
-        darkIcon = document.getElementById('light-icon'),
-        lightIcon = document.getElementById('dark-icon');
-    let isDark = false;
-    darkMode.addEventListener('click', () => {
-        if (!isDark) {
-            root.style.setProperty('--black', '#eee8e0');
-            root.style.setProperty('--white', '#1c2e2e');
-            root.style.setProperty('--green', '#09ae8f');
-            darkIcon.style.transform = 'translate(0, 0)';
-            lightIcon.style.transform = 'translate(0, 100%)';
-            isDark = true;
-        } else {
-            root.style.setProperty('--white', '#eee8e0');
-            root.style.setProperty('--black', '#1c2e2e');
-            root.style.setProperty('--green', '#0e6f79');
-            darkIcon.style.transform = 'translate(0, -100%)';
-            lightIcon.style.transform = 'translate(0, 0)';
-            isDark = false;
-        }
-    });
-    // Draggable slider module
-    const nav = document.querySelector('nav');
-    const buttons = document.querySelectorAll('button');
-    const sliders = document.querySelectorAll('.work_slider');
-    let isPressed = false,
-        velX = 0,
-        startX,
-        idleId,
-        momentumId,
-        scrollLeft;
-    sliders.forEach((slider) => {
-        slider.addEventListener('mousedown', (event) => {
-            event.preventDefault();
-            isPressed = true;
-            slider.style.cursor = 'grabbing';
-            startX = event.pageX - slider.offsetLeft;
-            scrollLeft = slider.scrollLeft;
-            cancelMomentum();
-            cancelIdle();
-        });
-        slider.addEventListener('mouseup', (event) => {
-            event.preventDefault();
-            isPressed = false;
-            slider.style.cursor = 'grab';
-            beginMomentum();
-        });
-        slider.addEventListener('mousemove', (event) => {
-            event.preventDefault();
-            if (!isPressed) return;
-            const x = event.pageX - slider.offsetLeft;
-            const walk = x - startX;
-            var prevScrollLeft = slider.scrollLeft;
-            slider.scrollLeft = scrollLeft - walk;
-            velX = slider.scrollLeft - prevScrollLeft;
-        });
-        slider.addEventListener(
-            'wheel',
-            (event) => {
-                cancelMomentum();
-                if (event.deltaX > 10 || event.deltaX < -10) {
-                    cancelIdle();
-                }
-            },
-            {passive: true}
-        );
-        nav.addEventListener('click', () => {
-            cancelMomentum();
-        });
-        buttons.forEach((button) => {
-            button.addEventListener('click', () => {
-                cancelMomentum();
-            });
-        });
-        new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    beginIdle();
-                }
-            });
-        }).observe(slider);
-        function beginIdle() {
-            cancelIdle();
-            idleId = requestAnimationFrame(idleLoop);
-        }
-        function cancelIdle() {
-            cancelAnimationFrame(idleId);
-        }
-        function idleLoop() {
-            slider.scrollLeft += 1;
-            idleId = requestAnimationFrame(idleLoop);
-        }
-        function beginMomentum() {
-            cancelMomentum();
-            momentumId = requestAnimationFrame(momentumLoop);
+
+    function setValue(prop, variable) {
+        return root.style.setProperty(`--${prop}`, variable);
+    }
+
+    const root = document.querySelector(':root');
+
+    // Get animated elements
+
+    const main = document.querySelector('main'),
+        header = document.querySelector('header'),
+        loader = document.getElementById('loader'),
+        blocker = document.getElementById('blocker'),
+        aside = document.querySelector('body > aside');
+
+    // Get all links that trigger animations and timing CSS var
+
+    const transitionLinks = document.querySelectorAll('a[href^="/"]'),
+        transitionTime = getValue('page-transition-time'),
+        loadingTime = 1000;
+
+    // Page in animation
+
+    function pageIn() {
+        loader.classList.add('on');
+
+        setTimeout(() => {
+            main.classList.add('on');
+
+            if (header) {
+                header.classList.add('on');
+            }
+
+            if (aside) {
+                aside.classList.add('on');
+            }
+
             setTimeout(() => {
-                cancelMomentum();
-            }, 5000);
+                loader.classList.add('off');
+                loader.classList.remove('on');
+            }, transitionTime - 400);
+        }, loadingTime);
+    }
+
+    // Page out animation
+
+    function pageOut(url) {
+        main.classList.remove('on');
+
+        if (header) {
+            header.classList.remove('on');
         }
-        function cancelMomentum() {
-            cancelAnimationFrame(momentumId);
+
+        if (aside) {
+            aside.classList.remove('on');
         }
-        function momentumLoop() {
-            slider.scrollLeft += velX * 2;
-            velX *= 0.96;
-            if (Math.abs(velX) > 0.5) {
-                momentumId = requestAnimationFrame(momentumLoop);
+
+        setTimeout(() => {
+            window.location = url;
+        }, transitionTime);
+    }
+
+    pageIn();
+
+    transitionLinks.forEach((link) => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            pageOut(link.href);
+        });
+    });
+
+    /* Form submission
+       ========================================================================== */
+
+    const contactForm = document.getElementById('contact-form');
+
+    if (contactForm) {
+        const submit = document.getElementById('submit'),
+            email = document.getElementById('emobbail'),
+            name = document.getElementById('nobbame'),
+            emailTooltip = document.getElementById('email-tooltip'),
+            emailRequiredTooltip = document.getElementById('email-required-tooltip'),
+            nameRequiredTooltip = document.getElementById('name-required-tooltip'),
+            successURL = '/success.html',
+            failureURL = '/failure.html',
+            endPoint = contactForm.action;
+
+        submit.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            switch (validateForm()) {
+                case 'no-name':
+                    nameRequiredTooltip.style.opacity = '1';
+                    setTimeout(() => {
+                        nameRequiredTooltip.style.opacity = '0';
+                    }, 3000);
+                    break;
+                case 'no-email':
+                    emailRequiredTooltip.style.opacity = '1';
+                    setTimeout(() => {
+                        emailRequiredTooltip.style.opacity = '0';
+                    }, 3000);
+                    break;
+                case 'bad-email':
+                    emailTooltip.style.opacity = '1';
+                    setTimeout(() => {
+                        emailTooltip.style.opacity = '0';
+                    }, 3000);
+                    break;
+                case 'valid':
+                    submitForm();
+                    break;
+            }
+        });
+
+        async function submitForm() {
+            const formData = new FormData(contactForm);
+
+            pageOut(successURL);
+
+            try {
+                const response = await fetch(endPoint, {
+                    method: 'POST',
+                    body: formData,
+                });
+                const result = await response.json();
+                console.log('Success:', result);
+                pageOut(successURL);
+            } catch (error) {
+                console.error('Error:', error);
+                pageOut(failureURL);
             }
         }
-    });
-    // Obfuscate email
-    const email = document.getElementById('email'),
-        user = 'tajdehart',
-        site = 'gmail.com';
-    email.setAttribute('href', 'mailto:' + user + '@' + site);
-    email.innerHTML = user + '@' + site;
-    // Carbon value
-    const carbon = document.querySelector('footer'),
-        domain = encodeURIComponent(window.location.href);
-    let newRequest = function (render = true) {
-        fetch('https://api.websitecarbon.com/b?url=' + domain)
-            .then(function (r) {
-                if (!r.ok) {
-                    throw Error(r);
-                }
-                return r.json();
-            })
-            .then(function (r) {
-                if (render) {
-                    renderResult(r);
-                }
-                r.t = new Date().getTime();
-                localStorage.setItem(domain, JSON.stringify(r));
-            })
-            .catch(function (e) {
-                carbon.innerHTML = '✦ This website runs on renewable energy ✦';
-                localStorage.removeItem(domain);
-            });
-    };
-    const renderResult = function (r) {
-        carbon.innerHTML =
-            '✦ This page produces ' +
-            r.c +
-            'g of CO<sub>2</sub>/view, cleaner than ' +
-            r.p +
-            '% of pages tested ✦';
-    };
-    if ('fetch' in window) {
+
+        function validateForm() {
+            const emailRegex =
+                /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+            if (!name.value) {
+                return 'no-name';
+            }
+
+            if (!email.value) {
+                return 'no-email';
+            }
+
+            if (!emailRegex.test(email.value)) {
+                return 'bad-email';
+            }
+
+            return 'valid';
+        }
+    }
+
+    /* Mobile logo slide out
+       ========================================================================== */
+
+    const menu = document.querySelector('nav menu');
+
+    if (menu) {
+        const logo = document.getElementById('logo');
+
+        function logoOut() {
+            if (window.scrollY > 25) {
+                menu.classList.add('on');
+                logo.classList.add('off');
+                window.removeEventListener('scroll', logoOut);
+            }
+        }
+
+        if (window.innerWidth < 651) {
+            window.addEventListener('scroll', logoOut);
+        }
+    }
+
+    /* Toggle dark mode
+       ========================================================================== */
+
+    const darkModeButton = document.getElementById('dark-mode');
+
+    if (darkModeButton) {
+        const darkIcon = document.getElementById('light-icon'),
+            lightIcon = document.getElementById('dark-icon'),
+            white = getValue('white'),
+            black = getValue('black'),
+            green = getValue('green'),
+            blue = getValue('blue'),
+            greenHover = getValue('green-hover'),
+            blueHover = getValue('blue-hover'),
+            lightShadow = getValue('light-shadow'),
+            darkShadow = getValue('dark-shadow');
+
+        let isDark;
+
+        if (window.sessionStorage.getItem('darkMode') == 'on') {
+            darkOn();
+        } else if (window.sessionStorage.getItem('darkMode') == 'off') {
+            darkOff();
+        }
+
+        function darkOn() {
+            setValue('black', white);
+            setValue('white', black);
+            setValue('green', blue);
+            setValue('blue', green);
+            setValue('green-hover', blueHover);
+            setValue('blue-hover', greenHover);
+            setValue('light-shadow', darkShadow);
+            setValue('dark-shadow', lightShadow);
+            darkIcon.classList.add('on');
+            lightIcon.classList.remove('on');
+            isDark = true;
+        }
+
+        function darkOff() {
+            setValue('black', black);
+            setValue('white', white);
+            setValue('blue', blue);
+            setValue('green', green);
+            setValue('blue-hover', blueHover);
+            setValue('green-hover', greenHover);
+            setValue('light-shadow', lightShadow);
+            setValue('dark-shadow', darkShadow);
+            darkIcon.classList.remove('on');
+            lightIcon.classList.add('on');
+            isDark = false;
+        }
+
+        darkModeButton.addEventListener('click', () => {
+            if (isDark) {
+                darkOff();
+                window.sessionStorage.setItem('darkMode', 'off');
+            } else {
+                darkOn();
+                window.sessionStorage.setItem('darkMode', 'on');
+            }
+        });
+    }
+
+    /* Website carbon
+       ========================================================================== */
+
+    const carbon = document.getElementById('carbon');
+
+    if (carbon) {
+        const domain = encodeURIComponent(window.location.href);
+
+        function newRequest(render = true) {
+            fetch('https://api.websitecarbon.com/b?url=' + domain)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw Error(r);
+                    }
+                    return response.json();
+                })
+                .then((response) => {
+                    if (render) {
+                        renderResult(response);
+                    }
+                    response.t = new Date().getTime();
+                    localStorage.setItem(domain, JSON.stringify(r));
+                })
+                .catch(() => {
+                    carbon.innerHTML = '✦ This website runs on renewable energy ✦';
+                    localStorage.removeItem(domain);
+                });
+        }
+
+        function renderResult(response) {
+            carbon.innerHTML =
+                '✦ This page produces ' +
+                response.c +
+                'g of CO<sub>2</sub>/view, cleaner than ' +
+                response.p +
+                '% of pages tested ✦';
+        }
+
         carbon.innerHTML = '✦ Measuring CO<sub>2</sub>&hellip; ✦';
+
         let cachedResponse = localStorage.getItem(domain);
-        const t = new Date().getTime();
+
+        const time = new Date().getTime();
+
         if (cachedResponse) {
-            const r = JSON.parse(cachedResponse);
-            renderResult(r);
-            if (t - r.t > 86400000) {
+            const response = JSON.parse(cachedResponse);
+            renderResult(response);
+            if (time - response.t > 86400000) {
                 newRequest(false);
             }
         } else {
             newRequest();
         }
+    }
+
+    /* Tooltips
+       ========================================================================== */
+
+    const wrappers = document.querySelectorAll('.tooltip-wrapper:not(#contact-form)');
+
+    if (wrappers) {
+        wrappers.forEach((wrapper) => {
+            const tooltip = document.getElementById(`${wrapper.id}-tooltip`);
+
+            let wasHovered = false,
+                leaveDelay = 750,
+                stayDelay = 2000;
+
+            wrapper.addEventListener('mouseover', function over() {
+                tooltip.style.opacity = '100%';
+                setTimeout(() => {
+                    endFollow();
+                }, stayDelay);
+                wrapper.removeEventListener('mouseover', over);
+            });
+
+            wrapper.addEventListener('mouseleave', function leave() {
+                setTimeout(() => {
+                    endFollow();
+                }, leaveDelay);
+                wrapper.removeEventListener('mouseleave', leave);
+            });
+
+            if (tooltip.classList.contains('is-follower')) {
+                leaveDelay = 500;
+
+                document.addEventListener(
+                    'mousemove',
+                    function move(event) {
+                        if (wasHovered) {
+                            setTimeout(() => {
+                                document.removeEventListener('mousemove', move);
+                            }, leaveDelay);
+                        }
+                        if (window.scrollY > 40) {
+                            tooltip.style.top = `${event.clientY}px`;
+                            tooltip.style.left = `${event.clientX}px`;
+                        }
+                    },
+                    {passive: true}
+                );
+            }
+
+            function endFollow() {
+                wasHovered = true;
+                tooltip.style.opacity = '0%';
+            }
+        });
     }
 });

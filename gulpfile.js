@@ -1,73 +1,53 @@
 import gulp from 'gulp';
 import htmlmin from 'gulp-html-minifier-terser';
+import terser from 'gulp-terser';
+import phpmin from '@cedx/php-minifier';
+import cssnano from 'gulp-cssnano';
 import tap from 'gulp-tap';
 import flatten from 'gulp-flatten';
 import replace from 'gulp-replace';
-import filter from 'gulp-filter';
 import clean from 'gulp-clean';
 import markdown from 'gulp-markdown';
 import header from 'gulp-header';
 import footer from 'gulp-footer';
 import webp from 'gulp-webp';
+import symbols from 'gulp-svg-symbols';
+import svgmin from 'gulp-svgmin';
 import fs from 'fs';
-import path from 'path';
+import frontMatter from 'gulp-front-matter';
+
+/* Main compression task
+   ========================================================================== */
 
 /**
- * Replaces all injection strings with their respective files,
- * then minifies and pushes to /public
+ * Replaces all injection strings with their respective files
  */
 
-async function markup() {
-    const md = filter('src/studies/**/*.md');
-    function getSlug(file) {
-        return path.basename(file.path, '.html');
+function fileReplace(pragma, path) {
+    return replace(`${pragma}`, () => {
+        return '' + fs.readFileSync(`${path}`, 'utf8');
+    });
+}
+
+/**
+ * Creates a new public folder if one doesn't already exist
+ */
+
+async function init() {
+    if (!fs.existsSync('public')) {
+        fs.mkdirSync('public');
     }
-    function getTitle(file) {
-        let slug = getSlug(file);
-        let words = slug.split('-');
-        for (let i = 0; i < words.length; i++) {
-            let word = words[i];
-            words[i] = word.charAt(0).toUpperCase() + word.slice(1);
-        }
-        return words.join(' ');
-    }
-    function getFolder(file) {
-        let parent = path.dirname(file.path);
-        if (parent.includes('graphic_design')) {
-            return 'graphic-design';
-        } else if (parent.includes('web_design')) {
-            return 'web-design';
-        } else {
-            return '';
-        }
-    }
-    function slugs(file) {
-        file.contents = new Buffer(
-            String(file.contents).replaceAll('%slug%', getSlug(file))
-        );
-    }
-    function titles(file) {
-        file.contents = new Buffer(
-            String(file.contents).replaceAll('<!--title-->', getTitle(file))
-        );
-    }
-    function folders(file) {
-        file.contents = new Buffer(
-            String(file.contents).replaceAll('%folder%', getFolder(file))
-        );
-    }
+    return;
+}
+
+/**
+ * Creates index.html
+ */
+
+async function html() {
     return gulp
-        .src('src/index.html')
-        .pipe(
-            replace('/*index.css*/', () => {
-                return `${fs.readFileSync('src/css/index.css', 'utf8')}`;
-            })
-        )
-        .pipe(
-            replace('/*index.js*/', () => {
-                return `${fs.readFileSync('src/js/index.js', 'utf8')}`;
-            })
-        )
+        .src('src/*.html')
+        .pipe(fileReplace('<!--svg-symbols.svg-->', 'src/svg/svg-symbols.svg'))
         .pipe(
             htmlmin({
                 collapseWhitespace: true,
@@ -76,25 +56,78 @@ async function markup() {
                 minifyJS: true,
             })
         )
-        .pipe(gulp.dest('public'))
-        .pipe(gulp.src('src/studies/**/*.md'))
-        .pipe(md)
+        .pipe(gulp.dest('public'));
+}
+
+/**
+ * Compress css
+ */
+
+async function css() {
+    return gulp.src('src/css/*').pipe(cssnano()).pipe(gulp.dest('public/css'));
+}
+
+/**
+ * Compress js
+ */
+
+async function js() {
+    return gulp.src('src/js/*').pipe(terser()).pipe(gulp.dest('public/js'));
+}
+
+/**
+ * Creates studies folder
+ */
+
+async function studies() {
+    function hero(file) {
+        file.contents = Buffer.from(
+            String(file.contents).replaceAll('%hero%', file.frontMatter.hero)
+        );
+    }
+    function title(file) {
+        file.contents = Buffer.from(
+            String(file.contents).replaceAll('<!--title-->', file.frontMatter.title)
+        );
+    }
+    function description(file) {
+        file.contents = Buffer.from(
+            String(file.contents).replaceAll(
+                '%description%',
+                file.frontMatter.description
+            )
+        );
+    }
+    return gulp
+        .src('src/studies/*.md')
+        .pipe(
+            frontMatter({
+                property: 'frontMatter',
+                remove: true,
+            })
+        )
+        .pipe(
+            replace('.png', () => {
+                return '.webp';
+            })
+        )
+        .pipe(
+            replace('.jpg', () => {
+                return '.webp';
+            })
+        )
+        .pipe(
+            replace('.jpeg', () => {
+                return '.webp';
+            })
+        )
         .pipe(markdown())
         .pipe(header(fs.readFileSync('src/studies/header.html', 'utf8')))
         .pipe(footer(fs.readFileSync('src/studies/footer.html', 'utf8')))
-        .pipe(
-            replace('/*studies.css*/', () => {
-                return `${fs.readFileSync('src/js/studies.css', 'utf8')}`;
-            })
-        )
-        .pipe(
-            replace('/*studies.js*/', () => {
-                return `${fs.readFileSync('src/js/studies.js', 'utf8')}`;
-            })
-        )
-        .pipe(tap(titles))
-        .pipe(tap(slugs))
-        .pipe(tap(folders))
+        .pipe(fileReplace('<!--svg-symbols.svg-->', 'src/svg/svg-symbols.svg'))
+        .pipe(tap(title))
+        .pipe(tap(hero))
+        .pipe(tap(description))
         .pipe(
             htmlmin({
                 collapseWhitespace: true,
@@ -108,36 +141,223 @@ async function markup() {
 }
 
 /**
- * Finds all images, filters only the jpgs,
- * and then converts those to webps and pushes to /public
+ * Form php minification
  */
 
-async function images() {
-    const jpg = filter(['src/images/*.jpg', 'src/images/*.jpeg'], {
-        restore: true,
-    });
-    return gulp
-        .src('src/images/*')
-        .pipe(jpg)
-        .pipe(webp())
-        .pipe(jpg.restore)
-        .pipe(gulp.dest('public/images/'));
+async function form() {
+    return gulp.src('src/form/index.php').pipe(phpmin()).pipe(gulp.dest('public/form'));
 }
 
 /**
  * Moves static files to /public
  */
 
-async function fonts() {
-    return gulp.src('src/fonts/*').pipe(gulp.dest('public/fonts/'));
+async function statics() {
+    const paths = [
+        'robots.txt',
+        '.htaccess',
+        'zine',
+        'resume',
+        'fonts',
+        'videos',
+        'images',
+        'contracts',
+    ];
+    paths.forEach((path) => {
+        fs.cpSync(`src/${path}`, `public/${path}`, {recursive: true});
+    });
+    return;
 }
 
-async function videos() {
-    return gulp.src('src/videos/*').pipe(gulp.dest('public/videos'));
-}
+/**
+ * Cleans unneccessary files
+ */
 
 async function scrub() {
-    return gulp.src(['public/*.js', 'public/*.css']).pipe(clean());
+    return gulp
+        .src(
+            [
+                'public/*.js',
+                'public/*.css',
+                'src/svg/svg-symbols.css',
+                'src/images/*.jpg',
+                'src/images/*.png',
+            ],
+            {allowEmpty: true}
+        )
+        .pipe(clean());
 }
 
-gulp.task('default', gulp.series(images, gulp.parallel(markup, videos, fonts, scrub)));
+gulp.task(
+    'default',
+    gulp.series(init, gulp.parallel(html, js, css, form, studies, statics), scrub)
+);
+
+gulp.task('scrub', scrub);
+
+/* Crunch images to webp and svg to symbols file
+   ========================================================================== */
+
+/**
+ * Converts all images to webp
+ */
+
+async function crunchImages() {
+    return gulp
+        .src('src/images/*', {
+            encoding: false,
+        })
+        .pipe(webp())
+        .pipe(gulp.dest('src/images/'));
+}
+
+/**
+ * Pulls svg and puts into symbols.svg
+ */
+
+async function crunchSVG() {
+    return gulp
+        .src(['src/svg/*.svg', '!src/svg/svg-symbols.svg'], {
+            encoding: false,
+        })
+        .pipe(
+            svgmin({
+                full: true,
+                plugins: [
+                    'removeStyleElement',
+                    {
+                        name: 'removeViewBox',
+                        active: false,
+                    },
+                    {
+                        name: 'removeAttrs',
+                        params: {
+                            attrs: ['path:style', 'path:id', 'path:class'],
+                            elemSeparator: ':',
+                        },
+                    },
+                ],
+            })
+        )
+        .pipe(symbols())
+        .pipe(gulp.dest('src/svg/'));
+}
+
+gulp.task('crunch', gulp.series(crunchImages, crunchSVG));
+
+gulp.task('crunch-images', crunchImages);
+
+gulp.task('crunch-svg', crunchSVG);
+
+/* Pull images/studies from crypt
+   ========================================================================== */
+
+/**
+ * Pulls studies and converts all .jpg/.png references to webp
+ */
+
+async function pullStudies() {
+    return gulp
+        .src('/mnt/c/users/public/desktop/reference/freelance/portfolio/studies/*.md')
+        .pipe(
+            replace('.png', () => {
+                return '.webp';
+            })
+        )
+        .pipe(
+            replace('.jpg', () => {
+                return '.webp';
+            })
+        )
+        .pipe(
+            replace('.jpeg', () => {
+                return '.webp';
+            })
+        )
+        .pipe(gulp.dest('src/studies/'));
+}
+
+/**
+ * Converts all images to webp
+ */
+
+async function pullImages() {
+    return gulp
+        .src('/mnt/c/users/public/desktop/reference/freelance/portfolio/images/*', {
+            encoding: false,
+        })
+        .pipe(gulp.dest('src/images/'));
+}
+
+/**
+ * Pulls svg and puts into symbols.svg
+ */
+
+async function pullSVG() {
+    return gulp
+        .src('/mnt/c/users/public/desktop/reference/freelance/portfolio/svg/*', {
+            encoding: false,
+        })
+        .pipe(gulp.dest('src/svg/'));
+}
+
+/**
+ * Pulls my resume .pdf and the climatique zine to webp
+ */
+
+async function pullResume() {
+    return gulp
+        .src('/mnt/c/users/public/desktop/reference/resume/resume.pdf*', {
+            encoding: false,
+        })
+        .pipe(gulp.dest('src/resume/'));
+}
+
+async function pullZine() {
+    return gulp
+        .src(
+            '/mnt/c/users/public/desktop/reference/climatique/zine/exports/better-world.pdf*',
+            {encoding: false}
+        )
+        .pipe(gulp.dest('src/zine/'));
+}
+
+gulp.task('pull', gulp.series(pullStudies, pullImages, pullResume, pullZine, pullSVG));
+
+gulp.task('pull-studies', pullStudies);
+gulp.task('pull-images', pullImages);
+gulp.task('pull-svg', pullSVG);
+
+/* Get robots.txt from DarkVisitors
+   ========================================================================== */
+
+async function pullRobots() {
+    const token = '7515ff20-f0c1-44bb-a1ce-10dbbfe472dc';
+
+    const robotsJSON = await fetch('https://api.darkvisitors.com/robots-txts', {
+        method: 'POST',
+        headers: {
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            agent_types: [
+                'AI Assistant',
+                'AI Data Scraper',
+                'AI Search Crawler',
+                'Undocumented AI Agent',
+            ],
+            disallow: '/',
+        }),
+    });
+
+    const robotsTXT = await robotsJSON.text();
+
+    return fs.writeFile('src/robots.txt', robotsTXT, (err) => {
+        if (err) {
+            console.error(err);
+        }
+    });
+}
+
+gulp.task('pull-robots', pullRobots);

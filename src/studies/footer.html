@@ -1,21 +1,57 @@
-                    <button>
-                        <a href="https://tajdehart.com/#%folder%">Back to portfolio 
-                            <svg width="22" height="22" viewBox="0 0 7.64 22">
-                                <path d="M7.64,0C7.64,8.61,0,11,0,11c0,0,7.64,2.39,7.64,11"></path>
+                    <button tabindex="-1">
+                        <a href="/">Back to portfolio
+                            <svg class="arrow is-left" viewBox="0 0 16 16">
+                                <use href="#arrow-symbol" />
                             </svg>
                         </a>
                     </button>
                 </article>
             </section>
-            <footer></footer>
-            <aside>
-                <a id="dark-mode" title="Toggle dark mode">
-                    <svg id="light-icon" height="82%" viewBox="0 0 256 256">
-                        <path d="M182.54,150.59c15.44-10.99,33.26-18.85,52.56-22.59-19.3-3.74-37.12-11.6-52.56-22.59,3.14-18.69,10.19-36.84,21.19-53.14-16.29,11-34.45,18.05-53.14,21.19-10.99-15.44-18.85-33.26-22.59-52.56-3.74,19.3-11.6,37.12-22.59,52.56-18.69-3.14-36.84-10.19-53.14-21.19,11,16.29,18.05,34.45,21.19,53.14-15.44,10.99-33.26,18.85-52.56,22.59,19.3,3.74,37.12,11.6,52.56,22.59-3.14,18.69-10.19,36.84-21.19,53.14,16.29-11,34.45-18.05,53.14-21.19,10.99,15.44,18.85,33.26,22.59,52.56,3.74-19.3,11.6-37.12,22.59-52.56,18.69,3.14,36.84,10.19,53.14,21.19-11-16.29-18.05-34.45-21.19-53.14Z"></path></svg> <svg id="dark-icon" height="82%" viewBox="0 0 256 256"><path d="M234.6,75.52c-45.24,0-57.79-39.97-57.79-39.97,0,0-12.55,39.97-57.79,39.97h-.58v-.07h.58c45.24,0,57.79,39.97,57.79,39.97,0,0,12.55-39.97,57.79-39.97h.58v.07h-.58Z"></path><path d="M167.66,182.15c-57.22,0-103.6-46.19-103.6-103.17,0-17.41,4.33-33.8,11.98-48.18C43.2,48.1,20.82,82.46,20.82,122.04c0,56.98,46.38,103.17,103.6,103.17,39.74,0,74.24-22.29,91.62-54.99-14.44,7.61-30.9,11.93-48.38,11.93Z"></path></svg> </a><a id="top" href="#" title="Scroll to top"><svg width="24" height="10" viewBox="0 0 16 5.5">
-                        <path d="M0,0C6.2,0,7.92,5.5,7.92,5.5c0,0,1.72-5.5,7.92-5.5"></path>
+            <footer><span id="carbon"></span></footer>
+            </main>
+        <aside>
+            <button tabindex="-1" class="control-wrapper tooltip-wrapper" id="scroll-to-top">
+                <a class="control" href="#top" tabindex="1">
+                    <svg class="arrow is-up" viewBox="0 0 16 16">
+                        <use href="#arrow-symbol" />
                     </svg>
                 </a>
-            </aside>
-        </main>
+                <div class="tooltip" id="scroll-to-top-tooltip">
+                    <svg class="star" viewBox="0 0 16 16">
+                        <use href="#star-symbol" />
+                    </svg>
+                    Scroll to the top
+                </div>
+            </button>
+            <button tabindex="-1" class="control-wrapper tooltip-wrapper" id="dark-mode">
+                <div class="control" tabindex="1">
+                    <svg id="light-icon" viewBox="0 0 16 16">
+                        <use href="#sun-symbol" />
+                    </svg>
+                    <svg id="dark-icon" class="on" viewBox="0 0 16 16">
+                        <use href="#moon-symbol" />
+                    </svg>
+                </div>
+                <div class="tooltip" id="dark-mode-tooltip">
+                    <svg class="star" viewBox="0 0 16 16">
+                        <use href="#star-symbol" />
+                    </svg>
+                    Toggle dark mode
+                </div>
+            </button>
+            <button tabindex="-1" id="go-back" class="control-wrapper tooltip-wrapper">
+                <a class="control" href="/" tabindex="1">
+                    <svg class="arrow is-left" viewBox="0 0 16 16">
+                        <use href="#arrow-symbol" />
+                    </svg>
+                </a>
+                <div class="tooltip" id="go-back-tooltip">
+                    <svg class="star" viewBox="0 0 16 16">
+                        <use href="#star-symbol" />
+                    </svg>
+                    Go back to portfolio
+                </div>
+            </button>
+        </aside>
     </body>
 </html>

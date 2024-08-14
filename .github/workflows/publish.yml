@@ -1,0 +1,35 @@
+name: Test
+on:
+  push:
+    branches:
+      - "main"
+jobs:
+  gvm-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v4   
+
+    # Sets up node
+    - name: 🧰 Setup node
+      uses: actions/setup-node@v4
+      with:
+          node-version: 22
+
+    - name: 🔧 Npm install
+      run: npm ci
+
+    # Runs gulp to build
+    - name: 🏗️ Build with gulp
+      run: npx gulp
+
+    - name: 📩 Deploy to custom domain
+      uses: SamKirkland/FTP-Deploy-Action@4.3.1
+      with:
+        server: tajdehart.com     
+        username: publish@tajdehart.com
+        password: ${{secrets.FTP_PASSWORD}}
+        server-dir: tajdehart.com/public_html/
+        local-dir: public/
+        protocol: ftps
