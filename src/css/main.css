@@ -263,7 +263,7 @@ fieldset:has(textarea)::after {
     right: 0;
     bottom: 0;
     justify-content: center;
-    width: 1px;
+    width: 0.5px;
 }
 
 #menu-star {
