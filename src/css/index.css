@@ -255,7 +255,7 @@ h3 {
 }
 
 h4 {
-    font-size: var(--heading-3);
+    font-size: var(--heading-4);
     text-transform: uppercase;
 }
 
@@ -331,6 +331,10 @@ h2 {
 
 h3 {
     margin-bottom: 0.5em;
+}
+
+h4 {
+    margin-bottom: 0.33em;
 }
 
 fieldset {
@@ -1070,7 +1074,7 @@ aside > button > .tooltip > .star,
         --button-text: 1.125rem;
         --heading-2: 3rem;
         --heading-3: 2rem;
-        --heading-4: 1rem;
+        --heading-4: 1.25rem;
         --button-size: 2rem;
         --star-size: 0.66rem;
     }
