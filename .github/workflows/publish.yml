@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - "main"
+  workflow_dispatch:
 jobs:
   gvm-deploy:
     name: 🎉 Deploy
